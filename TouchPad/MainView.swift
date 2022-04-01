@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @State var showPopover = false
+    
     var body: some View {
-        ButtonsView()
+        ZStack {
+            ButtonsView()
+            
+            GeometryReader { geo in
+                Button(action: {self.showPopover.toggle()}) {
+                    Image(systemName: "gear")
+                    .font(.largeTitle)
+                    .foregroundColor(.gray)
+                    .offset(x: 30, y: 10)
+                    .popover(isPresented: $showPopover) {
+                        SettingsView()
+                    }
+                }
+            }
+        }
     }
 }
 
