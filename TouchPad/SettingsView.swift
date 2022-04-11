@@ -8,8 +8,32 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    @State var showLocation: Bool = false
+    @State var showTapIndicator: Bool = false
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Text("Settings")
+                .font(.largeTitle)
+            List {
+                Toggle(isOn: $showLocation) {
+                    Text("Show location in Button")
+                }
+                Toggle(isOn: $showTapIndicator) {
+                    Text("Show Tap-indicator")
+                }
+            }
+        }
+        .frame(width: 400, height: 200)
+        
+        
+        
+        .accessibilityLabel("Settings")
+        
+        
+        
     }
 }
 
