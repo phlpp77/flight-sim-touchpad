@@ -38,6 +38,11 @@ struct SettingsView: View {
                 }) {
                     Text("Activate WebSocket connection")
                 }
+                Button(action: {
+                    webSocketService.sendString("[Client] Hello from iOS Client!")
+                }) {
+                    Text("Send hello to server")
+                }
             }
         }
         .frame(width: 400, height: 400)

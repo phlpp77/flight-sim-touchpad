@@ -21,4 +21,8 @@ struct TouchPadModel {
         settings.showTapLocation = newState
     }
     
+    mutating func changeTapIndicator(_ newState: Bool) {
+        settings.showTapIndicator = newState
+    }
+    
 }

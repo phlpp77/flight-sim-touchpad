@@ -14,7 +14,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     override init() {
         super.init()
 //        let urlString = "wss://rtf.beta.getbux.com/subscriptions/me"
-        let urlString = "wss://demo.piesocket.com/v3/channel_1?api_key=oCdCMcMPQpbvNjUIzqtvF1d2X2okWpDQj4AwARJuAgtjhzKxVEjQU6IdCjwm&notify_self"
+//        let urlString = "wss://demo.piesocket.com/v3/channel_1?api_key=oCdCMcMPQpbvNjUIzqtvF1d2X2okWpDQj4AwARJuAgtjhzKxVEjQU6IdCjwm&notify_self"
+        let urlString = "ws://localhost:3000"
         if let url = URL(string: urlString) {
             let request = URLRequest(url: url)
             let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
@@ -25,8 +26,17 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     func openWebSocket() {
         webSocket?.resume()
     }
+    
+    func sendString(_ message: String) {
+        webSocket?.send(URLSessionWebSocketTask.Message.string(message)) { [weak self] error in
+            if let error = error {
+                print("Failed with Error \(error.localizedDescription)")
+            }
+        }
+    }
 }
 
+// Extension for callback functions
 extension SocketNetworkService {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("Web socket opened")

@@ -16,7 +16,6 @@ class AppearanceViewModel: ObservableObject {
         return model.settings
     }
     
-    
     func toggleTapLocation() {
         model.changeTapLocation(!settings.showTapLocation)
     }
