@@ -9,6 +9,10 @@ import SwiftUI
 
 struct SettingsView: View {
     
+    @ObservedObject var appearanceVM: AppearanceViewModel
+    
+    var webSocketService = SocketNetworkService()
+    
     @State var showLocation: Bool = false
     @State var showTapIndicator: Bool = false
     
@@ -18,15 +22,25 @@ struct SettingsView: View {
             Text("Settings")
                 .font(.largeTitle)
             List {
-                Toggle(isOn: $showLocation) {
-                    Text("Show location in Button")
+//                Toggle(isOn: $showLocation) {
+//                    Text("Show location in Button")
+//                }
+                Button(action: {
+                    appearanceVM.toggleTapLocation()
+                }) {
+                    Text("Toggle Tap Location")
                 }
                 Toggle(isOn: $showTapIndicator) {
                     Text("Show Tap-indicator")
                 }
+                Button(action: {
+                    webSocketService.openWebSocket()
+                }) {
+                    Text("Activate WebSocket connection")
+                }
             }
         }
-        .frame(width: 400, height: 200)
+        .frame(width: 400, height: 400)
         
         
         
@@ -39,7 +53,8 @@ struct SettingsView: View {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        let appearanceVM = AppearanceViewModel()
+        SettingsView(appearanceVM: appearanceVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

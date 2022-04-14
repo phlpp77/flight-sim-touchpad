@@ -9,11 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     
+    let appearanceVM = AppearanceViewModel()
+    
     @State var showPopover = false
     
     var body: some View {
         ZStack {
-            ButtonsView()
+            ButtonsView(appearanceVM: appearanceVM)
             
             GeometryReader { geo in
                 Button(action: {self.showPopover.toggle()}) {
@@ -22,7 +24,7 @@ struct MainView: View {
                     .foregroundColor(.gray)
                     .offset(x: 30, y: 10)
                     .popover(isPresented: $showPopover) {
-                        SettingsView()
+                        SettingsView(appearanceVM: appearanceVM)
                     }
                 }
             }

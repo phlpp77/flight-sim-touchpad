@@ -16,6 +16,8 @@ struct NamedButton: Identifiable {
 
 struct ButtonsView: View {
     
+    @ObservedObject var appearanceVM: AppearanceViewModel
+    
     @State var xPosition: CGFloat = 0
     @State var testOutput = "Test"
     
@@ -37,11 +39,12 @@ struct ButtonsView: View {
                         ZStack {
                             VStack {
                                 Text("\(namedButton.name)")
-                                
                                     .font(.system(size: 72))
-                                Text("pressed at")
-                                // show coordinates rounded with 1 decimal place
-                                Text("x: \(String(format: "%.1f", namedButton.coordinates[0])) y: \(String(format: "%.1f",namedButton.coordinates[1]))")
+                                if appearanceVM.settings.showTapLocation {
+                                    Text("pressed at")
+                                    // show coordinates rounded with 1 decimal place
+                                    Text("x: \(String(format: "%.1f", namedButton.coordinates[0])) y: \(String(format: "%.1f",namedButton.coordinates[1]))")
+                                }
                                 
                             }
                             
@@ -69,20 +72,14 @@ struct ButtonsView: View {
             }
         }
         
-        
-        
-        
-        
-        
-        
-        
     }
     
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonsView()
+        let appearanceVM = AppearanceViewModel()
+        ButtonsView(appearanceVM: appearanceVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

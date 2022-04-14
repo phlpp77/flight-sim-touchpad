@@ -11,8 +11,15 @@
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
 		175283A627EDF807007BE399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A527EDF807007BE399 /* Assets.xcassets */; };
 		175283A927EDF807007BE399 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A827EDF807007BE399 /* Preview Assets.xcassets */; };
+		17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */; };
+		17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17555D90280704DB003B61F0 /* AppearanceViewModel.swift */; };
+		17555D93280707C1003B61F0 /* TouchPadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17555D92280707C1003B61F0 /* TouchPadModel.swift */; };
 		1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1768B5A327F708A40046DCFC /* SettingsView.swift */; };
 		1768B5A627F709D30046DCFC /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1768B5A527F709D30046DCFC /* MainView.swift */; };
+		17B5728A2804145100799D7B /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B572892804145100799D7B /* WebSocketManager.swift */; };
+		17B5728C2804197500799D7B /* WebSocketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5728B2804197500799D7B /* WebSocketView.swift */; };
+		17B5728E2804251C00799D7B /* WebSocketStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5728D2804251C00799D7B /* WebSocketStream.swift */; };
+		17B5729028045D6000799D7B /* WebSocketTest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5728F28045D6000799D7B /* WebSocketTest2.swift */; };
 		17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -22,8 +29,15 @@
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
 		175283A527EDF807007BE399 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		175283A827EDF807007BE399 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketNetworkService.swift; sourceTree = "<group>"; };
+		17555D90280704DB003B61F0 /* AppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewModel.swift; sourceTree = "<group>"; };
+		17555D92280707C1003B61F0 /* TouchPadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadModel.swift; sourceTree = "<group>"; };
 		1768B5A327F708A40046DCFC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		1768B5A527F709D30046DCFC /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		17B572892804145100799D7B /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		17B5728B2804197500799D7B /* WebSocketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketView.swift; sourceTree = "<group>"; };
+		17B5728D2804251C00799D7B /* WebSocketStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketStream.swift; sourceTree = "<group>"; };
+		17B5728F28045D6000799D7B /* WebSocketTest2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketTest2.swift; sourceTree = "<group>"; };
 		17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,7 +75,14 @@
 				1768B5A527F709D30046DCFC /* MainView.swift */,
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
+				17555D90280704DB003B61F0 /* AppearanceViewModel.swift */,
+				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
+				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
+				17B5728B2804197500799D7B /* WebSocketView.swift */,
+				17B5728F28045D6000799D7B /* WebSocketTest2.swift */,
+				17B5728D2804251C00799D7B /* WebSocketStream.swift */,
+				17B572892804145100799D7B /* WebSocketManager.swift */,
 				175283A527EDF807007BE399 /* Assets.xcassets */,
 				175283A727EDF807007BE399 /* Preview Content */,
 			);
@@ -146,11 +167,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17B5728A2804145100799D7B /* WebSocketManager.swift in Sources */,
 				175283A427EDF803007BE399 /* ButtonsView.swift in Sources */,
+				17B5729028045D6000799D7B /* WebSocketTest2.swift in Sources */,
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
+				17B5728E2804251C00799D7B /* WebSocketStream.swift in Sources */,
+				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,
+				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
+				17B5728C2804197500799D7B /* WebSocketView.swift in Sources */,
 				17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */,
 				1768B5A627F709D30046DCFC /* MainView.swift in Sources */,
 				175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */,
+				17555D93280707C1003B61F0 /* TouchPadModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
