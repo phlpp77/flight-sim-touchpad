@@ -43,16 +43,51 @@ struct SettingsView: View {
                 }) {
                     Text("Send hello to server")
                 }
+                Button(action: {
+//                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let testPackageToSend = PackageToSend(name: "TestName", number: 13)
+                    jsonEncoder.outputFormatting = .prettyPrinted
+                    do {
+                    let encodedTestPackage = try jsonEncoder.encode(testPackageToSend)
+                    webSocketService.sendData(encodedTestPackage)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                    webSocketService.receiveMessage()
+                }) {
+                    Text("Send data JSON")
+                }
             }
         }
         .frame(width: 400, height: 400)
-        
-        
-        
         .accessibilityLabel("Settings")
-        
-        
-        
+    }
+}
+
+// test stuff
+let testPackage = """
+{
+  "name": "Josh",
+  "number": 30,
+  "details": {
+    "content": "much content",
+    "tag": "tagsss"
+  }
+}
+"""
+
+let testPackageData = Data(testPackage.utf8)
+let jsonDecoder = JSONDecoder()
+let jsonEncoder = JSONEncoder()
+
+
+struct PackageToSend: Codable {
+    var name: String
+    var number: Int
+    
+    struct Details: Codable {
+        var content: String
+        var tag: String
     }
 }
 

@@ -9,6 +9,7 @@ import Foundation
 
 class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     var webSocket: URLSessionWebSocketTask?
+    var isOpened: Bool = false
     
     
     override init() {
@@ -30,9 +31,42 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     func sendString(_ message: String) {
         webSocket?.send(URLSessionWebSocketTask.Message.string(message)) { [weak self] error in
             if let error = error {
-                print("Failed with Error \(error.localizedDescription)")
+                print("SendString failed with error \(error.localizedDescription)")
             }
         }
+    }
+    
+    func sendData(_ data: Data) {
+        webSocket?.send(URLSessionWebSocketTask.Message.data(data)) { [weak self] error in
+            if let error = error {
+                print("SendData failed with error \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func receiveMessage() {
+
+        if !isOpened {
+            openWebSocket()
+        }
+
+        webSocket?.receive(completionHandler: { [weak self] result in
+            
+            switch result {
+            case .failure(let error):
+                print(error.localizedDescription)
+            case .success(let message):
+                switch message {
+                case .string(let messageString):
+                    print("[Client] Received string: \(messageString)")
+                case .data(let data):
+                    print("[Client] Received data: \(data.description)")
+                default:
+                    print("Unknown type received from WebSocket")
+                }
+            }
+            self?.receiveMessage()
+        })
     }
 }
 
@@ -40,12 +74,12 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
 extension SocketNetworkService {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("Web socket opened")
-        //        isOpened = true
+                isOpened = true
     }
     
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
         print("Web socket closed")
-        //        isOpened = false
+                isOpened = false
     }
 }
