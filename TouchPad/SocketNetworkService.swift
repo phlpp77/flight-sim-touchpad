@@ -29,7 +29,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     }
     
     func sendString(_ message: String) {
-        webSocket?.send(URLSessionWebSocketTask.Message.string(message)) { [weak self] error in
+        webSocket?.send(URLSessionWebSocketTask.Message.string(message)) { error in
             if let error = error {
                 print("SendString failed with error \(error.localizedDescription)")
             }
@@ -37,7 +37,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     }
     
     func sendData(_ data: Data) {
-        webSocket?.send(URLSessionWebSocketTask.Message.data(data)) { [weak self] error in
+        webSocket?.send(URLSessionWebSocketTask.Message.data(data)) { error in
             if let error = error {
                 print("SendData failed with error \(error.localizedDescription)")
             }
