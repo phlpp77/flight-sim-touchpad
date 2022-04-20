@@ -23,7 +23,7 @@ struct MainView: View {
                     .font(.largeTitle)
                     .foregroundColor(.gray)
                     .offset(x: 30, y: 10)
-                    .popover(isPresented: $showPopover) {
+                    .sheet(isPresented: $showPopover) {
                         SettingsView(appearanceVM: appearanceVM)
                     }
                 }

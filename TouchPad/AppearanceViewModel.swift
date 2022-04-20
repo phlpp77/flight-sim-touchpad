@@ -11,12 +11,35 @@ class AppearanceViewModel: ObservableObject {
     
     @Published private var model: TouchPadModel = TouchPadModel()
     
+    var showTapLocation: Bool {
+        get {
+            model.settings.showTapLocation
+        }
+        set {
+            let newState = newValue
+            model.changeTapLocation(newState)
+        }
+    }
+    
+    var showTapIndicator: Bool {
+        get {
+            model.settings.showTapIndicator
+        }
+        set {
+            let newState = newValue
+            model.changeTapIndicator(newState)
+        }
+    }
+    
+    // webSocketService to connect to web-socket
+    var webSocketService = SocketNetworkService()
+    
     // Settings from Model read only
     var settings: TouchPadModel.TouchPadSettings {
         return model.settings
     }
     
-    func toggleTapLocation() {
-        model.changeTapLocation(!settings.showTapLocation)
+    func isConnectionOpen() -> Bool {
+        return webSocketService.isConnectionOpen
     }
 }

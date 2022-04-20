@@ -11,55 +11,62 @@ struct SettingsView: View {
     
     @ObservedObject var appearanceVM: AppearanceViewModel
     
-    var webSocketService = SocketNetworkService()
-    
     @State var showLocation: Bool = false
     @State var showTapIndicator: Bool = false
     
     var body: some View {
         
-        VStack {
-            Text("Settings")
-                .font(.largeTitle)
-            List {
-//                Toggle(isOn: $showLocation) {
-//                    Text("Show location in Button")
-//                }
-                Button(action: {
-                    appearanceVM.toggleTapLocation()
-                }) {
-                    Text("Toggle Tap Location")
-                }
-                Toggle(isOn: $showTapIndicator) {
-                    Text("Show Tap-indicator")
-                }
-                Button(action: {
-                    webSocketService.openWebSocket()
-                }) {
-                    Text("Activate WebSocket connection")
-                }
-                Button(action: {
-                    webSocketService.sendString("[Client] Hello from iOS Client!")
-                }) {
-                    Text("Send hello to server")
-                }
-                Button(action: {
-//                    jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let testPackageToSend = PackageToSend(name: "TestName", number: 13)
-                    jsonEncoder.outputFormatting = .prettyPrinted
-                    do {
-                    let encodedTestPackage = try jsonEncoder.encode(testPackageToSend)
-                    webSocketService.sendData(encodedTestPackage)
-                    } catch {
-                        print(error.localizedDescription)
+        NavigationView {
+            Form {
+                
+                Section(header: Text("Appearance")) {
+                    Toggle(isOn: $appearanceVM.showTapLocation) {
+                        Text("Show coordinates")
                     }
-                    webSocketService.receiveMessage()
-                }) {
-                    Text("Send data JSON")
+                    Toggle(isOn: $appearanceVM.showTapIndicator) {
+                        Text("Show indicator")
+                    }
+                }
+                
+                Section(header: Text("Web Socket")) {
+                    Button(action: {
+                        appearanceVM.webSocketService.openWebSocket()
+                    }) {
+                        HStack {
+                            Text("Server")
+                            Spacer()
+                            if appearanceVM.isConnectionOpen() {
+                                Text("Connected")
+                                    .foregroundColor(.primary)
+                            } else {
+                                Text("Not connected")
+                                    .foregroundColor(.primary)
+                            }
+                        }
+                    }
+                    Button(action: {
+                        appearanceVM.webSocketService.sendString("[Client] Hello from iOS Client!")
+                    }) {
+                        Text("Send hello to server")
+                    }
+                    Button(action: {
+                        let testPackageToSend = PackageToSend(name: "TestName", number: 13)
+                        jsonEncoder.outputFormatting = .prettyPrinted
+                        do {
+                            let encodedTestPackage = try jsonEncoder.encode(testPackageToSend)
+                            appearanceVM.webSocketService.sendData(encodedTestPackage)
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                        appearanceVM.webSocketService.receiveMessage()
+                    }) {
+                        Text("Send data JSON")
+                    }
                 }
             }
+            .navigationTitle(Text("Settings"))
+            .navigationViewStyle(.stack)
         }
-        .frame(width: 400, height: 400)
         .accessibilityLabel("Settings")
     }
 }

@@ -25,4 +25,9 @@ struct TouchPadModel {
         settings.showTapIndicator = newState
     }
     
+    mutating func changeWebSocketConnectionStatus (to newState: Bool) {
+        settings.webSocketConnectionIsOpen = newState
+        print("changed socket status: \(settings)")
+    }
+    
 }

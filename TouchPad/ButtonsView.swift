@@ -40,6 +40,8 @@ struct ButtonsView: View {
                             VStack {
                                 Text("\(namedButton.name)")
                                     .font(.system(size: 72))
+                                
+                                // Coordinates inside buttosn
                                 if appearanceVM.settings.showTapLocation {
                                     Text("pressed at")
                                     // show coordinates rounded with 1 decimal place
@@ -49,10 +51,12 @@ struct ButtonsView: View {
                             }
                             
                             // Touch position indicator
-                            Rectangle()
-                                .frame(width: 5, height: 5)
-                                .foregroundColor(.green)
+                            if appearanceVM.settings.showTapIndicator {
+                                Rectangle()
+                                    .frame(width: 5, height: 5)
+                                    .foregroundColor(.green)
                                 .offset(x: namedButton.coordinates[0], y: namedButton.coordinates[1])
+                            }
                             
                         }
                         // Main color, size and border of buttons

@@ -8,9 +8,9 @@
 import Foundation
 
 class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
-    var webSocket: URLSessionWebSocketTask?
-    var isOpened: Bool = false
     
+    var webSocket: URLSessionWebSocketTask?
+    var isConnectionOpen = false
     
     override init() {
         super.init()
@@ -46,7 +46,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     func receiveMessage() {
 
-        if !isOpened {
+        if !isConnectionOpen {
             openWebSocket()
         }
 
@@ -74,12 +74,12 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
 extension SocketNetworkService {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("Web socket opened")
-                isOpened = true
+        isConnectionOpen = true
     }
     
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
         print("Web socket closed")
-                isOpened = false
+        isConnectionOpen = false
     }
 }
