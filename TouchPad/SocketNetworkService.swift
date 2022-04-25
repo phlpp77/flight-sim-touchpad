@@ -14,18 +14,18 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     override init() {
         super.init()
-//        let urlString = "wss://rtf.beta.getbux.com/subscriptions/me"
-//        let urlString = "wss://demo.piesocket.com/v3/channel_1?api_key=oCdCMcMPQpbvNjUIzqtvF1d2X2okWpDQj4AwARJuAgtjhzKxVEjQU6IdCjwm&notify_self"
-        let urlString = "ws://localhost:3000"
+        let urlString = "ws://192.168.103.103:2048/fsuipc/"
+//        let urlString = "ws://localhost:2048"
         if let url = URL(string: urlString) {
-            let request = URLRequest(url: url)
             let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
-            webSocket = session.webSocketTask(with: request)
+            webSocket = session.webSocketTask(with: url, protocols: ["fsuipc"])
+            print("webSocket session started")
         }
     }
     
     func openWebSocket() {
         webSocket?.resume()
+        print("try to resume/open webSocket")
     }
     
     func sendString(_ message: String) {
