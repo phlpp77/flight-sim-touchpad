@@ -12,6 +12,8 @@ struct SettingsView: View {
     @ObservedObject var appearanceVM: AppearanceViewModel
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     
+    @State var receivedText = ""
+    
     var body: some View {
         
         NavigationView {
@@ -27,6 +29,9 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
+                    
+                    Text("Text: \(receivedText)")
+                    
                     Button(action: {
                         socketNetworkVM.webSocketService.openWebSocket()
                     }) {
@@ -45,6 +50,13 @@ struct SettingsView: View {
                         Text("Send hello to server")
                     }
                     Button(action: {
+                        receivedText = socketNetworkVM.webSocketService.declareOffsets()
+                    }) {
+                        Text("Declare Offsets")
+                    }
+                    
+                    
+                    Button(action: {
                         let testPackageToSend = PackageToSend(name: "TestName", number: 13)
                         jsonEncoder.outputFormatting = .prettyPrinted
                         do {
@@ -53,7 +65,7 @@ struct SettingsView: View {
                         } catch {
                             print(error.localizedDescription)
                         }
-                        socketNetworkVM.webSocketService.receiveMessage()
+                        receivedText = socketNetworkVM.webSocketService.receiveMessage()
                     }) {
                         Text("Send data JSON")
                     }
