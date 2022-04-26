@@ -10,6 +10,7 @@ import SwiftUI
 struct MainView: View {
     
     let appearanceVM = AppearanceViewModel()
+    let socketNetworkVM = SocketNetworkViewModel()
     
     @State var showPopover = false
     
@@ -24,7 +25,7 @@ struct MainView: View {
                     .foregroundColor(.gray)
                     .offset(x: 30, y: 10)
                     .sheet(isPresented: $showPopover) {
-                        SettingsView(appearanceVM: appearanceVM)
+                        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM)
                     }
                 }
             }

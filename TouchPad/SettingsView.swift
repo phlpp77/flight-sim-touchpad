@@ -10,9 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @ObservedObject var appearanceVM: AppearanceViewModel
-    
-    @State var showLocation: Bool = false
-    @State var showTapIndicator: Bool = false
+    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     
     var body: some View {
         
@@ -28,24 +26,21 @@ struct SettingsView: View {
                     }
                 }
                 
-                Section(header: Text("Web Socket")) {
+                Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                     Button(action: {
-                        appearanceVM.webSocketService.openWebSocket()
+                        socketNetworkVM.webSocketService.openWebSocket()
                     }) {
                         HStack {
                             Text("Server")
                             Spacer()
-                            if appearanceVM.isConnectionOpen() {
-                                Text("Connected")
-                                    .foregroundColor(.primary)
-                            } else {
-                                Text("Not connected")
-                                    .foregroundColor(.primary)
-                            }
+                            Text(socketNetworkVM.webSocketService.isConnectionOpen ? "Connected" : "Not connected")
+                                .foregroundColor(.primary)
                         }
                     }
+                
+                    
                     Button(action: {
-                        appearanceVM.webSocketService.sendString("[Client] Hello from iOS Client!")
+                        socketNetworkVM.webSocketService.sendString("[Client] Hello from iOS Client!")
                     }) {
                         Text("Send hello to server")
                     }
@@ -54,15 +49,16 @@ struct SettingsView: View {
                         jsonEncoder.outputFormatting = .prettyPrinted
                         do {
                             let encodedTestPackage = try jsonEncoder.encode(testPackageToSend)
-                            appearanceVM.webSocketService.sendData(encodedTestPackage)
+                            socketNetworkVM.webSocketService.sendData(encodedTestPackage)
                         } catch {
                             print(error.localizedDescription)
                         }
-                        appearanceVM.webSocketService.receiveMessage()
+                        socketNetworkVM.webSocketService.receiveMessage()
                     }) {
                         Text("Send data JSON")
                     }
                 }
+                
             }
             .navigationTitle(Text("Settings"))
             .navigationViewStyle(.stack)
@@ -101,7 +97,8 @@ struct PackageToSend: Codable {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         let appearanceVM = AppearanceViewModel()
-        SettingsView(appearanceVM: appearanceVM)
+        let socketNetworkVM = SocketNetworkViewModel()
+        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

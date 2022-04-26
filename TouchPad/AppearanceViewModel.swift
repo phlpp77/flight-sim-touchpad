@@ -31,15 +31,8 @@ class AppearanceViewModel: ObservableObject {
         }
     }
     
-    // webSocketService to connect to web-socket
-    var webSocketService = SocketNetworkService()
-    
     // Settings from Model read only
     var settings: TouchPadModel.TouchPadSettings {
         return model.settings
-    }
-    
-    func isConnectionOpen() -> Bool {
-        return webSocketService.isConnectionOpen
     }
 }

@@ -24,7 +24,8 @@ struct TouchPadModel {
     mutating func changeTapIndicator(_ newState: Bool) {
         settings.showTapIndicator = newState
     }
-    
+   
+    // TODO: Function not in use
     mutating func changeWebSocketConnectionStatus (to newState: Bool) {
         settings.webSocketConnectionIsOpen = newState
         print("changed socket status: \(settings)")

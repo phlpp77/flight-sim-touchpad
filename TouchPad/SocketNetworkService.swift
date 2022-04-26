@@ -14,24 +14,30 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     override init() {
         super.init()
-        let urlString = "ws://192.168.103.103:2048/fsuipc/"
-//        let urlString = "ws://localhost:2048"
+        
+//        let urlString = "ws://192.168.103.103:2048/fsuipc/"
+        let urlString = "ws://localhost:2048"
+        
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
             webSocket = session.webSocketTask(with: url, protocols: ["fsuipc"])
-            print("webSocket session started")
+            print("[SocketNetworkService] WebSocket session started")
         }
     }
     
     func openWebSocket() {
         webSocket?.resume()
-        print("try to resume/open webSocket")
+        print("[SocketNetworkService] Try to resume/open webSocket")
+    }
+    
+    func closeWebSocket() {
+//        webSocket?.cancel(with: <#T##URLSessionWebSocketTask.CloseCode#>, reason: <#T##Data?#>)
     }
     
     func sendString(_ message: String) {
         webSocket?.send(URLSessionWebSocketTask.Message.string(message)) { error in
             if let error = error {
-                print("SendString failed with error \(error.localizedDescription)")
+                print("[SocketNetworkService] SendString failed with error \(error.localizedDescription)")
             }
         }
     }
@@ -39,7 +45,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     func sendData(_ data: Data) {
         webSocket?.send(URLSessionWebSocketTask.Message.data(data)) { error in
             if let error = error {
-                print("SendData failed with error \(error.localizedDescription)")
+                print("[SocketNetworkService] SendData failed with error \(error.localizedDescription)")
             }
         }
     }
@@ -51,7 +57,6 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         }
 
         webSocket?.receive(completionHandler: { [weak self] result in
-            
             switch result {
             case .failure(let error):
                 print(error.localizedDescription)
@@ -73,13 +78,13 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
 // Extension for callback functions
 extension SocketNetworkService {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
-        print("Web socket opened")
+        print("[SocketNetworkService] WebSocket connection opened")
         isConnectionOpen = true
     }
     
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
-        print("Web socket closed")
+        print("[SocketNetworkService] WebSocket connection closed")
         isConnectionOpen = false
     }
 }
