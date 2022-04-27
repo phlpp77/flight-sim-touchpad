@@ -92,16 +92,33 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         print("[declareOffsets] start")
         let declarePackage = OffsetsDeclare()
         let jsonEncoder = JSONEncoder()
-        jsonEncoder.dataEncodingStrategy = .deferredToData
         do {
             let encodedDeclarePackage = try jsonEncoder.encode(declarePackage)
-            print("[declareOffsets] send data")
-            sendData(encodedDeclarePackage)
+            let jsonStringDeclarePackage = String(data: encodedDeclarePackage, encoding: .utf8)
+            print("[declareOffsets] send data \(String(describing: jsonStringDeclarePackage))")
+            sendString(jsonStringDeclarePackage!)
         } catch {
             print("[declareOffsets] \(error.localizedDescription)")
         }
         let message = receiveMessage()
         return message
+    }
+    
+    func speedTest() {
+        let speedPackage = OffsetsWrite()
+//        speedPackage.offsets[0].value =
+        let jsonEncoder = JSONEncoder()
+        do {
+            let encodedDeclarePackage = try jsonEncoder.encode(speedPackage)
+            let jsonStringDeclarePackage = String(data: encodedDeclarePackage, encoding: .utf8)
+            print("[speedTest] send data \(String(describing: jsonStringDeclarePackage))")
+            sendString(jsonStringDeclarePackage!)
+        } catch {
+            print("[speedTest] \(error.localizedDescription)")
+        }
+        
+        let message = receiveMessage()
+        print("[speedTest] message: \(message)")
     }
 }
 

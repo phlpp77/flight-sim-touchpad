@@ -54,7 +54,11 @@ struct SettingsView: View {
                     }) {
                         Text("Declare Offsets")
                     }
-                    
+                    Button(action: {
+                        socketNetworkVM.webSocketService.speedTest()
+                    }) {
+                        Text("Set speed to 222")
+                    }
                     
                     Button(action: {
                         let testPackageToSend = PackageToSend(name: "TestName", number: 13)

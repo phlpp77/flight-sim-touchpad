@@ -25,6 +25,21 @@ struct OffsetsDeclare: Encodable {
     }
 }
 
+struct OffsetsWrite: Encodable {
+    var command = "offsets.write"
+    var name = "OffsetsWrite"
+    var offsets = [
+        Offset(name: "speed", value: 222)
+    ]
+    
+    struct Offset: Encodable {
+        var name: String
+        var value: Int
+    }
+}
+
+
+
 
 //offsets_declare = {
 //                    "command": 'offsets.declare',
