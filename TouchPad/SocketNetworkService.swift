@@ -106,7 +106,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     func speedTest() {
         let speedPackage = OffsetsWrite()
-//        speedPackage.offsets[0].value =
+//        speedPackage.offsets[0].value = 225
         let jsonEncoder = JSONEncoder()
         do {
             let encodedDeclarePackage = try jsonEncoder.encode(speedPackage)

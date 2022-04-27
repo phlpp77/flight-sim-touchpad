@@ -43,70 +43,33 @@ struct SettingsView: View {
                         }
                     }
                 
-                    
+                    // MARK: Send string test
                     Button(action: {
                         socketNetworkVM.webSocketService.sendString("[Client] Hello from iOS Client!")
                     }) {
                         Text("Send hello to server")
                     }
+                    
+                    // MARK: - Flight simulator functions
+                    
+                    // MARK: Declare offsets
                     Button(action: {
                         receivedText = socketNetworkVM.webSocketService.declareOffsets()
                     }) {
                         Text("Declare Offsets")
                     }
+                    // MARK: Speed Test
                     Button(action: {
                         socketNetworkVM.webSocketService.speedTest()
                     }) {
                         Text("Set speed to 222")
                     }
-                    
-                    Button(action: {
-                        let testPackageToSend = PackageToSend(name: "TestName", number: 13)
-                        jsonEncoder.outputFormatting = .prettyPrinted
-                        do {
-                            let encodedTestPackage = try jsonEncoder.encode(testPackageToSend)
-                            socketNetworkVM.webSocketService.sendData(encodedTestPackage)
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                        receivedText = socketNetworkVM.webSocketService.receiveMessage()
-                    }) {
-                        Text("Send data JSON")
-                    }
                 }
-                
             }
             .navigationTitle(Text("Settings"))
             .navigationViewStyle(.stack)
         }
         .accessibilityLabel("Settings")
-    }
-}
-
-// test stuff
-let testPackage = """
-{
-  "name": "Josh",
-  "number": 30,
-  "details": {
-    "content": "much content",
-    "tag": "tagsss"
-  }
-}
-"""
-
-let testPackageData = Data(testPackage.utf8)
-let jsonDecoder = JSONDecoder()
-let jsonEncoder = JSONEncoder()
-
-
-struct PackageToSend: Codable {
-    var name: String
-    var number: Int
-    
-    struct Details: Codable {
-        var content: String
-        var tag: String
     }
 }
 

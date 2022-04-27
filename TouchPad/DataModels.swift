@@ -37,17 +37,3 @@ struct OffsetsWrite: Encodable {
         var value: Int
     }
 }
-
-
-
-
-//offsets_declare = {
-//                    "command": 'offsets.declare',
-//                    "name": 'OffsetsWrite',
-//                    "offsets": [
-//                        { "name": 'speed', "address": 0x420A, "type": 'int', "size": 2 },
-//                        { "name": 'altitude', "address": 0x420C, "type": 'int', "size": 2 },
-//                        { "name": 'heading', "address": 0x420E, "type": 'int', "size": 2 },
-//                        { "name": 'TurnFactor', "address": 0x4210, "type": 'int', "size": 1 },
-//                    ]
-//                    }
