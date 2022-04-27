@@ -10,7 +10,7 @@ import Foundation
 class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     var webSocket: URLSessionWebSocketTask?
-    var isConnectionOpen = false
+    @Published var isConnectionOpen = false
     
     override init() {
         super.init()
@@ -45,6 +45,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     }
     
     func sendData(_ data: Data) {
+        
+        print("[SendDate] Connection open: \(isConnectionOpen)")
         webSocket?.send(URLSessionWebSocketTask.Message.data(data)) { error in
             if let error = error {
                 print("[SocketNetworkService] SendData failed with error \(error.localizedDescription)")
@@ -55,26 +57,26 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     func receiveMessage() -> String {
 
         var outputMessage = "Empty"
-        
+        print("[receiveMessage] Connection open: \(isConnectionOpen)")
         if !isConnectionOpen {
             openWebSocket()
         }
-
         webSocket?.receive(completionHandler: { result in
+            print("[receiveMessage] start")
             switch result {
             case .failure(let error):
-                print(error.localizedDescription)
+                print("[receiveMessage] \(result) \(error.localizedDescription)")
                 outputMessage = String(error.localizedDescription)
             case .success(let message):
                 switch message {
                 case .string(let messageString):
-                    print("[Client] Received string: \(messageString)")
+                    print("[receiveMessage] Received string: \(messageString)")
                     outputMessage = String(messageString)
                 case .data(let data):
-                    print("[Client] Received data: \(data.description)")
+                    print("[receiveMessage] Received data: \(data.description)")
                     outputMessage = String(data.description)
                 default:
-                    print("Unknown type received from WebSocket")
+                    print("[receiveMessage] Unknown type received from WebSocket")
                     outputMessage = "Unknown type received from WebSocket"
                 }
             }
@@ -87,14 +89,16 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     // MARK: - Flight simulator functions
     
     func declareOffsets() -> String {
+        print("[declareOffsets] start")
         let declarePackage = OffsetsDeclare()
         let jsonEncoder = JSONEncoder()
-//        jsonEncoder.outputFormatting = .prettyPrinted
+        jsonEncoder.dataEncodingStrategy = .deferredToData
         do {
             let encodedDeclarePackage = try jsonEncoder.encode(declarePackage)
+            print("[declareOffsets] send data")
             sendData(encodedDeclarePackage)
         } catch {
-            print(error.localizedDescription)
+            print("[declareOffsets] \(error.localizedDescription)")
         }
         let message = receiveMessage()
         return message

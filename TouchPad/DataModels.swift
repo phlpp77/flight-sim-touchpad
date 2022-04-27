@@ -11,15 +11,15 @@ struct OffsetsDeclare: Encodable {
     var command = "offsets.declare"
     var name = "OffsetsWrite"
     var offsets = [
-        Offset(name: "speed", address: "0x420A", type: "int", size: 2),
-        Offset(name: "altitude", address: "0x420C", type: "int", size: 2),
-        Offset(name: "heading", address: "0x420E", type: "int", size: 2),
-        Offset(name: "TurnFactor", address: "0x42010", type: "int", size: 1)
+        Offset(name: "speed", address: 16906, type: "int", size: 2),
+        Offset(name: "altitude", address: 16908, type: "int", size: 2),
+        Offset(name: "heading", address: 16910, type: "int", size: 2),
+        Offset(name: "TurnFactor", address: 16912, type: "int", size: 1)
     ]
     
     struct Offset: Encodable {
         var name: String
-        var address: String
+        var address: Int
         var type: String
         var size: Int
     }
