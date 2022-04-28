@@ -22,6 +22,10 @@ class SocketNetworkViewModel: ObservableObject {
         }
     }
     
+    func setSpeed(to speed: Int) {
+        webSocketService.changeSpeed(speed)
+    }
+    
     // returns value of connection
 //    var connectionStatus: String {
 //        webSocketService.isConnectionOpen ? "Connected" : "Not connected"

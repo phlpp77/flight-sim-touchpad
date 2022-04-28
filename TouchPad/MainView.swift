@@ -17,6 +17,7 @@ struct MainView: View {
     var body: some View {
         ZStack {
             ButtonsView(appearanceVM: appearanceVM)
+            SliderView(socketNetworkVM: socketNetworkVM)
             
             GeometryReader { geo in
                 Button(action: {self.showPopover.toggle()}) {
