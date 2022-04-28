@@ -19,6 +19,25 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 
+                HStack(spacing: 14) {
+                    StatusField(
+                        title: "Server",
+                        status: (socketNetworkVM.webSocketService.isConnectionOpen ? "Connected" : "Not connected"),
+                        statusIcon: socketNetworkVM.webSocketService.isConnectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
+                        statusColor: socketNetworkVM.webSocketService.isConnectionOpen ? Color.green : Color.gray
+                    )
+                    
+                    StatusField(
+                        title: "Offsets",
+                        status: "Not declared",
+                        statusIcon: "questionmark.folder",
+                        statusColor: Color.gray
+                    )
+                }
+                .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
+                .listRowInsets(EdgeInsets()) // remove insets so cards are inline with rest
+                
+                
                 Section(header: Text("Appearance")) {
                     Toggle(isOn: $appearanceVM.showTapLocation) {
                         Text("Show coordinates")
@@ -28,39 +47,25 @@ struct SettingsView: View {
                     }
                 }
                 
+                
                 Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                     
-                    
-                    Button(action: {
-                        socketNetworkVM.webSocketService.openWebSocket()
-                    }) {
-                        HStack {
-                            Text("Server")
-                            Spacer()
-                            Text(socketNetworkVM.webSocketService.isConnectionOpen ? "Connected" : "Not connected")
-                                .foregroundColor(.primary)
-                        }
+                    Toggle(isOn: $socketNetworkVM.toggleServerConnection) {
+                        Text("Server")
                     }
-                
-                    // MARK: Send string test
-                    Button(action: {
-                        socketNetworkVM.webSocketService.sendString("[Client] Hello from iOS Client!")
-                    }) {
-                        Text("Send hello to server")
-                    }
-                    
-                    // MARK: - Flight simulator functions
                     
                     // MARK: Declare offsets
                     Button(action: {
                         socketNetworkVM.webSocketService.declareOffsets()
                     }) {
                         Text("Declare Offsets")
+                            .foregroundColor(.blue)
                     }
                     
                     // MARK: Change speed
-                    TextField("Speed: ", text: $speedText)
+                    TextField("Speed", text: $speedText)
                         .keyboardType(.numberPad)
+                    
                     Button(action: {
                         guard let speedNumber = Int(speedText) else {
                             print("Input is not a valid number")
@@ -68,15 +73,58 @@ struct SettingsView: View {
                         }
                         socketNetworkVM.webSocketService.changeSpeed(speedNumber)
                     }) {
-                        Text("Set speed to 222")
+                        Text("Set speed")
+                            .foregroundColor(.blue)
+                    }
+                    
+                    // MARK: Send string test
+                    Button(action: {
+                        socketNetworkVM.webSocketService.sendString("Hello from iOS Client!")
+                    }) {
+                        Text("Send test string to server")
+                            .foregroundColor(.blue)
                     }
                 }
             }
+            .foregroundColor(.primary)
             .navigationTitle(Text("Settings"))
             .navigationViewStyle(.stack)
         }
         .accessibilityLabel("Settings")
     }
+    
+    
+    // MARK: StatusField at the top
+    struct StatusField: View {
+        let title: String
+        var status: String
+        var statusIcon: String
+        var statusColor: Color
+        
+        var body: some View {
+            
+            VStack {
+                Text(title)
+                    .font(.title2)
+                    .bold()
+                
+                Group {
+                    Text("Status: \(status)")
+                    Image(systemName: statusIcon)
+                        .font(.largeTitle)
+                        
+                }
+                .foregroundColor(statusColor)
+                .padding(.top, 5)
+                
+            }
+            .frame(width: 150, height: 150)
+            .background(.white)
+            .cornerRadius(20)
+        }
+    }
+    
+    
 }
 
 struct SettingsView_Previews: PreviewProvider {

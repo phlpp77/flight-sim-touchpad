@@ -27,7 +27,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     // MARK: Close WebSocket connection
     func closeWebSocket() {
-        //        webSocket?.cancel(with: <#T##URLSessionWebSocketTask.CloseCode#>, reason: <#T##Data?#>)
+        webSocket?.cancel(with: .normalClosure, reason: Data("Connection closed with closeWebSocket function".utf8))
     }
     
     // MARK: - Send and Receive
