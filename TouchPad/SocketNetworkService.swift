@@ -16,7 +16,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         super.init()
         
         let urlString = "ws://192.168.103.103:2048/fsuipc/"
-//        let urlString = "ws://localhost:2048"
+        //        let urlString = "ws://localhost:2048"
         
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default, delegate: self, delegateQueue: nil)
@@ -31,17 +31,46 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     }
     
     func closeWebSocket() {
-//        webSocket?.cancel(with: <#T##URLSessionWebSocketTask.CloseCode#>, reason: <#T##Data?#>)
+        //        webSocket?.cancel(with: <#T##URLSessionWebSocketTask.CloseCode#>, reason: <#T##Data?#>)
     }
     
     // MARK: - Send and Receive
     
     func sendString(_ message: String) {
+
         webSocket?.send(URLSessionWebSocketTask.Message.string(message)) { error in
             if let error = error {
-                print("[SocketNetworkService] SendString failed with error \(error.localizedDescription)")
+                print("[SendString] Failed to send with error \(error.localizedDescription)")
             }
         }
+    }
+    
+    func sendOffset<OffsetType>(_ offsetPackage: Offsets<OffsetType>) {
+        
+        let jsonEncoder = JSONEncoder()
+        
+        do {
+            // encode swift object to JSON object
+            let encodedPackage = try jsonEncoder.encode(offsetPackage)
+            
+            // convert JSON object to JSON string
+            let jsonStringPackage = String(data: encodedPackage, encoding: .utf8)
+            
+            
+            if let jsonString = jsonStringPackage {
+                print("[SendOffset] JSON string to send: \(String(describing: jsonString))")
+                
+                sendString(jsonString)
+                
+            } else {
+                print("[SendOffset] JSON object cannot be converted to JSON string")
+            }
+            
+        } catch {
+            print("[SendOffset] \(error.localizedDescription)")
+        }
+        
+        
     }
     
     func sendData(_ data: Data) {
@@ -55,9 +84,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     }
     
     func receiveMessage() -> String {
-
+        
         var outputMessage = "Empty"
-        print("[receiveMessage] Connection open: \(isConnectionOpen)")
         if !isConnectionOpen {
             openWebSocket()
         }
@@ -80,7 +108,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                     outputMessage = "Unknown type received from WebSocket"
                 }
             }
-//            self?.receiveMessage()
+            //            self?.receiveMessage()
         })
         
         return outputMessage
@@ -88,38 +116,31 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     // MARK: - Flight simulator functions
     
-    func declareOffsets() -> String {
+    // MARK: Declare offsets
+    func declareOffsets() {
         print("[declareOffsets] start")
-        let declarePackage = OffsetsDeclare()
-        let jsonEncoder = JSONEncoder()
-        do {
-            let encodedDeclarePackage = try jsonEncoder.encode(declarePackage)
-            let jsonStringDeclarePackage = String(data: encodedDeclarePackage, encoding: .utf8)
-            print("[declareOffsets] send data \(String(describing: jsonStringDeclarePackage))")
-            sendString(jsonStringDeclarePackage!)
-        } catch {
-            print("[declareOffsets] \(error.localizedDescription)")
-        }
-        let message = receiveMessage()
-        return message
+        let declareOffsets = Offsets(command: "offsets.declare",
+                                     name: "OffsetsWrite",
+                                     offsets: [
+                                        DeclareOffset(name: "speed", address: 16906, type: "int", size: 2),
+                                        DeclareOffset(name: "altitude", address: 16908, type: "int", size: 2),
+                                        DeclareOffset(name: "heading", address: 16910, type: "int", size: 2),
+                                        DeclareOffset(name: "TurnFactor", address: 16912, type: "int", size: 1)
+                                     ]
+        )
+        
+        sendOffset(declareOffsets)
+        print("[declareOffsets] answer: \(receiveMessage())")
     }
     
-    func speedTest() {
-        let speedPackage = OffsetsWrite()
-//        speedPackage.offsets[0].value = 225
-        let jsonEncoder = JSONEncoder()
-        do {
-            let encodedDeclarePackage = try jsonEncoder.encode(speedPackage)
-            let jsonStringDeclarePackage = String(data: encodedDeclarePackage, encoding: .utf8)
-            print("[speedTest] send data \(String(describing: jsonStringDeclarePackage))")
-            sendString(jsonStringDeclarePackage!)
-        } catch {
-            print("[speedTest] \(error.localizedDescription)")
-        }
-        
-        let message = receiveMessage()
-        print("[speedTest] message: \(message)")
+    // MARK: Change speed
+    func changeSpeed(_ speed: Int) {
+        print("[changeSpeed] start")
+        let changeSpeedOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "speed", value: speed)])
+        sendOffset(changeSpeedOffset)
+        print("[changeSpeed] answer: \(receiveMessage())")
     }
+    
 }
 
 // Extension for callback functions

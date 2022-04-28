@@ -12,7 +12,7 @@ struct SettingsView: View {
     @ObservedObject var appearanceVM: AppearanceViewModel
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     
-    @State var receivedText = ""
+    @State var speedText = ""
     
     var body: some View {
         
@@ -30,7 +30,6 @@ struct SettingsView: View {
                 
                 Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                     
-                    Text("Text: \(receivedText)")
                     
                     Button(action: {
                         socketNetworkVM.webSocketService.openWebSocket()
@@ -54,13 +53,20 @@ struct SettingsView: View {
                     
                     // MARK: Declare offsets
                     Button(action: {
-                        receivedText = socketNetworkVM.webSocketService.declareOffsets()
+                        socketNetworkVM.webSocketService.declareOffsets()
                     }) {
                         Text("Declare Offsets")
                     }
-                    // MARK: Speed Test
+                    
+                    // MARK: Change speed
+                    TextField("Speed: ", text: $speedText)
+                        .keyboardType(.numberPad)
                     Button(action: {
-                        socketNetworkVM.webSocketService.speedTest()
+                        guard let speedNumber = Int(speedText) else {
+                            print("Input is not a valid number")
+                            return
+                        }
+                        socketNetworkVM.webSocketService.changeSpeed(speedNumber)
                     }) {
                         Text("Set speed to 222")
                     }
