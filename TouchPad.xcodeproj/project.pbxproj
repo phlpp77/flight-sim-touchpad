@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1733BD09281FD6E800D05827 /* DateExtension.swift */; };
-		1733BD0C281FDE1D00D05827 /* SliderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1733BD0B281FDE1D00D05827 /* SliderExtension.swift */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
 		175283A627EDF807007BE399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A527EDF807007BE399 /* Assets.xcassets */; };
@@ -21,14 +20,13 @@
 		176B2F6E2816CF1C00B583A9 /* SocketNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */; };
 		176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B2F6F2818254B00B583A9 /* OffsetModels.swift */; };
 		177627FC281AD3DB00F15878 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177627FB281AD3DB00F15878 /* Slider.swift */; };
-		177627FF281AD7C300F15878 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 177627FE281AD7C300F15878 /* Sliders */; };
+		177A00AE282009EA00C31937 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 177A00AD282009EA00C31937 /* Sliders */; };
 		17B5728C2804197500799D7B /* WebSocketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5728B2804197500799D7B /* WebSocketView.swift */; };
 		17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1733BD09281FD6E800D05827 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		1733BD0B281FDE1D00D05827 /* SliderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderExtension.swift; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -42,6 +40,7 @@
 		176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketNetworkViewModel.swift; sourceTree = "<group>"; };
 		176B2F6F2818254B00B583A9 /* OffsetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModels.swift; sourceTree = "<group>"; };
 		177627FB281AD3DB00F15878 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
+		177A00AB282009D300C31937 /* swiftui-sliders */ = {isa = PBXFileReference; lastKnownFileType = text; path = "swiftui-sliders"; sourceTree = SOURCE_ROOT; };
 		17B5728B2804197500799D7B /* WebSocketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketView.swift; sourceTree = "<group>"; };
 		17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				177627FF281AD7C300F15878 /* Sliders in Frameworks */,
+				177A00AE282009EA00C31937 /* Sliders in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +62,7 @@
 			children = (
 				175283A027EDF803007BE399 /* TouchPad */,
 				1752839F27EDF803007BE399 /* Products */,
+				177A00AC282009EA00C31937 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,11 +87,11 @@
 				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
 				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
-				1733BD0B281FDE1D00D05827 /* SliderExtension.swift */,
 				176B2F6F2818254B00B583A9 /* OffsetModels.swift */,
 				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
 				17B5728B2804197500799D7B /* WebSocketView.swift */,
 				175283A527EDF807007BE399 /* Assets.xcassets */,
+				177A00AB282009D300C31937 /* swiftui-sliders */,
 				175283A727EDF807007BE399 /* Preview Content */,
 			);
 			path = TouchPad;
@@ -103,6 +103,13 @@
 				175283A827EDF807007BE399 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		177A00AC282009EA00C31937 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -122,7 +129,7 @@
 			);
 			name = TouchPad;
 			packageProductDependencies = (
-				177627FE281AD7C300F15878 /* Sliders */,
+				177A00AD282009EA00C31937 /* Sliders */,
 			);
 			productName = TouchPad;
 			productReference = 1752839E27EDF803007BE399 /* TouchPad.app */;
@@ -153,7 +160,6 @@
 			);
 			mainGroup = 1752839527EDF803007BE399;
 			packageReferences = (
-				177627FD281AD7C300F15878 /* XCRemoteSwiftPackageReference "swiftui-sliders" */,
 			);
 			productRefGroup = 1752839F27EDF803007BE399 /* Products */;
 			projectDirPath = "";
@@ -185,7 +191,6 @@
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
 				176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */,
 				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,
-				1733BD0C281FDE1D00D05827 /* SliderExtension.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
 				17B5728C2804197500799D7B /* WebSocketView.swift in Sources */,
@@ -398,21 +403,9 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		177627FD281AD7C300F15878 /* XCRemoteSwiftPackageReference "swiftui-sliders" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:spacenation/swiftui-sliders.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		177627FE281AD7C300F15878 /* Sliders */ = {
+		177A00AD282009EA00C31937 /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 177627FD281AD7C300F15878 /* XCRemoteSwiftPackageReference "swiftui-sliders" */;
 			productName = Sliders;
 		};
 /* End XCSwiftPackageProductDependency section */
