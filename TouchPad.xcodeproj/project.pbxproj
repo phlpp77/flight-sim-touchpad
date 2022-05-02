@@ -29,7 +29,6 @@
 /* Begin PBXFileReference section */
 		1733BD09281FD6E800D05827 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		1733BD0B281FDE1D00D05827 /* SliderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderExtension.swift; sourceTree = "<group>"; };
-		1733BD0D281FE4A300D05827 /* swiftui-sliders */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "swiftui-sliders"; path = "../../../Library/Developer/Xcode/DerivedData/TouchPad-ahlvqnyhdxanrcamoffifwvuxyzc/SourcePackages/checkouts/swiftui-sliders"; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -62,7 +61,6 @@
 		1752839527EDF803007BE399 = {
 			isa = PBXGroup;
 			children = (
-				1733BD0D281FE4A300D05827 /* swiftui-sliders */,
 				175283A027EDF803007BE399 /* TouchPad */,
 				1752839F27EDF803007BE399 /* Products */,
 			);
