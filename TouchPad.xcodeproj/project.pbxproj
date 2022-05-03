@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1704209D282134E60041927A /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704209C282134E60041927A /* DataExport.swift */; };
+		170420A2282166440041927A /* UITextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170420A1282166440041927A /* UITextFieldAlert.swift */; };
 		1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1733BD09281FD6E800D05827 /* DateExtension.swift */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		1704209C282134E60041927A /* DataExport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExport.swift; sourceTree = "<group>"; };
 		170420A0282154D10041927A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		170420A1282166440041927A /* UITextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAlert.swift; sourceTree = "<group>"; };
 		1733BD09281FD6E800D05827 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				177627FB281AD3DB00F15878 /* Slider.swift */,
 				1704209C282134E60041927A /* DataExport.swift */,
+				170420A1282166440041927A /* UITextFieldAlert.swift */,
 				1733BD09281FD6E800D05827 /* DateExtension.swift */,
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
 				17555D90280704DB003B61F0 /* AppearanceViewModel.swift */,
@@ -196,6 +199,7 @@
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
 				176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */,
 				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,
+				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
 				17B5728C2804197500799D7B /* WebSocketView.swift in Sources */,
