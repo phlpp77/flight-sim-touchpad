@@ -12,49 +12,85 @@ struct SliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     
+    var minValue = 100
+    var maxValue = 399
+    
+    var thumbWidth: CGFloat = 100
+    var thumbHeight: CGFloat = 100
+    
     @State private var speed = 300
+    @State private var oldSpeed = 300
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
+    @State private var relativeDeviation = CGPoint(x: 0, y: 0)
+    
     
     var body: some View {
-        ZStack {
-            VStack {
-//                Text("Speed \(speed)")
-//                    .font(.largeTitle)
-                
-                ValueSlider(value: $speed, in: 100...399, step: 1, onEditingChanged: {editing, values in
-                    print("end editing: \(editing) start loc: \(values)")
-                    pos = values.location
-                    pos.x += 200
-                    print("thumb pos: \(thumbPos)")
+        
+        VStack {
+//            Text("Speed \(speed)")
+//                .font(.largeTitle)
+            
+            ZStack {
+                ValueSlider(value: $speed, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
+                    pos = values.startLocation
                     if !editing {
-    //                    socketNetworkVM.setSpeed(to: speed)
+                        print("Speed set from: \(oldSpeed) to \(speed) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
+                        oldSpeed = speed
+                        //                    socketNetworkVM.setSpeed(to: speed)
                     }
                 })
                 .valueSliderStyle(
-
                     VerticalValueSliderStyle(
-                        track: VerticalValueTrack(view: RoundedRectangle(cornerRadius: 40), mask: RoundedRectangle(cornerRadius: 12)),
+                        track:
+                            VerticalValueTrack(
+                                view: RoundedRectangle(cornerRadius: 12),
+                                mask: RoundedRectangle(cornerRadius: 12)
+                            ),
                         thumb:
-                            GeometryReader { geo in
-                                Rectangle()
-                                .frame(width: 150, height: 80, alignment: .leading)
+                            ZStack {
+                                GeometryReader { geo in
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .onChange(of: pos) { _ in
+                                            let g = geo.frame(in: .named("slider"))
+                                            thumbPos = g.origin
+                                            //                                            print("g: \(g)")
+                                            thumbPos.x += thumbWidth / 2
+                                            thumbPos.y += thumbHeight / 2
+                                            relativeDeviation.x = pos.x - thumbPos.x
+                                            relativeDeviation.y = pos.y - thumbPos.y
+                                            relativeDeviation.y = round(relativeDeviation.y * 10) / 10
+                                            
+                                        }
+                                }
+                                .frame(width: thumbWidth, height: thumbHeight, alignment: .leading)
                                 .foregroundColor(.gray)
-                                .mask(RoundedRectangle(cornerRadius: 12))
                             }
-                            
                     )
                 )
+                
+                
+                // MARK: Show positions
+                
+                // Position of startTap location
+                Rectangle()
+                    .foregroundColor(.red)
+                    .frame(width: 20, height: 20)
+                    .position(pos)
+                
+                // Position of center of slider thumb
+                Rectangle()
+                    .foregroundColor(.green)
+                    .frame(width: 20, height: 20)
+                    .position(thumbPos)
             }
+            .coordinateSpace(name: "slider")
             .frame(width: 200)
         }
-        Rectangle()
-            .foregroundColor(.red)
-            .frame(width: 20, height: 20)
-            .position(pos)
     }
 }
+
 
 struct Slider_Previews: PreviewProvider {
     static var previews: some View {
