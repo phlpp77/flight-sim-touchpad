@@ -84,7 +84,20 @@ struct SettingsView: View {
                         Text("Send test string to server")
                             .foregroundColor(.blue)
                     }
+                    
                 }
+                
+                Section(header: Text("Logfiles")) {
+                    
+                    // MARK: Create log file
+                    Button {
+                        createLogCSV(filename: "test-log")
+                    } label: {
+                        Text("Export Log as CSV")
+                    }
+
+                }
+                
             }
             .foregroundColor(.primary)
             .navigationTitle(Text("Settings"))

@@ -37,6 +37,7 @@ struct SliderView: View {
                     pos = values.startLocation
                     if !editing {
                         print("Speed set from: \(oldSpeed) to \(speed) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
+                        log.append(LogData(attribute: "speed", oldValue: oldSpeed, value: speed, relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
                         oldSpeed = speed
                         //                    socketNetworkVM.setSpeed(to: speed)
                     }
