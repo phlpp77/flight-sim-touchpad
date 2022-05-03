@@ -21,7 +21,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
             ZStack {
                 if self.options.contains(.interactiveTrack) {
                     track.gesture(
-                        DragGesture(minimumDistance: 0)
+                        DragGesture(minimumDistance: 0, coordinateSpace: .named("slider"))
                             .onChanged { gestureValue in
                                 let computedValue = valueFrom(
                                     distance: gestureValue.location.x,
@@ -58,7 +58,7 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                     y: geometry.size.height / 2
                 )
                 .gesture(
-                    DragGesture(minimumDistance: 0)
+                    DragGesture(minimumDistance: 0, coordinateSpace: .named("slider"))
                         .onChanged { gestureValue in
                             if configuration.dragOffset.wrappedValue == nil {
                                 configuration.dragOffset.wrappedValue = gestureValue.startLocation.x - distanceFrom(
