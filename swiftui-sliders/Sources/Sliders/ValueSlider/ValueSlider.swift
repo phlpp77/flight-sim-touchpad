@@ -20,7 +20,7 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
+    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0.0...1.0, step: V.Stride = 0.001, onEditingChanged: @escaping (Bool, DragGesture.Value) -> Void = { _,_  in }) where V : BinaryFloatingPoint, V.Stride : BinaryFloatingPoint {
         
         self.init(
             ValueSliderStyleConfiguration(
@@ -35,7 +35,7 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, onEditingChanged: @escaping (Bool) -> Void = { _ in }) where V : BinaryInteger, V.Stride : BinaryInteger {
+    public init<V>(value: Binding<V>, in bounds: ClosedRange<V> = 0...1, step: V.Stride = 1, onEditingChanged: @escaping (Bool, DragGesture.Value) -> Void = { _,_  in }) where V : BinaryInteger, V.Stride : BinaryInteger {
         self.init(
             ValueSliderStyleConfiguration(
                 value: Binding(get: { CGFloat(value.wrappedValue) }, set: { value.wrappedValue = V($0) }),
@@ -49,7 +49,7 @@ extension ValueSlider {
 }
 
 extension ValueSlider {
-    public init(value: Binding<Measurement<Unit>>, in bounds: ClosedRange<Measurement<Unit>>, step: Measurement<Unit>, onEditingChanged: @escaping (Bool) -> Void = { _ in }) {
+    public init(value: Binding<Measurement<Unit>>, in bounds: ClosedRange<Measurement<Unit>>, step: Measurement<Unit>, onEditingChanged: @escaping (Bool, DragGesture.Value) -> Void = { _,_  in }) {
         
         self.init(
             ValueSliderStyleConfiguration(

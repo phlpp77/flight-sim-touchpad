@@ -32,10 +32,10 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                                     trailingOffset: self.thumbSize.height / 2
                                 )
                                 configuration.value.wrappedValue = computedValue
-                                configuration.onEditingChanged(true)
+                                configuration.onEditingChanged(true, gestureValue)
                             }
-                            .onEnded { _ in
-                                configuration.onEditingChanged(false)
+                            .onEnded { gestureValue in
+                                configuration.onEditingChanged(false, gestureValue)
                             }
                     )
                 } else {
@@ -58,14 +58,6 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                     )
                 )
                 .gesture(
-//                    SequenceGesture(
-//                        DragGesture(minimumDistance: 0)
-//                            .onChanged { change in
-//                            print("changed to: \(change)")
-//                            },
-//                    TapGesture {
-//                        print("test")
-//                    },
                     DragGesture(minimumDistance: 0)
                         .onChanged { gestureValue in
                             if configuration.dragOffset.wrappedValue == nil {
@@ -88,13 +80,12 @@ public struct VerticalValueSliderStyle<Track: View, Thumb: View>: ValueSliderSty
                             )
                             
                             configuration.value.wrappedValue = computedValue
-                            configuration.onEditingChanged(true)
+                            configuration.onEditingChanged(true, gestureValue)
                         }
-                        .onEnded { _ in
+                        .onEnded { gestureValue in
                             configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
+                            configuration.onEditingChanged(false, gestureValue)
                         }
-//                )
                 )
                 
             }

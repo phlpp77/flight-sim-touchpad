@@ -4,10 +4,10 @@ public struct ValueSliderStyleConfiguration {
     public let value: Binding<CGFloat>
     public let bounds: ClosedRange<CGFloat>
     public let step: CGFloat
-    public let onEditingChanged: (Bool) -> Void
+    public let onEditingChanged: (Bool, DragGesture.Value) -> Void
     public var dragOffset: Binding<CGFloat?>
     
-    public init(value: Binding<CGFloat>, bounds: ClosedRange<CGFloat>, step: CGFloat, onEditingChanged: @escaping (Bool) -> Void, dragOffset: Binding<CGFloat?>) {
+    public init(value: Binding<CGFloat>, bounds: ClosedRange<CGFloat>, step: CGFloat, onEditingChanged: @escaping (Bool, DragGesture.Value) -> Void, dragOffset: Binding<CGFloat?>) {
         self.value = value
         self.bounds = bounds
         self.step = step

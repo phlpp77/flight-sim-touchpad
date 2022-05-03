@@ -32,10 +32,10 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                                     trailingOffset: self.thumbSize.width / 2
                                 )
                                 configuration.value.wrappedValue = computedValue
-                                configuration.onEditingChanged(true)
+                                configuration.onEditingChanged(true, gestureValue)
                             }
-                            .onEnded { _ in
-                                configuration.onEditingChanged(false)
+                            .onEnded { gestureValue in
+                                configuration.onEditingChanged(false, gestureValue)
                             }
                     )
                 } else {
@@ -80,11 +80,11 @@ public struct HorizontalValueSliderStyle<Track: View, Thumb: View>: ValueSliderS
                             )
 
                             configuration.value.wrappedValue = computedValue
-                            configuration.onEditingChanged(true)
+                            configuration.onEditingChanged(true, gestureValue)
                         }
-                        .onEnded { _ in
+                        .onEnded { gestureValue in
                             configuration.dragOffset.wrappedValue = nil
-                            configuration.onEditingChanged(false)
+                            configuration.onEditingChanged(false, gestureValue)
                         }
                 )
             }
