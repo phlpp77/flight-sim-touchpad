@@ -13,6 +13,8 @@ struct SettingsView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     
     @State var speedText = ""
+    @State var fileName = ""
+    @State var presentFileNameAlert = false
     
     var body: some View {
         
@@ -63,18 +65,19 @@ struct SettingsView: View {
                     }
                     
                     // MARK: Change speed
-                    TextField("Speed", text: $speedText)
-                        .keyboardType(.numberPad)
-                    
-                    Button(action: {
-                        guard let speedNumber = Int(speedText) else {
-                            print("Input is not a valid number")
-                            return
+                    HStack {
+                        TextField("Speed", text: $speedText)
+                            .keyboardType(.numberPad)
+                        Button(action: {
+                            guard let speedNumber = Int(speedText) else {
+                                print("Input is not a valid number")
+                                return
+                            }
+                            socketNetworkVM.webSocketService.changeSpeed(speedNumber)
+                        }) {
+                            Text("Set speed")
+                                .foregroundColor(.blue)
                         }
-                        socketNetworkVM.webSocketService.changeSpeed(speedNumber)
-                    }) {
-                        Text("Set speed")
-                            .foregroundColor(.blue)
                     }
                     
                     // MARK: Send string test
@@ -91,11 +94,26 @@ struct SettingsView: View {
                     
                     // MARK: Create log file
                     Button {
-                        createLogCSV(filename: "test-log")
+                        presentFileNameAlert.toggle()
                     } label: {
                         Text("Export Log as CSV")
                     }
-
+                    .alert(
+                        isPresented: $presentFileNameAlert,
+                        TextAlert(
+                            title: "Export log file",
+                            message: "Name the file of the log",
+                            placeholder: "Log-Testpilot-1",
+                            accept: "Export",
+                            cancel: "Cancel",
+                            keyboardType: .namePhonePad
+                        ) { result in
+                            if let text = result {
+                                print("Create logfile with name \(text)")
+                                createLogCSV(filename: text)
+                            }
+                        })
+                    
                 }
                 
             }
@@ -125,7 +143,7 @@ struct SettingsView: View {
                     Text("Status: \(status)")
                     Image(systemName: statusIcon)
                         .font(.largeTitle)
-                        
+                    
                 }
                 .foregroundColor(statusColor)
                 .padding(.top, 5)
