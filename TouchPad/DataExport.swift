@@ -19,7 +19,7 @@ struct LogData {
 
 var log: [LogData] = []
 
-func createLogCSV(filename: String) {
+func createLogCSV(filename: String, fileCreated: @escaping (Bool) -> Void) {
     
     var csvString = "Attribute,Old value,New value,Relative deviation,Date and time \n"
     for component in log {
@@ -38,11 +38,13 @@ func createLogCSV(filename: String) {
         let fileURL = path.appendingPathComponent(fileName)
         let filePath = fileURL.path
         if fileManager.fileExists(atPath: filePath) {
-                    print("[Filemanager] CSV not created: Name already existed")
-                } else {
-                    try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
-                    print("[Filemanager] CSV created")
-                }
+            print("[Filemanager] CSV not created: Name already existed")
+            fileCreated(false)
+        } else {
+            try csvString.write(to: fileURL, atomically: true, encoding: .utf8)
+            print("[Filemanager] CSV created")
+            fileCreated(true)
+        }
         
         
         

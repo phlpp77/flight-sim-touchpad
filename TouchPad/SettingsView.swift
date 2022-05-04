@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State var speedText = ""
     @State var fileName = ""
     @State var presentFileNameAlert = false
+    @State var presentErrorAlert = false
     
     var body: some View {
         
@@ -93,11 +94,16 @@ struct SettingsView: View {
                 Section(header: Text("Logfiles")) {
                     
                     // MARK: Create log file
-                    Button {
+                    Button(action: {
                         presentFileNameAlert.toggle()
-                    } label: {
-                        Text("Export Log as CSV")
+                    }) {
+                        HStack {
+                            Text("Export Log as CSV")
+                                .foregroundColor(.blue)
+                            Spacer()
+                        }
                     }
+                    // Alert to get filename from user
                     .alert(
                         isPresented: $presentFileNameAlert,
                         TextAlert(
@@ -108,11 +114,26 @@ struct SettingsView: View {
                             cancel: "Cancel",
                             keyboardType: .namePhonePad
                         ) { result in
-                            if let text = result {
-                                print("Create logfile with name \(text)")
-                                createLogCSV(filename: text)
+                            if var text = result {
+                                if text == "" {
+                                    text = "Log-Testpilot-1"
+                                }
+                                createLogCSV(filename: text) { fileCreated in
+                                    if !fileCreated {
+                                        presentErrorAlert = true
+                                    } else {
+                                        print("Create logfile with name \(text)")
+                                    }
+                                }
                             }
-                        })
+                        }
+                    )
+                    
+                    // Alert to inform user filename is already in use
+                    .alert(Text("Error"), isPresented: $presentErrorAlert, actions: {
+                        Button("OK", role: .cancel) {presentErrorAlert = false }
+                        
+                    }, message: {Text("Filename already in use")})
                     
                 }
                 
