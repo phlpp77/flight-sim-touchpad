@@ -25,9 +25,9 @@ struct SettingsView: View {
                 HStack(spacing: 14) {
                     StatusField(
                         title: "Server",
-                        status: (socketNetworkVM.webSocketService.isConnectionOpen ? "Connected" : "Not connected"),
-                        statusIcon: socketNetworkVM.webSocketService.isConnectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
-                        statusColor: socketNetworkVM.webSocketService.isConnectionOpen ? Color.green : Color.gray
+                        status: (socketNetworkVM.connectionOpen ? "Connected" : "Not connected"),
+                        statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
+                        statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
                     
                     StatusField(

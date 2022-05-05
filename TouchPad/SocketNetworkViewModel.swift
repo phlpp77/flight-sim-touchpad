@@ -11,6 +11,11 @@ class SocketNetworkViewModel: ObservableObject {
     
     // webSocketService to connect to web-socket
     @Published var webSocketService = SocketNetworkService()
+    @Published var connectionOpen = false
+    
+    init() {
+        webSocketService.delegate = self
+    }
     
     var toggleServerConnection: Bool = false {
         willSet {
@@ -34,4 +39,12 @@ class SocketNetworkViewModel: ObservableObject {
 //    var isConnectionOpen: Bool {
 //        webSocketService.isConnectionOpen
 //    }
+}
+
+extension SocketNetworkViewModel: SocketNetworkServiceDelegate {
+    func didUpdateConnection(isOpen: Bool) {
+        DispatchQueue.main.async {
+            self.connectionOpen = isOpen
+        }
+    }
 }

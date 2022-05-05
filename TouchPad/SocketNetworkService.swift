@@ -10,7 +10,8 @@ import Foundation
 class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     var webSocket: URLSessionWebSocketTask?
-    @Published var isConnectionOpen = false
+    var isConnectionOpen = false
+    weak var delegate: SocketNetworkServiceDelegate?
     
     // MARK: - Open and close connection
     
@@ -151,8 +152,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     // MARK: - Constants
     
     private struct Constants {
-        static let URL_STRING = "ws://192.168.103.103:2048/fsuipc/"
-        //        let urlString = "ws://localhost:2048"
+//        static let URL_STRING = "ws://192.168.103.103:2048/fsuipc/"
+        static let URL_STRING = "ws://localhost:2048"
     }
     
 }
@@ -162,11 +163,18 @@ extension SocketNetworkService {
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
         print("[SocketNetworkService] WebSocket connection opened")
         isConnectionOpen = true
+        delegate?.didUpdateConnection(isOpen: true)
     }
     
     
     func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
         print("[SocketNetworkService] WebSocket connection closed")
         isConnectionOpen = false
+        delegate?.didUpdateConnection(isOpen: false)
     }
+}
+
+protocol SocketNetworkServiceDelegate: AnyObject {
+    
+    func didUpdateConnection(isOpen: Bool)
 }
