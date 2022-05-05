@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import simd
 
 struct RingSliderView: View {
     
@@ -13,6 +14,9 @@ struct RingSliderView: View {
     
     @State private var progress: CGFloat = 0.0
     @State private var markerPos: CGPoint = .zero
+    
+    @State private var vStart: SIMD2<Double> = .zero
+    @State private var isDragging: Bool = false
     
     var body: some View {
         GeometryReader { geo in
@@ -28,29 +32,55 @@ struct RingSliderView: View {
                         DragGesture(coordinateSpace: .named("RingSlider"))
                             .onChanged { actions in
                                 
+//                                var center: CGPoint = .zero
+//                                center.y -= geo.size.width / 2
+//                                center.x -= geo.size.height / 2
+                                
+                                let center = SIMD2<Double>(x: geo.size.width / 2, y: geo.size.height / 2)
+                                let intersection = SIMD2<Double>(x: actions.location.x, y: actions.location.y)
+                                
+                                print("center and intersec: \(center) \(intersection)")
+                                
+                                if !isDragging {
+                                    startInteraction(intersection: intersection, center: center)
+                                } else {
+                                    changeInteraction(intersection: intersection, center: center)
+                                }
+                                
+                                isDragging = true
+                                
+                                
                                 markerPos = actions.location
                                 markerPos.y -= geo.size.width / 2
                                 markerPos.x -= geo.size.height / 2
-                                print("marker pos x: \(markerPos.x / geo.size.width * 2)")
-                                print("marker pos y: \(markerPos.y / geo.size.width * 2)")
                                 
                                 
-                                var localCoords = actions.location
-                                localCoords.y -= geo.size.width / 2
-                                localCoords.x -= geo.size.height / 2
-                                localCoords.x = localCoords.x / geo.size.width * 2
-                                localCoords.y = localCoords.y / geo.size.height * 2
                                 
-                                // change coordinate system from standard unit circle to swiftUI
-                                localCoords.y *= -1
                                 
-                                print("local cords: \(localCoords)")
-                                let degree = coord2degree(localCoords)
-                                print("degree: \(degree / 360)")
-                                progress = degree / 360 <= 0.99 ? CGFloat(degree / 360) : 1
+//                                print("marker pos x: \(markerPos.x / geo.size.width * 2)")
+//                                print("marker pos y: \(markerPos.y / geo.size.width * 2)")
+                                
+                                
+//                                var localCoords = actions.location
+//                                localCoords.y -= geo.size.width / 2
+//                                localCoords.x -= geo.size.height / 2
+//                                localCoords.x = localCoords.x / geo.size.width * 2
+//                                localCoords.y = localCoords.y / geo.size.height * 2
+//
+//                                // change coordinate system from standard unit circle to swiftUI
+//                                localCoords.y *= -1
+//
+//                                print("local cords: \(localCoords)")
+//                                let degree = coord2degree(localCoords)
+//                                print("degree: \(degree / 360)")
+//                                progress = degree / 360 <= 0.99 ? CGFloat(degree / 360) : 1
                                 
                                 
                             }
+                            .onEnded { _ in
+                                isDragging = false
+                            }
+                            
                     )
                     .simultaneousGesture(
                         DragGesture(coordinateSpace: .named("Circle"))
@@ -90,26 +120,30 @@ struct RingSliderView: View {
         
     }
     
-    func coord2degree(_ coord: CGPoint) -> Double {
-        if coord.x <= 1 && coord.y <= 1 {
-            var xValue = abs(rad2deg(asin(Double(coord.x))))
-            let yValue = abs(rad2deg(acos(Double(coord.y))))
-            print("values: \(xValue), \(yValue)")
-            if coord.x < 0 {
-                xValue += 180
-            }
-            
-            print("values: \(xValue), \(yValue)")
-            
-            //            return 1
-            return max(xValue, yValue)
-        } else {
-            return 0.0
-        }
-    }
     
-    func rad2deg(_ number: Double) -> Double {
-        return number * 180 / .pi
+    /// start Interaction
+    func startInteraction(intersection: SIMD2<Double>, center: SIMD2<Double>) {
+        // `intersection`: momentane touch-position
+        vStart = normalize(intersection - center)
+    }
+
+    func changeInteraction(intersection: SIMD2<Double>, center: SIMD2<Double>) {
+        let vEnd = normalize(intersection - center)
+        let d = simd_clamp(dot(vStart, vEnd), -1.0, 1.0)
+        var angle = cross(vStart, vEnd).z > 0 ? acos(d) : -acos(d)
+        angle /= 2 * Double.pi
+        
+        progress = simd_clamp(progress + angle, 0, 1)
+//        progress += angle
+        vStart = vEnd
+        
+//        let difference = angle - lastAngle
+//        print(cross(vStart, vEnd))
+//        progress += difference / (2 * Double.pi)
+//        print("progress: \(progress) \(difference)")
+//        lastAngle = angle
+
+        // zielvariable um `difference` erhöhen
     }
     
 }
