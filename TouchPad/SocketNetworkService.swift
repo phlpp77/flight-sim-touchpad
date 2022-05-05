@@ -140,6 +140,14 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         print("[changeSpeed] answer: \(receiveMessage())")
     }
     
+    // MARK: Change altitude
+    func changeAltitude(_ altitude: Int) {
+        print("[changeAltitude] start")
+        let changeAltitudeOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "altitude", value: altitude)])
+        sendOffset(changeAltitudeOffset)
+        print("[changeAltitude] answer: \(receiveMessage())")
+    }
+    
     // MARK: - Constants
     
     private struct Constants {
