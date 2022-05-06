@@ -10,8 +10,8 @@ import SwiftUI
 
 struct LogData {
     var attribute: String
-    var oldValue: Int
-    var value: Int
+    var oldValue: Double
+    var value: Double
     var relativeDeviation: CGPoint
     var time: String
     
