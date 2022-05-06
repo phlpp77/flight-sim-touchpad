@@ -12,15 +12,20 @@ struct RingSliderView: View {
     
     var circleDiameter: CGFloat = 50
     
-    @State private var progress: CGFloat = 0.0
+    @State private var progress: CGFloat = .zero
+    @State private var degrees: Double = .zero
+    @State private var oldDegrees: Double = .zero
     @State private var markerPos: CGPoint = .zero
     
     @State private var vStart: SIMD2<Double> = .zero
     @State private var isDragging: Bool = false
+    @State private var relativeDeviation: CGPoint = .zero
     
     var body: some View {
         GeometryReader { geo in
             ZStack {
+                Text("Heading: \(degrees)°")
+                
                 Circle()
                     .stroke(lineWidth: 12)
                     .opacity(0.3)
@@ -57,17 +62,22 @@ struct RingSliderView: View {
                             }
                             .onEnded { _ in
                                 isDragging = false
+                                print("Heading set from: \(oldDegrees) to \(degrees) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
+                                // MARK: Save to log
+                                log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
+                                // TODO: WRITE DEGREE VALUE TO SIMULATOR
+                                oldDegrees = degrees
                             }
                         
                     )
                     .simultaneousGesture(
                         DragGesture(coordinateSpace: .named("Circle"))
                             .onChanged { actions in
-                                var relativeDeviation = actions.startLocation
+                                relativeDeviation = actions.startLocation
                                 relativeDeviation.x -= circleDiameter / 2
                                 relativeDeviation.y -= circleDiameter / 2
-                                
-                                print("relative deviation: \(relativeDeviation)") // FIXME: log print here
+                                relativeDeviation.x = round(relativeDeviation.x * 10) / 10.0
+                                relativeDeviation.y = round(relativeDeviation.y * 10) / 10.0
                             }
                     )
                     .coordinateSpace(name: "Circle")
@@ -105,9 +115,9 @@ struct RingSliderView: View {
         let d = simd_clamp(dot(vStart, vEnd), -1.0, 1.0)
         var angle = cross(vStart, vEnd).z > 0 ? acos(d) : -acos(d)
         angle /= 2 * Double.pi
-        
         // only take angles between 0 and 1
         progress = simd_clamp(progress + angle, 0, 1)
+        degrees = round(Double(progress) * 360 * 10) / 10.0
         vStart = vEnd
     }
     
