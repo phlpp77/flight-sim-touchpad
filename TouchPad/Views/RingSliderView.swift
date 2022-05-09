@@ -28,6 +28,7 @@ struct RingSliderView: View {
         GeometryReader { geo in
             ZStack {
                 Text("Heading: \(degrees)°")
+                    .foregroundColor(.white)
                 
                 Circle()
                     .stroke(lineWidth: 12)

@@ -18,8 +18,13 @@ struct MainView: View {
         ZStack {
 //            ButtonsView(appearanceVM: appearanceVM)
             HStack {
-                SliderView(socketNetworkVM: socketNetworkVM)
+                Spacer()
+                SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
+                Spacer()
                 HeadingView()
+                Spacer()
+                SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 20000, valueName: "altitude")
+                Spacer()
             }
             
             GeometryReader { geo in

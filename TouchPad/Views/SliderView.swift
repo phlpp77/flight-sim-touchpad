@@ -12,16 +12,16 @@ struct SliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     
-    var minValue = 100
-    var maxValue = 399
-    
     var thumbWidth: CGFloat = 100
     var thumbHeight: CGFloat = 100
     
-    var showMarker: Bool = false
+    let minValue: Int
+    let maxValue: Int
+    let valueName: String
+    let showMarker: Bool = false
     
-    @State private var speed = 300
-    @State private var oldSpeed = 300
+    @State private var value = 300
+    @State private var oldValue = 300
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
@@ -31,19 +31,18 @@ struct SliderView: View {
     var body: some View {
         
         VStack {
-            Text("Speed \(speed)")
+            Text("\(valueName) \(value)")
                 .font(.largeTitle)
             
             ZStack {
-                ValueSlider(value: $speed, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
+                ValueSlider(value: $value, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
                     pos = values.startLocation
                     if !editing {
-                        print("Speed set from: \(oldSpeed) to \(speed) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
+                        print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
                         // MARK: Save to log
-                        log.append(LogData(attribute: "speed", oldValue: Double(oldSpeed), value: Double(speed), relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
-                        // FIXME: WRITE VALUE TO SIMULATOR
-                        //                    socketNetworkVM.setSpeed(to: speed)
-                        oldSpeed = speed
+                        log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
+                        socketNetworkVM.changeValue(of: valueName, to: value)
+                        oldValue = value
                         
                     }
                 })
@@ -103,7 +102,7 @@ struct SliderView: View {
 struct Slider_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
-        SliderView(socketNetworkVM: socketNetworkVM)
+        SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }
