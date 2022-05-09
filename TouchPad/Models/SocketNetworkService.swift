@@ -149,11 +149,22 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         print("[changeAltitude] answer: \(receiveMessage())")
     }
     
+    // MARK: Change heading
+    func changeHeading(_ heading: Int, turnFactor: Int) {
+        print("[changeHeading] start")
+        let changeHeadingOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [
+            WriteOffset(name: "TurnFactor", value: turnFactor),
+            WriteOffset(name: "heading", value: heading)
+        ])
+        sendOffset(changeHeadingOffset)
+        print("[changeHeading] answer: \(receiveMessage())")
+    }
+    
     // MARK: - Constants
     
     private struct Constants {
-//        static let URL_STRING = "ws://192.168.103.103:2048/fsuipc/"
-        static let URL_STRING = "ws://localhost:2048"
+        static let URL_STRING = "ws://192.168.103.103:2048/fsuipc/"
+//        static let URL_STRING = "ws://localhost:2048"
     }
     
 }

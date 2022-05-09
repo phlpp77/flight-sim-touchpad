@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HeadingView: View {
     
-    @State var turnFactor = 0
+    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    
+    @State var turnFactor = -1
     
     var body: some View {
         VStack {
@@ -20,7 +22,7 @@ struct HeadingView: View {
                 HStack {
                     Spacer()
                     Button(action:  {
-                        turnFactor = -1
+                        turnFactor = 0
                     }) {
                         Image(systemName: "arrow.turn.up.left")
                     }
@@ -45,7 +47,7 @@ struct HeadingView: View {
                                         LinearGradient(colors: [Color("B9B9B9"), Color.white], startPoint: .topLeading, endPoint: .bottomTrailing),
                                         lineWidth: 2
                                     ))
-                            .offset(x: turnFactor != 0 ? (turnFactor == -1 ? -95 : 95) : 0)
+                            .offset(x: turnFactor != -1 ? (turnFactor == 0 ? -95 : 95) : 0)
                             .animation(.interactiveSpring(), value: turnFactor)
                         
                     }
@@ -65,7 +67,7 @@ struct HeadingView: View {
                 .mask(Capsule())
             }
             
-            RingSliderView(turnFactor: $turnFactor)
+            RingSliderView(socketNetworkVM: socketNetworkVM, turnFactor: $turnFactor)
                 .padding(.top, 30)
                 .padding()
                 .background(Color.black.opacity(0.8))
@@ -77,7 +79,8 @@ struct HeadingView: View {
 
 struct HeadingView_Previews: PreviewProvider {
     static var previews: some View {
-        HeadingView()
+        let socketNetworkVM = SocketNetworkViewModel()
+        HeadingView(socketNetworkVM: socketNetworkVM)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

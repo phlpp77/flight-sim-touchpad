@@ -21,7 +21,7 @@ struct MainView: View {
                 Spacer()
                 SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
                 Spacer()
-                HeadingView()
+                HeadingView(socketNetworkVM: socketNetworkVM)
                 Spacer()
                 SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 20000, valueName: "altitude")
                 Spacer()

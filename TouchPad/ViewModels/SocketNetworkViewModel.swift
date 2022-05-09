@@ -27,8 +27,16 @@ class SocketNetworkViewModel: ObservableObject {
         }
     }
     
-    func setSpeed(to speed: Int) {
-        webSocketService.changeSpeed(speed)
+    func changeValue(of name: String, to value: Int) {
+        if name == "speed" {
+            webSocketService.changeSpeed(value)
+        } else if name == "altitude" {
+            webSocketService.changeAltitude(value)
+        }
+    }
+    
+    func changeHeading(_ heading: Int, turnFactor: Int) {
+        webSocketService.changeHeading(heading, turnFactor: turnFactor)
     }
     
     // returns value of connection

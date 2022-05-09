@@ -10,6 +10,8 @@ import simd
 
 struct RingSliderView: View {
     
+    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    
     var circleDiameter: CGFloat = 50
     var showMarker: Bool = false
     
@@ -71,6 +73,7 @@ struct RingSliderView: View {
                                 // MARK: Save to log
                                 log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, time: Date().localFlightSim(), extra: String(turnFactor)))
                                 // TODO: WRITE DEGREE VALUE TO SIMULATOR
+                                socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
                                 oldDegrees = degrees
                             }
                         
@@ -132,6 +135,8 @@ struct RingSliderView: View {
 
 struct RingSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        RingSliderView(turnFactor: .constant(-1))
+        let socketNetworkVM = SocketNetworkViewModel()
+        
+        RingSliderView(socketNetworkVM: socketNetworkVM, turnFactor: .constant(-1))
     }
 }
