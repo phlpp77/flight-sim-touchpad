@@ -18,6 +18,8 @@ struct SliderView: View {
     var thumbWidth: CGFloat = 100
     var thumbHeight: CGFloat = 100
     
+    var showMarker: Bool = false
+    
     @State private var speed = 300
     @State private var oldSpeed = 300
     @State private var isEditing = false
@@ -29,8 +31,8 @@ struct SliderView: View {
     var body: some View {
         
         VStack {
-//            Text("Speed \(speed)")
-//                .font(.largeTitle)
+            Text("Speed \(speed)")
+                .font(.largeTitle)
             
             ZStack {
                 ValueSlider(value: $speed, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
@@ -78,16 +80,18 @@ struct SliderView: View {
                 // MARK: Show positions
                 
                 // Position of startTap location
-                Rectangle()
-                    .foregroundColor(.red)
-                    .frame(width: 20, height: 20)
-                    .position(pos)
-                
-                // Position of center of slider thumb
-                Rectangle()
-                    .foregroundColor(.green)
-                    .frame(width: 20, height: 20)
-                    .position(thumbPos)
+                if showMarker {
+                    Rectangle()
+                        .foregroundColor(.red)
+                        .frame(width: 20, height: 20)
+                        .position(pos)
+                    
+                    // Position of center of slider thumb
+                    Rectangle()
+                        .foregroundColor(.green)
+                        .frame(width: 20, height: 20)
+                        .position(thumbPos)
+                }
             }
             .coordinateSpace(name: "slider")
             .frame(width: 200)
