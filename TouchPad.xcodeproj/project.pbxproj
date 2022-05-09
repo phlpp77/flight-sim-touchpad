@@ -24,6 +24,8 @@
 		176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B2F6F2818254B00B583A9 /* OffsetModels.swift */; };
 		177627FC281AD3DB00F15878 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177627FB281AD3DB00F15878 /* Slider.swift */; };
 		177A00AE282009EA00C31937 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 177A00AD282009EA00C31937 /* Sliders */; };
+		178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC9092828F7D800467DC9 /* HeadingView.swift */; };
+		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +49,8 @@
 		176B2F6F2818254B00B583A9 /* OffsetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModels.swift; sourceTree = "<group>"; };
 		177627FB281AD3DB00F15878 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		177A00AB282009D300C31937 /* swiftui-sliders */ = {isa = PBXFileReference; lastKnownFileType = text; path = "swiftui-sliders"; sourceTree = SOURCE_ROOT; };
+		178CC9092828F7D800467DC9 /* HeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingView.swift; sourceTree = "<group>"; };
+		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +120,7 @@
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
 				177627FB281AD3DB00F15878 /* Slider.swift */,
+				178CC9092828F7D800467DC9 /* HeadingView.swift */,
 				170420A3282284850041927A /* RingSliderView.swift */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
@@ -140,6 +145,7 @@
 				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
 				1704209C282134E60041927A /* DataExport.swift */,
 				1733BD09281FD6E800D05827 /* DateExtension.swift */,
+				178CC90B2829063900467DC9 /* ColorExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -226,9 +232,11 @@
 				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
+				178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */,
 				1704209D282134E60041927A /* DataExport.swift in Sources */,
 				17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */,
 				176B2F6E2816CF1C00B583A9 /* SocketNetworkViewModel.swift in Sources */,
+				178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */,
 				1768B5A627F709D30046DCFC /* MainView.swift in Sources */,
 				175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */,
 				170420A4282284850041927A /* RingSliderView.swift in Sources */,
