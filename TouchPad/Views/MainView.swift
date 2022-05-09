@@ -16,7 +16,7 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            ButtonsView(appearanceVM: appearanceVM)
+//            ButtonsView(appearanceVM: appearanceVM)
             HStack {
                 SliderView(socketNetworkVM: socketNetworkVM)
                 HeadingView()
