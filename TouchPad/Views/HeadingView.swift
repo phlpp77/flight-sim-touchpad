@@ -65,7 +65,7 @@ struct HeadingView: View {
                 .mask(Capsule())
             }
             
-            RingSliderView()
+            RingSliderView(turnFactor: $turnFactor)
                 .padding(.top, 30)
                 .padding()
                 .background(Color.black.opacity(0.8))

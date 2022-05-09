@@ -19,8 +19,7 @@ struct MainView: View {
             ButtonsView(appearanceVM: appearanceVM)
             HStack {
                 SliderView(socketNetworkVM: socketNetworkVM)
-                RingSliderView()
-                    .frame(width: 300, height: 300)
+                HeadingView()
             }
             
             GeometryReader { geo in

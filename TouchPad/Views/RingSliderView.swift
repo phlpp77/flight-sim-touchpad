@@ -68,7 +68,7 @@ struct RingSliderView: View {
                                 isDragging = false
                                 print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
                                 // MARK: Save to log
-                                log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
+                                log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, time: Date().localFlightSim(), extra: String(turnFactor)))
                                 // TODO: WRITE DEGREE VALUE TO SIMULATOR
                                 oldDegrees = degrees
                             }
@@ -131,6 +131,6 @@ struct RingSliderView: View {
 
 struct RingSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        RingSliderView()
+        RingSliderView(turnFactor: .constant(-1))
     }
 }
