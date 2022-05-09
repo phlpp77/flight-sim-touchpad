@@ -12,6 +12,7 @@ class SocketNetworkViewModel: ObservableObject {
     // webSocketService to connect to web-socket
     @Published var webSocketService = SocketNetworkService()
     @Published var connectionOpen = false
+    @Published var offsetsDeclared = false
     
     init() {
         webSocketService.delegate = self
@@ -50,6 +51,13 @@ class SocketNetworkViewModel: ObservableObject {
 }
 
 extension SocketNetworkViewModel: SocketNetworkServiceDelegate {
+    
+    func didUpdateOffsetDeclare(declared: Bool) {
+        DispatchQueue.main.async {
+            self.offsetsDeclared = declared
+        }
+    }
+    
     func didUpdateConnection(isOpen: Bool) {
         DispatchQueue.main.async {
             self.connectionOpen = isOpen

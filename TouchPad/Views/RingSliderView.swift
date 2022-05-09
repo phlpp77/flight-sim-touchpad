@@ -72,8 +72,9 @@ struct RingSliderView: View {
                                 print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
                                 // MARK: Save to log
                                 log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, time: Date().localFlightSim(), extra: String(turnFactor)))
-                                // TODO: WRITE DEGREE VALUE TO SIMULATOR
-                                socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
+                                if socketNetworkVM.offsetsDeclared {
+                                    socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
+                                }
                                 oldDegrees = degrees
                             }
                         

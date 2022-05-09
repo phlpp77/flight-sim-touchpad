@@ -88,6 +88,9 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         if !isConnectionOpen {
             openWebSocket()
         }
+        
+
+        
         webSocket?.receive(completionHandler: { result in
             print("[receiveMessage] start")
             switch result {
@@ -108,15 +111,20 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                 }
             }
             //            self?.receiveMessage()
+           
         })
-        
         return outputMessage
+    }
+    
+    func fetchMessage() async throws -> String {
+        let (result) = try await webSocket?.receive()
+        return result.debugDescription
     }
     
     // MARK: - Flight simulator
     
     // MARK: Declare offsets
-    func declareOffsets() {
+    func declareOffsets() async {
         print("[declareOffsets] start")
         let declareOffsets = Offsets(
             command: "offsets.declare",
@@ -130,7 +138,18 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         )
         
         sendOffset(declareOffsets)
-        print("[declareOffsets] answer: \(receiveMessage())")
+        var message = ""
+        do {
+            message = try await fetchMessage()
+            print("[declareOffsets] answer: \(message)")
+        } catch {
+            print("[declareOffsets] error: \(error)")
+        }
+        if message.contains("true") {
+            delegate?.didUpdateOffsetDeclare(declared: true)
+        } else {
+            delegate?.didUpdateOffsetDeclare(declared: false)
+        }
     }
     
     // MARK: Change speed
@@ -188,4 +207,6 @@ extension SocketNetworkService {
 protocol SocketNetworkServiceDelegate: AnyObject {
     
     func didUpdateConnection(isOpen: Bool)
+    
+    func didUpdateOffsetDeclare(declared: Bool)
 }

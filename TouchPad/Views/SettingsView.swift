@@ -17,6 +17,8 @@ struct SettingsView: View {
     @State var presentFileNameAlert = false
     @State var presentErrorAlert = false
     
+    @State private var isPerformingTask = false
+    
     var body: some View {
         
         NavigationView {
@@ -25,16 +27,16 @@ struct SettingsView: View {
                 HStack(spacing: 14) {
                     StatusField(
                         title: "Server",
-                        status: (socketNetworkVM.connectionOpen ? "Connected" : "Not connected"),
+                        status: socketNetworkVM.connectionOpen ? "Connected" : "Not connected",
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
                     
                     StatusField(
                         title: "Offsets",
-                        status: "Not declared",
-                        statusIcon: "questionmark.folder",
-                        statusColor: Color.gray
+                        status: socketNetworkVM.offsetsDeclared ? "Declared" : "Not declared",
+                        statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
+                        statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
                     )
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
@@ -59,11 +61,28 @@ struct SettingsView: View {
                     
                     // MARK: Declare offsets
                     Button(action: {
-                        socketNetworkVM.webSocketService.declareOffsets()
+                        isPerformingTask = true
+                                   
+                                       Task {
+                                           await socketNetworkVM.webSocketService.declareOffsets()
+                                           isPerformingTask = false
+                                       }
+                        
                     }) {
-                        Text("Declare Offsets")
-                            .foregroundColor(.blue)
+                        ZStack {
+                            Text("Declare Offsets")
+                                .foregroundColor(.blue)
+                            .opacity(isPerformingTask ? 0 : 1)
+
+                                            if isPerformingTask {
+                                                ProgressView()
+                                            }
+                                        }
+                                    
+                        
                     }
+                    .disabled(isPerformingTask)
+
                     
                     // MARK: Change speed
                     HStack {

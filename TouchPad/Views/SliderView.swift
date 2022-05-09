@@ -41,7 +41,9 @@ struct SliderView: View {
                         print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
                         // MARK: Save to log
                         log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
-                        socketNetworkVM.changeValue(of: valueName, to: value)
+                        if socketNetworkVM.offsetsDeclared {
+                            socketNetworkVM.changeValue(of: valueName, to: value)
+                        }
                         oldValue = value
                         
                     }
