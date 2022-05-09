@@ -24,7 +24,6 @@
 		176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B2F6F2818254B00B583A9 /* OffsetModels.swift */; };
 		177627FC281AD3DB00F15878 /* Slider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177627FB281AD3DB00F15878 /* Slider.swift */; };
 		177A00AE282009EA00C31937 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 177A00AD282009EA00C31937 /* Sliders */; };
-		17B5728C2804197500799D7B /* WebSocketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B5728B2804197500799D7B /* WebSocketView.swift */; };
 		17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +47,6 @@
 		176B2F6F2818254B00B583A9 /* OffsetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModels.swift; sourceTree = "<group>"; };
 		177627FB281AD3DB00F15878 /* Slider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slider.swift; sourceTree = "<group>"; };
 		177A00AB282009D300C31937 /* swiftui-sliders */ = {isa = PBXFileReference; lastKnownFileType = text; path = "swiftui-sliders"; sourceTree = SOURCE_ROOT; };
-		17B5728B2804197500799D7B /* WebSocketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketView.swift; sourceTree = "<group>"; };
 		17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,21 +84,9 @@
 			children = (
 				170420A0282154D10041927A /* Info.plist */,
 				175283A127EDF803007BE399 /* TouchPadApp.swift */,
-				1768B5A527F709D30046DCFC /* MainView.swift */,
-				175283A327EDF803007BE399 /* ButtonsView.swift */,
-				177627FB281AD3DB00F15878 /* Slider.swift */,
-				1704209C282134E60041927A /* DataExport.swift */,
-				170420A1282166440041927A /* UITextFieldAlert.swift */,
-				1733BD09281FD6E800D05827 /* DateExtension.swift */,
-				1768B5A327F708A40046DCFC /* SettingsView.swift */,
-				17555D90280704DB003B61F0 /* AppearanceViewModel.swift */,
-				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
-				170420A3282284850041927A /* RingSliderView.swift */,
-				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
-				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
-				176B2F6F2818254B00B583A9 /* OffsetModels.swift */,
-				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
-				17B5728B2804197500799D7B /* WebSocketView.swift */,
+				178CC9062828F42500467DC9 /* Views */,
+				178CC9072828F45600467DC9 /* ViewModels */,
+				178CC9082828F46B00467DC9 /* Models */,
 				175283A527EDF807007BE399 /* Assets.xcassets */,
 				177A00AB282009D300C31937 /* swiftui-sliders */,
 				175283A727EDF807007BE399 /* Preview Content */,
@@ -121,6 +107,41 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		178CC9062828F42500467DC9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1768B5A527F709D30046DCFC /* MainView.swift */,
+				175283A327EDF803007BE399 /* ButtonsView.swift */,
+				1768B5A327F708A40046DCFC /* SettingsView.swift */,
+				177627FB281AD3DB00F15878 /* Slider.swift */,
+				170420A3282284850041927A /* RingSliderView.swift */,
+				170420A1282166440041927A /* UITextFieldAlert.swift */,
+				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		178CC9072828F45600467DC9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				17555D90280704DB003B61F0 /* AppearanceViewModel.swift */,
+				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		178CC9082828F46B00467DC9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				176B2F6F2818254B00B583A9 /* OffsetModels.swift */,
+				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
+				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
+				1704209C282134E60041927A /* DataExport.swift */,
+				1733BD09281FD6E800D05827 /* DateExtension.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,7 +226,6 @@
 				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
-				17B5728C2804197500799D7B /* WebSocketView.swift in Sources */,
 				1704209D282134E60041927A /* DataExport.swift in Sources */,
 				17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */,
 				176B2F6E2816CF1C00B583A9 /* SocketNetworkViewModel.swift in Sources */,
