@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 extension Color {
-  init?(_ hex: String) {
-    var str = hex
+  init?(hexCode: String) {
+    var str = hexCode
     if str.hasPrefix("#") {
       str.removeFirst()
     }
