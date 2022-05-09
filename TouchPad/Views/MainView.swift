@@ -16,7 +16,12 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-//            ButtonsView(appearanceVM: appearanceVM)
+            
+            // MARK: Background of entire app
+            Rectangle()
+                .fill(Color("Background"))
+                .ignoresSafeArea()
+                
             HStack {
                 Spacer()
                 SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
@@ -39,6 +44,7 @@ struct MainView: View {
                 }
             }
         }
+        
     }
 }
 
