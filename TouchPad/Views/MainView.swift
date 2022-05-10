@@ -21,6 +21,15 @@ struct MainView: View {
             Rectangle()
                 .fill(Color("Background"))
                 .ignoresSafeArea()
+                .gesture(
+                    DragGesture(minimumDistance: 0, coordinateSpace: .global)
+                        .onEnded { action in
+                            print("Global input at \(action.startLocation) at \(Date().localFlightSim())")
+                            // MARK: Save to log
+                            log.append(LogData(attribute: "Global input", oldValue: 0, value: 0, relativeDeviation: action.startLocation, time: Date().localFlightSim()))
+                    }
+                )
+                
                 
             HStack {
                 Spacer()
@@ -31,18 +40,29 @@ struct MainView: View {
                 SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 20000, valueName: "altitude")
                 Spacer()
             }
+                
             
-            GeometryReader { geo in
-                Button(action: {self.showPopover.toggle()}) {
-                    Image(systemName: "gear")
-                    .font(.largeTitle)
-                    .foregroundColor(.gray)
-                    .offset(x: 30, y: 10)
-                    .sheet(isPresented: $showPopover) {
-                        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM)
+            VStack {
+                HStack {
+                    Button(action: {
+                            self.showPopover = true
+                            print("Settings opened at \(Date().localFlightSim())")
+                            // MARK: Save to log
+                            log.append(LogData(attribute: "Settings opened", oldValue: 0, value: 0, relativeDeviation: CGPoint(x: 0, y: 0), time: Date().localFlightSim()))
+                        }) {
+                            Image(systemName: "gear")
+                            .font(.largeTitle)
+                            .padding(.leading, 15)
+                            .foregroundColor(.gray)
+                            .sheet(isPresented: $showPopover) {
+                                SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM)
+                            }
                     }
+                    Spacer()
                 }
+                Spacer()
             }
+            
         }
         
     }

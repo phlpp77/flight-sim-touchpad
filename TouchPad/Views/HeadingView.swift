@@ -76,8 +76,11 @@ struct HeadingView: View {
             RingSliderView(socketNetworkVM: socketNetworkVM, turnFactor: $turnFactor)
                 .padding(.top, 30)
                 .padding()
-                .background(Color.black.opacity(0.8))
-                .mask(RoundedRectangle(cornerRadius: 22))
+                .background(
+                    RoundedRectangle(cornerRadius: 22)
+                        .foregroundColor(Color.black.opacity(0.8))
+                        .allowsHitTesting(false)
+                )
         }
         .frame(width: 350)
     }

@@ -33,6 +33,7 @@ struct SliderView: View {
         VStack {
             Text("\(valueName) \(value)")
                 .font(.largeTitle)
+                .allowsHitTesting(false)
             
             ZStack {
                 ValueSlider(value: $value, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
@@ -52,7 +53,8 @@ struct SliderView: View {
                     VerticalValueSliderStyle(
                         track:
                             VerticalValueTrack(
-                                view: RoundedRectangle(cornerRadius: 12),
+                                view: RoundedRectangle(cornerRadius: 12)
+                                    .allowsHitTesting(false),
                                 mask: RoundedRectangle(cornerRadius: 12)
                             ),
                         thumb:
