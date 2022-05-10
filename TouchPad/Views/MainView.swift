@@ -19,7 +19,7 @@ struct MainView: View {
             
             // MARK: Background of entire app
             Rectangle()
-                .fill(Color("Background"))
+                .fill(Color(hexCode: "141414")!)
                 .ignoresSafeArea()
                 .gesture(
                     DragGesture(minimumDistance: 0, coordinateSpace: .global)
@@ -33,7 +33,7 @@ struct MainView: View {
                 
             HStack {
                 Spacer()
-                SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
+                SpeedSliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
                 Spacer()
                 VStack {
                     Spacer()

@@ -2,51 +2,112 @@
 //  SpeedSliderView.swift
 //  TouchPad
 //
-//  Created by Philipp Hemkemeyer on 09.05.22.
+//  Created by Philipp Hemkemeyer on 10.05.22.
 //
 
+
 import SwiftUI
+import Sliders
 
 struct SpeedSliderView: View {
     
-    var range = 1...4
+    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    
+    var thumbWidth: CGFloat = 80
+    var thumbHeight: CGFloat = 30
+    
+    let minValue: Int
+    let maxValue: Int
+    let valueName: String
+    let showMarker: Bool = false
+    
+    @State private var value = 300
+    @State private var oldValue = 300
+    @State private var isEditing = false
+    @State private var pos = CGPoint(x: 0, y: 0)
+    @State private var thumbPos = CGPoint(x: 0, y: 0)
+    @State private var relativeDeviation = CGPoint(x: 0, y: 0)
+    
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 2.0) {
-            ForEach(range.reversed(), id: \.self) { item in
-                VStack(alignment: .leading, spacing: 2.0) {
-                    HStack {
-                        Rectangle()
-                            .frame(width: 18, height: 1)
-                        Text("\(item)00")
-                            .frame(height: 1)
-                    }
-                    VStack(alignment: .leading, spacing: 2.0) {
-                            ForEach(1...9, id: \.self) { _ in
-                                Rectangle()
-                                    .frame(width: 8, height: 1)
-                            }
-                        HStack {
-                            Rectangle()
-                                .frame(width: 18, height: 1)
-                            Text("\(item - 1)50")
-                                .frame(height: 1)
-                                .font(.caption)
+                    
+            ZStack {
+                
+                RangeView()
+                
+                ValueSlider(value: $value, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
+                    pos = values.startLocation
+                    if !editing {
+                        print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
+                        // MARK: Save to log
+                        log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
+                        if socketNetworkVM.offsetsDeclared {
+                            socketNetworkVM.changeValue(of: valueName, to: value)
                         }
-                            ForEach(1...9, id: \.self) { _ in
-                                Rectangle()
-                                    .frame(width: 8, height: 1)
+                        oldValue = value
+                        
+                    }
+                })
+                .valueSliderStyle(
+                    VerticalValueSliderStyle(
+                        track:
+                            VerticalValueTrack(
+                                view: RoundedRectangle(cornerRadius: 0)
+                                    .opacity(0)
+                                    .allowsHitTesting(false),
+                                mask: RoundedRectangle(cornerRadius: 0)
+                            ),
+                        thumb:
+                            ZStack {
+                                GeometryReader { geo in
+                                    ThumbView(value: $value)
+                                        .onChange(of: pos) { _ in
+                                            let g = geo.frame(in: .named("slider"))
+                                            thumbPos = g.origin
+                                            //                                            print("g: \(g)")
+                                            thumbPos.x += thumbWidth / 2
+                                            thumbPos.y += thumbHeight / 2
+                                            relativeDeviation.x = pos.x - thumbPos.x
+                                            relativeDeviation.y = pos.y - thumbPos.y
+                                            relativeDeviation.y = round(relativeDeviation.y * 10) / 10
+                                            
+                                        }
+                                }
+                                .frame(width: thumbWidth, height: thumbHeight, alignment: .leading)
+                                .foregroundColor(.gray)
                             }
-                        }
-                    }
-                    }
+                    )
+                )
+                
+                
+                // MARK: Show positions
+                
+                // Position of startTap location
+                if showMarker {
+                    Rectangle()
+                        .foregroundColor(.red)
+                        .frame(width: 20, height: 20)
+                        .position(pos)
+                    
+                    // Position of center of slider thumb
+                    Rectangle()
+                        .foregroundColor(.green)
+                        .frame(width: 20, height: 20)
+                        .position(thumbPos)
                 }
             }
-        }
-   
+            .coordinateSpace(name: "slider")
+            .frame(width: 200, height: 700)
+        
+    }
+}
+
 
 struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        SpeedSliderView()
+        let socketNetworkVM = SocketNetworkViewModel()
+        SpeedSliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
+            .previewDevice("iPad Pro (11-inch) (3rd generation)")
+            .previewInterfaceOrientation(.landscapeLeft)
     }
 }
