@@ -12,9 +12,9 @@ struct SpeedSliderView: View {
     var range = 1...4
     
     var body: some View {
-        VStack(spacing: 5.0) {
+        VStack(alignment: .leading, spacing: 2.0) {
             ForEach(range.reversed(), id: \.self) { item in
-                VStack(alignment: .leading, spacing: 5.0) {
+                VStack(alignment: .leading, spacing: 2.0) {
                     HStack {
                         Rectangle()
                             .frame(width: 18, height: 1)
@@ -22,11 +22,16 @@ struct SpeedSliderView: View {
                             .frame(height: 1)
                     }
                     VStack(alignment: .leading, spacing: 2.0) {
-                    ForEach(1...4, id: \.self) { _ in
-                    
-                        Rectangle()
-                            .frame(width: 18, height: 1)
-                        VStack(spacing: 2.0) {
+                            ForEach(1...9, id: \.self) { _ in
+                                Rectangle()
+                                    .frame(width: 8, height: 1)
+                            }
+                        HStack {
+                            Rectangle()
+                                .frame(width: 18, height: 1)
+                            Text("\(item - 1)50")
+                                .frame(height: 1)
+                        }
                             ForEach(1...9, id: \.self) { _ in
                                 Rectangle()
                                     .frame(width: 8, height: 1)
@@ -37,8 +42,7 @@ struct SpeedSliderView: View {
                 }
             }
         }
-    }
-}
+   
 
 struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
