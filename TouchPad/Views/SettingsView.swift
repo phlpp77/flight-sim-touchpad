@@ -178,6 +178,7 @@ struct SettingsView: View {
                 Text(title)
                     .font(.title2)
                     .bold()
+                    .foregroundColor(.black)
                 
                 Group {
                     Text("Status: \(status)")

@@ -31,6 +31,7 @@ struct SpeedSliderView: View {
                                 .frame(width: 18, height: 1)
                             Text("\(item - 1)50")
                                 .frame(height: 1)
+                                .font(.caption)
                         }
                             ForEach(1...9, id: \.self) { _ in
                                 Rectangle()
