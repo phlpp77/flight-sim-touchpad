@@ -12,6 +12,7 @@ import Sliders
 struct SpeedSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var appearanceVM: AppearanceViewModel
     
     var thumbWidth: CGFloat = 80
     var thumbHeight: CGFloat = 30
@@ -19,7 +20,6 @@ struct SpeedSliderView: View {
     let minValue: Int
     let maxValue: Int
     let valueName: String
-    let showMarker: Bool = false
     
     @State private var value = 300
     @State private var oldValue = 300
@@ -83,7 +83,7 @@ struct SpeedSliderView: View {
                 // MARK: Show positions
                 
                 // Position of startTap location
-                if showMarker {
+                if appearanceVM.showTapIndicator {
                     Rectangle()
                         .foregroundColor(.red)
                         .frame(width: 20, height: 20)
@@ -106,7 +106,8 @@ struct SpeedSliderView: View {
 struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
-        SpeedSliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 399, valueName: "speed")
+        let appearanceVM = AppearanceViewModel()
+        SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

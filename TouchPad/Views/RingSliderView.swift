@@ -11,6 +11,7 @@ import simd
 struct RingSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var appearanceVM: AppearanceViewModel
     
     var circleDiameter: CGFloat = 50
     var showMarker: Bool = false
@@ -102,7 +103,7 @@ struct RingSliderView: View {
                     
                     
                     // MARK: Marker
-                    if showMarker {
+                    if appearanceVM.showTapIndicator {
                         Rectangle()
                             .fill(.green)
                             .position(markerPos)
@@ -144,7 +145,8 @@ struct RingSliderView: View {
 struct RingSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
+        let appearanceVM = AppearanceViewModel()
         
-        RingSliderView(socketNetworkVM: socketNetworkVM, turnFactor: .constant(-1))
+        RingSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
     }
 }

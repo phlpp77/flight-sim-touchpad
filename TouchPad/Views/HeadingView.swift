@@ -10,6 +10,7 @@ import SwiftUI
 struct HeadingView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var appearanceVM: AppearanceViewModel
     
     @State var turnFactor = -1
     
@@ -81,7 +82,7 @@ struct HeadingView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                 
-                RingSliderView(socketNetworkVM: socketNetworkVM, turnFactor: $turnFactor)
+                RingSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, turnFactor: $turnFactor)
                     .padding(53)
                 
             }
@@ -115,7 +116,8 @@ struct HeadingView: View {
 struct HeadingView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
-        HeadingView(socketNetworkVM: socketNetworkVM)
+        let appearanceVM = AppearanceViewModel()
+        HeadingView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

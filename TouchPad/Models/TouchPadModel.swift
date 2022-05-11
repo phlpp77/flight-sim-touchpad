@@ -12,8 +12,8 @@ struct TouchPadModel {
     private(set) var settings = TouchPadSettings()
     
     struct TouchPadSettings {
-        var showTapLocation: Bool = true
-        var showTapIndicator: Bool = true
+        var showTapLocation: Bool = false
+        var showTapIndicator: Bool = false
         var webSocketConnectionIsOpen: Bool = false
     }
     
