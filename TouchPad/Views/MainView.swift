@@ -33,14 +33,14 @@ struct MainView: View {
                 
             HStack {
                 Spacer()
-                SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+                SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed", range: 2...4)
                 Spacer()
                 VStack {
                     Spacer()
                     HeadingView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM)
                 }
                 Spacer()
-                SliderView(socketNetworkVM: socketNetworkVM, minValue: 100, maxValue: 20000, valueName: "altitude")
+                SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude", range: 1...200)
                 Spacer()
             }
                 

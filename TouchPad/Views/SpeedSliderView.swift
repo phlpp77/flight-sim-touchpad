@@ -16,13 +16,15 @@ struct SpeedSliderView: View {
     
     var thumbWidth: CGFloat = 80
     var thumbHeight: CGFloat = 30
+    var step: Int = 1
     
     let minValue: Int
     let maxValue: Int
     let valueName: String
+    let range: ClosedRange<Int>
     
-    @State private var value = 300
-    @State private var oldValue = 300
+    @State private var value = 250
+    @State private var oldValue = 250
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
@@ -33,9 +35,9 @@ struct SpeedSliderView: View {
                     
             ZStack {
                 
-                RangeView()
+                RangeView(range: range)
                 
-                ValueSlider(value: $value, in: minValue...maxValue, step: 1, onEditingChanged: {editing, values in
+                ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
                     pos = values.startLocation
                     if !editing {
                         print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
@@ -64,7 +66,6 @@ struct SpeedSliderView: View {
                                         .onChange(of: pos) { _ in
                                             let g = geo.frame(in: .named("slider"))
                                             thumbPos = g.origin
-                                            //                                            print("g: \(g)")
                                             thumbPos.x += thumbWidth / 2
                                             thumbPos.y += thumbHeight / 2
                                             relativeDeviation.x = pos.x - thumbPos.x
@@ -78,6 +79,7 @@ struct SpeedSliderView: View {
                             }
                     )
                 )
+                .padding(.top, 7)
                 
                 
                 // MARK: Show positions
@@ -107,7 +109,7 @@ struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
         let appearanceVM = AppearanceViewModel()
-        SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+        SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed", range: 2...4)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

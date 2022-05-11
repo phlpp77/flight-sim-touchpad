@@ -13,11 +13,11 @@ struct RangeView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0.0) {
             
             ForEach(range.reversed(), id: \.self) { item in
                 Spacer()
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0.0) {
                     
                     HStack {
                         Rectangle()
@@ -26,7 +26,7 @@ struct RangeView: View {
                             .frame(height: 1)
                     }
                     
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 0.0) {
                         
                         ForEach(1...9, id: \.self) { _ in
                             Spacer()
@@ -61,6 +61,8 @@ struct RangeView: View {
         
     }
 }
+
+
 
 struct ThumbView: View {
     

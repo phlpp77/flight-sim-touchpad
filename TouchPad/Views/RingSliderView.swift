@@ -33,9 +33,10 @@ struct RingSliderView: View {
                 
                 
                 ZStack {
-                    Text("\(String(format: "%.1f", degrees))°")
+                    Text(degrees < 100 ? (degrees < 10 ? "00\(Int(degrees))°" : "0\(Int(degrees))°") : "\(Int(degrees))°")
                         .font(.largeTitle)
                         .foregroundColor(.white)
+                        .frame(width: 100, alignment: .center)
                     
 //                    Circle()
 //                        .stroke(lineWidth: 12)
