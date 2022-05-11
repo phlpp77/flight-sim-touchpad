@@ -21,7 +21,6 @@ struct SpeedSliderView: View {
     let minValue: Int
     let maxValue: Int
     let valueName: String
-    let range: ClosedRange<Int>
     
     @State private var value = 250
     @State private var oldValue = 250
@@ -35,7 +34,12 @@ struct SpeedSliderView: View {
                     
             ZStack {
                 
-                RangeView(range: range)
+                if valueName == "speed" {
+                    RangeView()
+                } else if valueName == "altitude" {
+                    AltitudeRangeView()
+                }
+                    
                 
                 ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
                     pos = values.startLocation
@@ -62,7 +66,7 @@ struct SpeedSliderView: View {
                         thumb:
                             ZStack {
                                 GeometryReader { geo in
-                                    ThumbView(value: $value)
+                                    ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
                                         .onChange(of: pos) { _ in
                                             let g = geo.frame(in: .named("slider"))
                                             thumbPos = g.origin
@@ -109,7 +113,7 @@ struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
         let appearanceVM = AppearanceViewModel()
-        SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed", range: 2...4)
+        SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

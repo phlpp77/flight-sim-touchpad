@@ -62,11 +62,10 @@ struct RangeView: View {
     }
 }
 
-
-
 struct ThumbView: View {
     
     @Binding var value: Int
+    var unit: String
     
     var body: some View {
         
@@ -83,7 +82,7 @@ struct ThumbView: View {
                         )
                 )
             
-            Text("\(value) kt")
+            Text("\(value) \(unit)")
                 .foregroundColor(.black)
         }
     }
