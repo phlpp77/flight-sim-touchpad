@@ -44,9 +44,9 @@ struct SettingsView: View {
                 
                 
                 Section(header: Text("Appearance")) {
-                    Toggle(isOn: $appearanceVM.showTapLocation) {
-                        Text("Show coordinates")
-                    }
+//                    Toggle(isOn: $appearanceVM.showTapLocation) {
+//                        Text("Show coordinates")
+//                    }
                     Toggle(isOn: $appearanceVM.showTapIndicator) {
                         Text("Show indicator")
                     }
