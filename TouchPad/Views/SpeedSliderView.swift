@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Sliders
+import simd
 
 struct SpeedSliderView: View {
     
@@ -27,6 +28,7 @@ struct SpeedSliderView: View {
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
+    @State private var livePos = CGPoint(x: 0, y: 0)
     @State private var relativeDeviation = CGPoint(x: 0, y: 0)
     
     @State private var firstMovement = true
@@ -37,62 +39,71 @@ struct SpeedSliderView: View {
                     
             ZStack {
                 
-                if valueName == "speed" {
-                    RangeView()
-                } else if valueName == "altitude" {
-                    AltitudeRangeView()
-                }
-                    
-                
-                ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
-                    pos = values.startLocation
-                    
-                    if firstMovement {
-                        startTimeStamp = Date().localFlightSim()
-                        firstMovement = false
-                    }
-                    if !editing {
-                        print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) started at \(startTimeStamp) until \(Date().localFlightSim())")
-                        // MARK: Save to log
-                        log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim()))
-                        if socketNetworkVM.offsetsDeclared {
-                            socketNetworkVM.changeValue(of: valueName, to: value)
-                        }
-                        oldValue = value
-                        firstMovement = true
+                HStack {
+                    ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
+                        pos = values.startLocation
+                        livePos = values.location
+                        print(value)
+                        print((value * 7/3)-100)
                         
-                    }
-                })
-                .valueSliderStyle(
-                    VerticalValueSliderStyle(
-                        track:
-                            VerticalValueTrack(
-                                view: RoundedRectangle(cornerRadius: 0)
-                                    .opacity(0)
-                                    .allowsHitTesting(false),
-                                mask: RoundedRectangle(cornerRadius: 0)
-                            ),
-                        thumb:
-                            ZStack {
-                                GeometryReader { geo in
-                                    ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
-                                        .onChange(of: pos) { _ in
-                                            let g = geo.frame(in: .named("slider"))
-                                            thumbPos = g.origin
-                                            thumbPos.x += thumbWidth / 2
-                                            thumbPos.y += thumbHeight / 2
-                                            relativeDeviation.x = pos.x - thumbPos.x
-                                            relativeDeviation.y = pos.y - thumbPos.y
-                                            relativeDeviation.y = round(relativeDeviation.y * 10) / 10
-                                            
-                                        }
-                                }
-                                .frame(width: thumbWidth, height: thumbHeight, alignment: .leading)
-                                .foregroundColor(.gray)
+                        if firstMovement {
+                            startTimeStamp = Date().localFlightSim()
+                            firstMovement = false
+                        }
+                        if !editing {
+                            print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) started at \(startTimeStamp) until \(Date().localFlightSim())")
+                            // MARK: Save to log
+                            log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim()))
+                            if socketNetworkVM.offsetsDeclared {
+                                socketNetworkVM.changeValue(of: valueName, to: value)
                             }
+                            oldValue = value
+                            firstMovement = true
+                            
+                        }
+                    })
+                    .valueSliderStyle(
+                        VerticalValueSliderStyle(
+                            track:
+                                VerticalValueTrack(
+                                    view: RoundedRectangle(cornerRadius: 0)
+                                        .opacity(0.4)
+                                        .allowsHitTesting(false),
+                                    mask: RoundedRectangle(cornerRadius: 0)
+                                ),
+                            thumb:
+                                ZStack {
+                                    GeometryReader { geo in
+                                        Rectangle()
+                                            .onChange(of: pos) { _ in
+                                                let g = geo.frame(in: .named("slider"))
+                                                thumbPos = g.origin
+                                                thumbPos.x += thumbWidth / 2
+                                                thumbPos.y += thumbHeight / 2
+                                                relativeDeviation.x = pos.x - thumbPos.x
+                                                relativeDeviation.y = pos.y - thumbPos.y
+                                                relativeDeviation.y = round(relativeDeviation.y * 10) / 10
+                                                
+                                            }
+                                    }
+                                    .frame(width: thumbWidth, height: thumbHeight, alignment: .leading)
+                                    .foregroundColor(.gray)
+                                }
+                        )
                     )
-                )
-                .padding(.top, 7)
+                    
+                    ZStack {
+                        if valueName == "speed" {
+                            RangeView()
+                        } else if valueName == "altitude" {
+                            AltitudeRangeView()
+                        }
+                        
+                        ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
+//                            .offset(y: simd_clamp(livePos.y, 0, 700) - 350)
+                            .offset(y: CGPoint(x: 0, y: (value * -7/3)-100).y + 700)
+                    }
+                }
                 
                 
                 // MARK: Show positions
@@ -113,6 +124,7 @@ struct SpeedSliderView: View {
             }
             .coordinateSpace(name: "slider")
             .frame(width: 200, height: 700)
+            .padding()
         
     }
 }

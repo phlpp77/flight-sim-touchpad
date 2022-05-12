@@ -16,7 +16,7 @@ struct RangeView: View {
         VStack(alignment: .leading, spacing: 0.0) {
             
             ForEach(range.reversed(), id: \.self) { item in
-                Spacer()
+                Spacer(minLength: 0)
                 VStack(alignment: .leading, spacing: 0.0) {
                     
                     HStack {
@@ -29,11 +29,11 @@ struct RangeView: View {
                     VStack(alignment: .leading, spacing: 0.0) {
                         
                         ForEach(1...9, id: \.self) { _ in
-                            Spacer()
+                            Spacer(minLength: 0)
                             Rectangle()
                                 .frame(width: 8, height: 1)
                         }
-                        Spacer()
+                        Spacer(minLength: 0)
                         HStack {
                             Rectangle()
                                 .frame(width: 18, height: 1)
@@ -43,19 +43,28 @@ struct RangeView: View {
                         }
                         
                         ForEach(1...9, id: \.self) { _ in
-                            Spacer()
+                            Spacer(minLength: 0)
                             Rectangle()
                                 .frame(width: 8, height: 1)
                         }
+                        Spacer(minLength: 0)
                     }
                 }
             }
+            HStack {
+                Rectangle()
+                    .frame(width: 18, height: 1)
+                Text("100")
+                    .frame(height: 1)
+            }
+            
         }
+        
         .frame(width: 100, height: 700)
-        .padding()
+        
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .foregroundColor(Color(hexCode: "282828"))
+//            RoundedRectangle(cornerRadius: 12)
+//                .foregroundColor(Color(hexCode: "282828"))
         )
         
         
