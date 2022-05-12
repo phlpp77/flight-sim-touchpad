@@ -27,6 +27,9 @@ struct RingSliderView: View {
     @State private var isDragging: Bool = false
     @State private var relativeDeviation: CGPoint = .zero
     
+    @State private var firstMovement = true
+    @State private var startTimeStamp = Date().localFlightSim()
+    
     var body: some View {
         GeometryReader { geo in
         
@@ -56,6 +59,12 @@ struct RingSliderView: View {
                             DragGesture(coordinateSpace: .named("RingSlider"))
                                 .onChanged { actions in
                                     
+                                    // get start time of movement
+                                    if firstMovement {
+                                        startTimeStamp = Date().localFlightSim()
+                                        firstMovement = false
+                                    }
+                                    
                                     // create vectors
                                     let center = SIMD2<Double>(x: geo.size.width / 2, y: geo.size.height / 2)
                                     let intersection = SIMD2<Double>(x: actions.location.x, y: actions.location.y)
@@ -79,10 +88,11 @@ struct RingSliderView: View {
                                     isDragging = false
                                     print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
                                     // MARK: Save to log
-                                    log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, time: Date().localFlightSim(), extra: String(turnFactor)))
+                                    log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor)))
                                     if socketNetworkVM.offsetsDeclared {
                                         socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
                                     }
+                                    firstMovement = true
                                     oldDegrees = degrees
                                 }
                             

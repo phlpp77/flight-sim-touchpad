@@ -29,6 +29,9 @@ struct SpeedSliderView: View {
     @State private var thumbPos = CGPoint(x: 0, y: 0)
     @State private var relativeDeviation = CGPoint(x: 0, y: 0)
     
+    @State private var firstMovement = true
+    @State private var startTimeStamp = Date().localFlightSim()
+    
     
     var body: some View {
                     
@@ -43,14 +46,20 @@ struct SpeedSliderView: View {
                 
                 ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
                     pos = values.startLocation
+                    
+                    if firstMovement {
+                        startTimeStamp = Date().localFlightSim()
+                        firstMovement = false
+                    }
                     if !editing {
-                        print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
+                        print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) started at \(startTimeStamp) until \(Date().localFlightSim())")
                         // MARK: Save to log
-                        log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, time: Date().localFlightSim()))
+                        log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim()))
                         if socketNetworkVM.offsetsDeclared {
                             socketNetworkVM.changeValue(of: valueName, to: value)
                         }
                         oldValue = value
+                        firstMovement = true
                         
                     }
                 })

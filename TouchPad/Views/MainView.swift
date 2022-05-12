@@ -26,7 +26,7 @@ struct MainView: View {
                         .onEnded { action in
                             print("Global input at \(action.startLocation) at \(Date().localFlightSim())")
                             // MARK: Save to log
-                            log.append(LogData(attribute: "Global input", oldValue: 0, value: 0, relativeDeviation: action.startLocation, time: Date().localFlightSim()))
+                            log.append(LogData(attribute: "Global input", oldValue: 0, value: 0, relativeDeviation: action.startLocation, startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
                     }
                 )
                 
@@ -51,7 +51,7 @@ struct MainView: View {
                             self.showPopover = true
                             print("Settings opened at \(Date().localFlightSim())")
                             // MARK: Save to log
-                            log.append(LogData(attribute: "Settings opened", oldValue: 0, value: 0, relativeDeviation: CGPoint(x: 0, y: 0), time: Date().localFlightSim()))
+                        log.append(LogData(attribute: "Settings opened", oldValue: 0, value: 0, relativeDeviation: CGPoint(x: 0, y: 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
                         }) {
                             Image(systemName: "gear")
                             .font(.largeTitle)

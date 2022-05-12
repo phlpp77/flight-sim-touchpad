@@ -13,7 +13,8 @@ struct LogData {
     var oldValue: Double
     var value: Double
     var relativeDeviation: CGPoint
-    var time: String
+    var startTime: String
+    var endTime: String
     var extra: String = ""
     
 }
@@ -22,10 +23,10 @@ var log: [LogData] = []
 
 func createLogCSV(filename: String, fileCreated: @escaping (Bool) -> Void) {
     
-    var csvString = "Attribute,Old value,New value,Relative deviation,Date and time,Extra information\n"
+    var csvString = "Attribute,Old value,New value,Relative deviation x,Relative deviation y,Start timestamp,End timestamp,Extra information\n"
     for component in log {
         
-        let newLine = "\(component.attribute),\(component.oldValue),\(component.value),x: \(component.relativeDeviation.x); y: \(component.relativeDeviation.y),\(component.time),\(component.extra)\n"
+        let newLine = "\(component.attribute),\(component.oldValue),\(component.value),\(component.relativeDeviation.x),\(component.relativeDeviation.y),\(component.startTime),\(component.endTime),\(component.extra)\n"
         csvString.append(newLine)
     }
     
