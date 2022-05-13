@@ -83,7 +83,6 @@ struct SpeedSliderView: View {
                                             .resizable()
                                             .onChange(of: pos) { _ in
                                                 let g = geo.frame(in: .named("slider"))
-                                                print(g)
                                                 thumbPos = g.origin
                                                 thumbPos.x += thumbWidth / 2
                                                 thumbPos.y += thumbHeight / 2
@@ -122,7 +121,7 @@ struct SpeedSliderView: View {
                     Rectangle()
                         .foregroundColor(.red)
                         .frame(width: 20, height: 20)
-                    .position(pos)
+                        .position(pos)
                     
                     // Position of center of slider thumb
                     Rectangle()
