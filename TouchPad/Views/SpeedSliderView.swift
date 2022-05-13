@@ -60,7 +60,6 @@ struct SpeedSliderView: View {
                             }
                             oldValue = value
                             firstMovement = true
-                            
                         }
                     })
                     .valueSliderStyle(
@@ -72,7 +71,6 @@ struct SpeedSliderView: View {
                                         Capsule()
                                             .frame(width: 34)
                                             .foregroundColor(Color(hexCode: "FFF000")!)
-                                        
                                         Spacer()
                                     }
                                         .allowsHitTesting(false),
@@ -92,12 +90,9 @@ struct SpeedSliderView: View {
                                                 relativeDeviation.x = pos.x - thumbPos.x
                                                 relativeDeviation.y = pos.y - thumbPos.y
                                                 relativeDeviation.y = round(relativeDeviation.y * 10) / 10
-                                                
                                             }
                                     }
                                     .frame(width: thumbWidth, height: thumbHeight)
-//                                    .coordinateSpace(name: "Thumb-Circle")
-                                    
                                 }
                         )
                     )
@@ -106,20 +101,21 @@ struct SpeedSliderView: View {
                 }
                 
                 ZStack {
+                    
+                    // MARK: Value range
                     if valueName == "speed" {
                         RangeView()
                     } else if valueName == "altitude" {
                         AltitudeRangeView()
                     }
                     
+                    // MARK: Value indicator
                     ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
                         .offset(y: valueName == "speed" ? CGPoint(x: 0, y: ((700*(400-value))/300)).y - 350 : CGPoint(x: 0, y: ((700*(20000-value))/19900)).y - 350)
                 }
             }
             
-            
             // MARK: Show positions
-            
             if appearanceVM.showTapIndicator {
                 ZStack {
                     // Position of startTap location
@@ -135,14 +131,9 @@ struct SpeedSliderView: View {
                         .position(thumbPos)
                 }
                 .frame(height: 540)
-                
-                
             }
-                
         }
-        
         .frame(width: 200, height: 700)
-        //            .padding()
         
     }
 }
