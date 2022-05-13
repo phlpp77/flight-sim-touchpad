@@ -15,8 +15,8 @@ struct SpeedSliderView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
-    var thumbWidth: CGFloat = 80
-    var thumbHeight: CGFloat = 30
+    var thumbWidth: CGFloat = 50
+    var thumbHeight: CGFloat = 50
     var step: Int = 1
     
     let minValue: Int
@@ -28,7 +28,6 @@ struct SpeedSliderView: View {
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
-    @State private var livePos = CGPoint(x: 0, y: 0)
     @State private var relativeDeviation = CGPoint(x: 0, y: 0)
     
     @State private var firstMovement = true
@@ -36,15 +35,17 @@ struct SpeedSliderView: View {
     
     
     var body: some View {
+        
+        ZStack {
+            
+            HStack {
+                ZStack {
+                    Image("Slider-Bar")
+                        .resizable()
+                        .frame(width: 120, height: 820)
                     
-            ZStack {
-                
-                HStack {
                     ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
                         pos = values.startLocation
-                        livePos = values.location
-                        print(value)
-                        print((value * 7/3)-100)
                         
                         if firstMovement {
                             startTimeStamp = Date().localFlightSim()
@@ -66,17 +67,25 @@ struct SpeedSliderView: View {
                         VerticalValueSliderStyle(
                             track:
                                 VerticalValueTrack(
-                                    view: RoundedRectangle(cornerRadius: 0)
-                                        .opacity(0.4)
+                                    view: HStack {
+                                        Spacer()
+                                        Capsule()
+                                            .frame(width: 34)
+                                            .foregroundColor(Color(hexCode: "FFF000")!)
+                                        
+                                        Spacer()
+                                    }
                                         .allowsHitTesting(false),
-                                    mask: RoundedRectangle(cornerRadius: 0)
+                                    mask: Capsule()
                                 ),
                             thumb:
                                 ZStack {
                                     GeometryReader { geo in
-                                        Rectangle()
+                                        Image("Knob")
+                                            .resizable()
                                             .onChange(of: pos) { _ in
                                                 let g = geo.frame(in: .named("slider"))
+                                                print(g)
                                                 thumbPos = g.origin
                                                 thumbPos.x += thumbWidth / 2
                                                 thumbPos.y += thumbHeight / 2
@@ -86,34 +95,38 @@ struct SpeedSliderView: View {
                                                 
                                             }
                                     }
-                                    .frame(width: thumbWidth, height: thumbHeight, alignment: .leading)
-                                    .foregroundColor(.gray)
+                                    .frame(width: thumbWidth, height: thumbHeight)
+//                                    .coordinateSpace(name: "Thumb-Circle")
+                                    
                                 }
                         )
                     )
-                    
-                    ZStack {
-                        if valueName == "speed" {
-                            RangeView()
-                        } else if valueName == "altitude" {
-                            AltitudeRangeView()
-                        }
-                        
-                        ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
-//                            .offset(y: simd_clamp(livePos.y, 0, 700) - 350)
-                            .offset(y: CGPoint(x: 0, y: (value * -7/3)-100).y + 700)
-                    }
+                    .coordinateSpace(name: "slider")
+                    .frame(width: 120, height: 540)
                 }
                 
-                
-                // MARK: Show positions
-                
-                // Position of startTap location
-                if appearanceVM.showTapIndicator {
+                ZStack {
+                    if valueName == "speed" {
+                        RangeView()
+                    } else if valueName == "altitude" {
+                        AltitudeRangeView()
+                    }
+                    
+                    ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
+                        .offset(y: valueName == "speed" ? CGPoint(x: 0, y: ((700*(400-value))/300)).y - 350 : CGPoint(x: 0, y: ((700*(20000-value))/19900)).y - 350)
+                }
+            }
+            
+            
+            // MARK: Show positions
+            
+            if appearanceVM.showTapIndicator {
+                ZStack {
+                    // Position of startTap location
                     Rectangle()
                         .foregroundColor(.red)
                         .frame(width: 20, height: 20)
-                        .position(pos)
+                    .position(pos)
                     
                     // Position of center of slider thumb
                     Rectangle()
@@ -121,10 +134,15 @@ struct SpeedSliderView: View {
                         .frame(width: 20, height: 20)
                         .position(thumbPos)
                 }
+                .frame(height: 540)
+                
+                
             }
-            .coordinateSpace(name: "slider")
-            .frame(width: 200, height: 700)
-            .padding()
+                
+        }
+        
+        .frame(width: 200, height: 700)
+        //            .padding()
         
     }
 }

@@ -59,14 +59,8 @@ struct RangeView: View {
             }
             
         }
-        
-        .frame(width: 100, height: 700)
-        
-        .background(
-//            RoundedRectangle(cornerRadius: 12)
-//                .foregroundColor(Color(hexCode: "282828"))
-        )
-        
+        // FIXME: Height does not include upper and lower numbers
+        .frame(width: 100, height: 700)        
         
     }
 }
