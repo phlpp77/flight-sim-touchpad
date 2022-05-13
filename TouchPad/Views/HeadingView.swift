@@ -12,11 +12,10 @@ struct HeadingView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
-    @State var turnFactor = -1
+    @State var turnFactor = 1
     
     var body: some View {
         VStack {
-            
             
             VStack {
                 Text("Direction of turn")
@@ -41,7 +40,7 @@ struct HeadingView: View {
                                     LinearGradient(colors: [Color(hexCode: "B9B9B9")!, Color.white], startPoint: .topLeading, endPoint: .bottomTrailing),
                                     lineWidth: 2
                                 ))
-                        .offset(x: turnFactor != -1 ? (turnFactor == 0 ? -95 : 95) : 0)
+                        .offset(x: turnFactor == 0 ? -95 : 95)
                         .animation(.interactiveSpring(), value: turnFactor)
                     
                     // MARK: Buttons
