@@ -80,6 +80,7 @@ struct HeadingView: View {
                 Image("Circle-Background")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .allowsHitTesting(false)
                 
                 RingSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, turnFactor: $turnFactor)
                     .padding(53)

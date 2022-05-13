@@ -42,6 +42,7 @@ struct SpeedSliderView: View {
                 ZStack {
                     Image("Slider-Bar")
                         .resizable()
+                        .allowsHitTesting(false)
                         .frame(width: 120, height: 820)
                     
                     ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
@@ -75,6 +76,7 @@ struct SpeedSliderView: View {
                                     }
                                         .allowsHitTesting(false),
                                     mask: Capsule()
+                                        .allowsHitTesting(false)
                                 ),
                             thumb:
                                 ZStack {
