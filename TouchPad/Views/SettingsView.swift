@@ -101,12 +101,12 @@ struct SettingsView: View {
                     }
                     
                     // MARK: Send string test
-                    Button(action: {
-                        socketNetworkVM.webSocketService.sendString("Hello from iOS Client!")
-                    }) {
-                        Text("Send test string to server")
-                            .foregroundColor(.blue)
-                    }
+//                    Button(action: {
+//                        socketNetworkVM.webSocketService.sendString("Hello from iOS Client!")
+//                    }) {
+//                        Text("Send test string to server")
+//                            .foregroundColor(.blue)
+//                    }
                     
                 }
                 
