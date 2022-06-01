@@ -41,18 +41,15 @@ struct RingSliderView: View {
                         .foregroundColor(.white)
                         .frame(width: 100, alignment: .center)
                     
-//                    Circle()
-//                        .stroke(lineWidth: 12)
-//                        .foregroundColor(.white)
-                    
-                    
                     Circle()
                         .trim(from: 0, to: progress)
                         .stroke(style: StrokeStyle(lineWidth: 34, lineCap: .round))
                         .rotationEffect(.degrees(-90))
                         .foregroundColor(Color(hexCode: "FFF000")!)
+                        .opacity(0.6)
                     
                     Image("Knob")
+                        .resizable()
                         .shadow(color: Color(hexCode: "4D4D4D")!, radius: 10, x: -3, y: -4)
                         .shadow(color: progress > 0.95 ? Color.black.opacity(0.1): Color.clear, radius: 3, x: 4, y: 0)
                         .gesture(
@@ -107,6 +104,7 @@ struct RingSliderView: View {
                                     relativeDeviation.y = round(relativeDeviation.y * 10) / 10.0
                                 }
                         )
+                        
                         .frame(width: circleDiameter, height: circleDiameter)
                         .coordinateSpace(name: "Circle")
                         .offset(y: -geo.size.width / 2)

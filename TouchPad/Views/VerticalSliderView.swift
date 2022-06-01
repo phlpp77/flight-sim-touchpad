@@ -1,5 +1,5 @@
 //
-//  SpeedSliderView.swift
+//  VerticalSliderView.swift
 //  TouchPad
 //
 //  Created by Philipp Hemkemeyer on 10.05.22.
@@ -8,9 +8,8 @@
 
 import SwiftUI
 import Sliders
-import simd
 
-struct SpeedSliderView: View {
+struct VerticalSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
@@ -72,6 +71,7 @@ struct SpeedSliderView: View {
                                         Capsule()
                                             .frame(width: 34)
                                             .foregroundColor(Color(hexCode: "FFF000")!)
+                                            .opacity(0.6)
                                         Spacer()
                                     }
                                         .allowsHitTesting(false),
@@ -144,7 +144,7 @@ struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
         let appearanceVM = AppearanceViewModel()
-        SpeedSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+        VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

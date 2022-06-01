@@ -59,7 +59,6 @@ struct RangeView: View {
             }
             
         }
-        // FIXME: Height does not include upper and lower numbers
         .frame(width: 100, height: 700)        
         
     }
@@ -85,8 +84,12 @@ struct ThumbView: View {
                         )
                 )
             
-            Text("\(value) \(unit)")
-                .foregroundColor(.black)
+            HStack(alignment: .bottom, spacing: 0.0) {
+                Text("**\(value)**")
+                Text("\(unit)")
+                    .font(.caption)
+            }
+            .foregroundColor(.black)
         }
     }
     
