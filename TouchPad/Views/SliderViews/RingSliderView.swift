@@ -12,14 +12,15 @@ struct RingSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
+    @Binding var turnFactor: Int
     
     var circleDiameter: CGFloat = 50
     var showMarker: Bool = false
     
     @State private var progress: CGFloat = .zero
+    @State private var oldProgress: CGFloat = .zero
     @State private var degrees: Double = .zero
     @State private var oldDegrees: Double = .zero
-    @Binding var turnFactor: Int
     
     @State private var markerPos: CGPoint = .zero
     
@@ -32,8 +33,6 @@ struct RingSliderView: View {
     
     var body: some View {
         GeometryReader { geo in
-        
-                
                 
                 ZStack {
                     Text(degrees < 100 ? (degrees < 10 ? "00\(Int(degrees))°" : "0\(Int(degrees))°") : "\(Int(degrees))°")
@@ -42,9 +41,11 @@ struct RingSliderView: View {
                         .frame(width: 100, alignment: .center)
                     
                     Circle()
-                        .trim(from: 0, to: progress)
+//                        .trim(from: oldProgress, to: progress)
+                        .trim(from: turnFactor == 1 ? oldProgress : progress, to: turnFactor == 1 ? progress : oldProgress)
                         .stroke(style: StrokeStyle(lineWidth: 34, lineCap: .round))
                         .rotationEffect(.degrees(-90))
+                        .rotationEffect(.degrees(-10))
                         .foregroundColor(Color(hexCode: "FFF000")!)
                         .opacity(0.6)
                     
@@ -60,13 +61,16 @@ struct RingSliderView: View {
                                     if firstMovement {
                                         startTimeStamp = Date().localFlightSim()
                                         firstMovement = false
+                                        print("progress: from \(oldProgress) to \(progress)")
+                                        oldProgress = progress
                                     }
                                     
+//                                    print(actions.location)
                                     // create vectors
                                     let center = SIMD2<Double>(x: geo.size.width / 2, y: geo.size.height / 2)
                                     let intersection = SIMD2<Double>(x: actions.location.x, y: actions.location.y)
                                     
-                                    // every time a new drag starts the start-point is resetted
+                                    // every time a new drag starts the start-point is reseted
                                     if !isDragging {
                                         startInteraction(intersection: intersection, center: center)
                                     } else {
@@ -91,6 +95,7 @@ struct RingSliderView: View {
                                     }
                                     firstMovement = true
                                     oldDegrees = degrees
+                                    
                                 }
                             
                         )
@@ -144,8 +149,16 @@ struct RingSliderView: View {
         var angle = cross(vStart, vEnd).z > 0 ? acos(d) : -acos(d)
         angle /= 2 * Double.pi
         // only take angles between 0 and 1
-        progress = simd_clamp(progress + angle, 0, 1)
-        degrees = round(Double(progress) * 360 * 10) / 10.0
+//        progress = simd_clamp(progress + angle, -1, 1)
+        
+        progress += angle
+        
+        if progress > 1 {
+            progress -= 1
+        } else if progress < 0 {
+            progress += 1
+        }
+        degrees = simd_clamp(round(Double(progress) * 360 * 10) / 10.0, -360, 360)
         vStart = vEnd
     }
     
@@ -157,5 +170,6 @@ struct RingSliderView_Previews: PreviewProvider {
         let appearanceVM = AppearanceViewModel()
         
         RingSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
+            .previewDevice("iPad Pro (11-inch) (3rd generation)")
     }
 }
