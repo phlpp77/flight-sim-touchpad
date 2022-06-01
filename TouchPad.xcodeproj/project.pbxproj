@@ -123,11 +123,7 @@
 				1768B5A527F709D30046DCFC /* MainView.swift */,
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
-				17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */,
-				178CC90D2829511000467DC9 /* RangeView.swift */,
-				17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */,
-				178CC9092828F7D800467DC9 /* HeadingView.swift */,
-				170420A3282284850041927A /* RingSliderView.swift */,
+				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
 			);
@@ -147,13 +143,25 @@
 			isa = PBXGroup;
 			children = (
 				176B2F6F2818254B00B583A9 /* OffsetModels.swift */,
-				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
 				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
+				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
 				1704209C282134E60041927A /* DataExport.swift */,
 				1733BD09281FD6E800D05827 /* DateExtension.swift */,
 				178CC90B2829063900467DC9 /* ColorExtension.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		17F2AD39284790790094EA16 /* SliderViews */ = {
+			isa = PBXGroup;
+			children = (
+				17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */,
+				178CC90D2829511000467DC9 /* RangeView.swift */,
+				17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */,
+				178CC9092828F7D800467DC9 /* HeadingView.swift */,
+				170420A3282284850041927A /* RingSliderView.swift */,
+			);
+			path = SliderViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
