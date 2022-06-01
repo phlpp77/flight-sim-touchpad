@@ -1,4 +1,4 @@
-# flight-sim-touchpad
+# Touchpad for Flight Simulator
 
 ## App to use with flight simulator
 
