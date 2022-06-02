@@ -21,6 +21,9 @@ struct RingSliderView: View {
     @State private var oldProgress: CGFloat = .zero
     @State private var degrees: Double = .zero
     @State private var oldDegrees: Double = .zero
+    @State private var startTrim: CGFloat = .zero
+    @State private var endTrim: CGFloat = .zero
+    @State private var startAngle: Double = .zero
     
     @State private var markerPos: CGPoint = .zero
     
@@ -41,11 +44,10 @@ struct RingSliderView: View {
                         .frame(width: 100, alignment: .center)
                     
                     Circle()
-//                        .trim(from: oldProgress, to: progress)
-                        .trim(from: turnFactor == 1 ? oldProgress : progress, to: turnFactor == 1 ? progress : oldProgress)
+                        .trim(from: startTrim, to: endTrim)
                         .stroke(style: StrokeStyle(lineWidth: 34, lineCap: .round))
                         .rotationEffect(.degrees(-90))
-                        .rotationEffect(.degrees(-10))
+                        .rotationEffect(.degrees(startAngle))
                         .foregroundColor(Color(hexCode: "FFF000")!)
                         .opacity(0.6)
                     
@@ -57,15 +59,15 @@ struct RingSliderView: View {
                             DragGesture(coordinateSpace: .named("RingSlider"))
                                 .onChanged { actions in
                                     
-                                    // get start time of movement
+                                    // Only executed after the touchdown
                                     if firstMovement {
+                                        // get start time of movement
                                         startTimeStamp = Date().localFlightSim()
-                                        firstMovement = false
-                                        print("progress: from \(oldProgress) to \(progress)")
                                         oldProgress = progress
+                                        startAngle = degrees
+                                        firstMovement = false
                                     }
-                                    
-//                                    print(actions.location)
+
                                     // create vectors
                                     let center = SIMD2<Double>(x: geo.size.width / 2, y: geo.size.height / 2)
                                     let intersection = SIMD2<Double>(x: actions.location.x, y: actions.location.y)
@@ -148,16 +150,45 @@ struct RingSliderView: View {
         let d = simd_clamp(dot(vStart, vEnd), -1.0, 1.0)
         var angle = cross(vStart, vEnd).z > 0 ? acos(d) : -acos(d)
         angle /= 2 * Double.pi
-        // only take angles between 0 and 1
-//        progress = simd_clamp(progress + angle, -1, 1)
-        
         progress += angle
         
+        // MARK: Only one turn is allowed (resets to 0 after a full circle)
         if progress > 1 {
             progress -= 1
         } else if progress < 0 {
             progress += 1
         }
+        
+        // MARK: Calculation of indicator line
+        var trim: CGFloat = .zero
+        // turn right
+        if turnFactor == 1 {
+            // turn over 0 value
+            if progress < oldProgress {
+                trim = 1 - oldProgress + progress
+            }
+            // no turn over 0 value
+            else {
+                trim = oldProgress - progress
+            }
+            startTrim = 0
+            endTrim = abs(trim)
+        }
+        // turn left
+        else {
+            
+            // turn over 0 value
+            if progress > oldProgress {
+                trim = oldProgress + 1 - progress
+            }
+            // no turn over 0 value
+            else {
+                trim = oldProgress - progress
+            }
+            startTrim = 1 - abs(trim)
+            endTrim = 1
+        }
+        
         degrees = simd_clamp(round(Double(progress) * 360 * 10) / 10.0, -360, 360)
         vStart = vEnd
     }
