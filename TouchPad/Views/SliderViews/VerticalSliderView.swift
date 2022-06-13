@@ -28,6 +28,7 @@ struct VerticalSliderView: View {
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
     @State private var relativeDeviation = CGPoint(x: 0, y: 0)
+    @State private var globalPos: CGPoint = .zero
     
     @State private var firstMovement = true
     @State private var startTimeStamp = Date().localFlightSim()
@@ -52,7 +53,7 @@ struct VerticalSliderView: View {
                             firstMovement = false
                         }
                         if !editing {
-                            print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) started at \(startTimeStamp) until \(Date().localFlightSim())")
+                            print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
                             // MARK: Save to log
                             log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim()))
                             if socketNetworkVM.offsetsDeclared {
@@ -91,6 +92,10 @@ struct VerticalSliderView: View {
                                                 relativeDeviation.x = pos.x - thumbPos.x
                                                 relativeDeviation.y = pos.y - thumbPos.y
                                                 relativeDeviation.y = round(relativeDeviation.y * 10) / 10
+                                                
+                                                let gGlobal = geo.frame(in: .global)
+                                                globalPos = gGlobal.origin
+                                                globalPos.y = round(globalPos.y * 10) / 10  
                                             }
                                     }
                                     .frame(width: thumbWidth, height: thumbHeight)
