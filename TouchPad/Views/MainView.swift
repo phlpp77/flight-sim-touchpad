@@ -67,6 +67,12 @@ struct MainView: View {
                 Spacer()
             }
             
+            // Test rectangle
+//            Rectangle()
+//                .fill(.mint)
+//                .frame(width: 25, height: 25)
+//                .position(x: 580, y: 686)
+            
         }
         
     }
