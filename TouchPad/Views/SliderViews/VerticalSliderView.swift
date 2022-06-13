@@ -55,7 +55,7 @@ struct VerticalSliderView: View {
                         if !editing {
                             print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
                             // MARK: Save to log
-                            log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim()))
+                            log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim()))
                             if socketNetworkVM.offsetsDeclared {
                                 socketNetworkVM.changeValue(of: valueName, to: value)
                             }

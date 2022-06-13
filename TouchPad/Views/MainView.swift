@@ -26,11 +26,11 @@ struct MainView: View {
                         .onEnded { action in
                             print("Global input at \(action.startLocation) at \(Date().localFlightSim())")
                             // MARK: Save to log
-                            log.append(LogData(attribute: "Global input", oldValue: 0, value: 0, relativeDeviation: action.startLocation, startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
-                    }
+                            log.append(LogData(attribute: "Global input", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: action.startLocation, startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
+                        }
                 )
-                
-                
+            
+            
             HStack {
                 Spacer()
                 VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
@@ -44,17 +44,17 @@ struct MainView: View {
                 VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
                 Spacer()
             }
-                
+            
             
             VStack {
                 HStack {
                     Button(action: {
-                            self.showPopover = true
-                            print("Settings opened at \(Date().localFlightSim())")
-                            // MARK: Save to log
-                        log.append(LogData(attribute: "Settings opened", oldValue: 0, value: 0, relativeDeviation: CGPoint(x: 0, y: 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
-                        }) {
-                            Image(systemName: "gear")
+                        self.showPopover = true
+                        print("Settings opened at \(Date().localFlightSim())")
+                        // MARK: Save to log
+                        log.append(LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
+                    }) {
+                        Image(systemName: "gear")
                             .font(.largeTitle)
                             .padding(.leading, 15)
                             .foregroundColor(.gray)
@@ -68,10 +68,10 @@ struct MainView: View {
             }
             
             // Test rectangle
-//            Rectangle()
-//                .fill(.mint)
-//                .frame(width: 25, height: 25)
-//                .position(x: 580, y: 686)
+            //            Rectangle()
+            //                .fill(.mint)
+            //                .frame(width: 25, height: 25)
+            //                .position(x: 580, y: 686)
             
         }
         

@@ -101,7 +101,7 @@ struct RingSliderView: View {
                                         isDragging = false
                                         print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
                                         // MARK: Save to log
-                                        log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor)))
+                                        log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor)))
                                         if socketNetworkVM.offsetsDeclared {
                                             socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
                                         }
