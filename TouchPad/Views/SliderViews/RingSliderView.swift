@@ -24,6 +24,7 @@ struct RingSliderView: View {
     @State private var startTrim: CGFloat = .zero
     @State private var endTrim: CGFloat = .zero
     @State private var startAngle: Double = .zero
+    @State private var globalPos: CGPoint = .zero
     
     @State private var markerPos: CGPoint = .zero
     
@@ -35,7 +36,8 @@ struct RingSliderView: View {
     @State private var startTimeStamp = Date().localFlightSim()
     
     var body: some View {
-        GeometryReader { geo in
+        ZStack {
+            GeometryReader { geo in
                 
                 ZStack {
                     Text(degrees < 100 ? (degrees < 10 ? "00\(Int(degrees))°" : "0\(Int(degrees))°") : "\(Int(degrees))°")
@@ -51,91 +53,106 @@ struct RingSliderView: View {
                         .foregroundColor(Color(hexCode: "FFF000")!)
                         .opacity(0.6)
                     
-                    Image("Knob")
-                        .resizable()
-                        .shadow(color: Color(hexCode: "4D4D4D")!, radius: 10, x: -3, y: -4)
-                        .shadow(color: progress > 0.95 ? Color.black.opacity(0.1): Color.clear, radius: 3, x: 4, y: 0)
-                        .gesture(
-                            DragGesture(coordinateSpace: .named("RingSlider"))
-                                .onChanged { actions in
-                                    
-                                    // Only executed after the touchdown
-                                    if firstMovement {
-                                        // get start time of movement
-                                        startTimeStamp = Date().localFlightSim()
-                                        oldProgress = progress
-                                        startAngle = degrees
-                                        firstMovement = false
-                                    }
-
-                                    // create vectors
-                                    let center = SIMD2<Double>(x: geo.size.width / 2, y: geo.size.height / 2)
-                                    let intersection = SIMD2<Double>(x: actions.location.x, y: actions.location.y)
-                                    
-                                    // every time a new drag starts the start-point is reseted
-                                    if !isDragging {
-                                        startInteraction(intersection: intersection, center: center)
-                                    } else {
-                                        changeInteraction(intersection: intersection, center: center)
-                                    }
-                                    
-                                    isDragging = true
-                                    
-                                    // position of marker
-                                    markerPos = actions.location
-                                    markerPos.y -= geo.size.width / 2
-                                    markerPos.x -= geo.size.height / 2
-                                    
-                                }
-                                .onEnded { _ in
-                                    isDragging = false
-                                    print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) at \(Date().localFlightSim())")
-                                    // MARK: Save to log
-                                    log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor)))
-                                    if socketNetworkVM.offsetsDeclared {
-                                        socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
-                                    }
-                                    firstMovement = true
-                                    oldDegrees = degrees
-                                    
-                                }
-                            
-                        )
-                        .simultaneousGesture(
-                            DragGesture(coordinateSpace: .named("Circle"))
-                                .onChanged { actions in
-                                    relativeDeviation = actions.startLocation
-                                    relativeDeviation.x -= circleDiameter / 2
-                                    relativeDeviation.y -= circleDiameter / 2
-                                    relativeDeviation.x = round(relativeDeviation.x * 10) / 10.0
-                                    relativeDeviation.y = round(relativeDeviation.y * 10) / 10.0
-                                }
-                        )
-                        
-                        .frame(width: circleDiameter, height: circleDiameter)
-                        .coordinateSpace(name: "Circle")
-                        .offset(y: -geo.size.width / 2)
-                        .rotationEffect(Angle.degrees(360 * Double(progress)))
-                    
-                    
-                    // MARK: Marker
-                    if appearanceVM.showTapIndicator {
-                        Rectangle()
-                            .fill(.green)
-                            .position(markerPos)
-                            .frame(width: 20, height: 20)
+                    GeometryReader { geoKnob in
+                        Image("Knob")
+                            .resizable()
+                            .shadow(color: Color(hexCode: "4D4D4D")!, radius: 10, x: -3, y: -4)
+                            .shadow(color: progress > 0.95 ? Color.black.opacity(0.1): Color.clear, radius: 3, x: 4, y: 0)
                             .gesture(
-                                DragGesture()
+                                DragGesture(coordinateSpace: .named("RingSlider"))
                                     .onChanged { actions in
+                                        
+                                        // Only executed after the touchdown
+                                        if firstMovement {
+                                            // get start time of movement
+                                            startTimeStamp = Date().localFlightSim()
+                                            
+                                            // get global coordinates of starting point
+                                            let gGlobal = geoKnob.frame(in: .global)
+                                            globalPos = gGlobal.origin
+                                            globalPos.x = round(globalPos.x * 10) / 10
+                                            globalPos.y = round(globalPos.y * 10) / 10
+                                            
+                                            oldProgress = progress
+                                            startAngle = degrees
+                                            firstMovement = false
+                                        }
+                                        
+                                        // create vectors
+                                        let center = SIMD2<Double>(x: geo.size.width / 2, y: geo.size.height / 2)
+                                        let intersection = SIMD2<Double>(x: actions.location.x, y: actions.location.y)
+                                        
+                                        // every time a new drag starts the start-point is reseted
+                                        if !isDragging {
+                                            startInteraction(intersection: intersection, center: center)
+                                        } else {
+                                            changeInteraction(intersection: intersection, center: center)
+                                        }
+                                        
+                                        isDragging = true
+                                        
+                                        // position of marker
                                         markerPos = actions.location
+                                        markerPos.y -= geo.size.width / 2
+                                        markerPos.x -= geo.size.height / 2
+                                        
+                                    }
+                                    .onEnded { _ in
+                                        isDragging = false
+                                        print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
+                                        // MARK: Save to log
+                                        log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor)))
+                                        if socketNetworkVM.offsetsDeclared {
+                                            socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
+                                        }
+                                        firstMovement = true
+                                        oldDegrees = degrees
+                                        
+                                    }
+                                
+                            )
+                            .simultaneousGesture(
+                                DragGesture(coordinateSpace: .named("Circle"))
+                                    .onChanged { actions in
+                                        relativeDeviation = actions.startLocation
+                                        relativeDeviation.x -= circleDiameter / 2
+                                        relativeDeviation.y -= circleDiameter / 2
+                                        relativeDeviation.x = round(relativeDeviation.x * 10) / 10.0
+                                        relativeDeviation.y = round(relativeDeviation.y * 10) / 10.0
+                                        
                                     }
                             )
                     }
-                
+                    .frame(width: circleDiameter, height: circleDiameter)
+                    .coordinateSpace(name: "Circle")
+                    .offset(y: -geo.size.width / 2)
+                    .rotationEffect(Angle.degrees(360 * Double(progress)))
+                    
+                    
+                    
+                    
+                    
+                }
+            }
+            .coordinateSpace(name: "RingSlider")
+            .aspectRatio(contentMode: .fit)
+            
+            // MARK: Marker
+            if appearanceVM.showTapIndicator {
+                Rectangle()
+                    .fill(.blue)
+                    .position(markerPos)
+                    .frame(width: 20, height: 20)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { actions in
+                                markerPos = actions.location
+                            }
+                    )
             }
         }
-        .coordinateSpace(name: "RingSlider")
-        .aspectRatio(contentMode: .fit)
+        
+        
     }
     
     
