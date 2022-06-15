@@ -35,7 +35,7 @@ struct MainView: View {
             
             HStack {
                 Spacer()
-                VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+                VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
                 Spacer()
                 VStack {
                     ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
@@ -44,7 +44,7 @@ struct MainView: View {
                         .padding(.bottom, 30)
                 }
                 Spacer()
-                VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
+                VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
                 Spacer()
             }
             

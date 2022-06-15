@@ -12,6 +12,7 @@ import Sliders
 struct VerticalSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
     var thumbWidth: CGFloat = 50
@@ -55,9 +56,13 @@ struct VerticalSliderView: View {
                         if !editing {
                             print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
                             // MARK: Save to log
-                            log.append(LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim()))
+                            let logData = LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
+                            log.append(logData)
                             if socketNetworkVM.offsetsDeclared {
                                 socketNetworkVM.changeValue(of: valueName, to: value)
+                            }
+                            if mqttNetworkVM.connectionOpen {
+                                mqttNetworkVM.sendToLog(logData)
                             }
                             oldValue = value
                             firstMovement = true
@@ -149,7 +154,8 @@ struct SpeedSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
         let appearanceVM = AppearanceViewModel()
-        VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+        let mqttNetworkWM = MQTTNetworkViewModel()
+        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkWM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }
