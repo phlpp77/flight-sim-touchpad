@@ -13,6 +13,7 @@ struct MainView: View {
     let socketNetworkVM = SocketNetworkViewModel()
     
     @State var showPopover = false
+    @State var showMasterWarn = false
     
     var body: some View {
         ZStack {
@@ -36,6 +37,7 @@ struct MainView: View {
                 VerticalSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
                 Spacer()
                 VStack {
+                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
                     Spacer()
                     HeadingView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM)
                         .padding(.bottom, 30)
