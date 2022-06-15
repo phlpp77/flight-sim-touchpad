@@ -21,6 +21,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
     let password = ""
     let connectProperties = MqttConnectProperties()
     var mqtt: CocoaMQTT?
+    weak var delegate: MQTTNetworkServiceDelegate?
     
     func openMQTT() {
         
@@ -61,10 +62,12 @@ extension MQTTNetworkService {
     }
     
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
+        delegate?.didUpdateConnection(isOpen: false)
         print("[MQTT] Server disconnected with error: \(err!)")
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+        delegate?.didUpdateConnection(isOpen: true)
         print("[MQTT] Server connected")
     }
     
@@ -85,4 +88,10 @@ extension MQTTNetworkService {
     func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopics topics: [String]) {
         print("[MQTT] Unsubscribe from topics")
     }
+}
+
+protocol MQTTNetworkServiceDelegate: AnyObject {
+    
+    func didUpdateConnection(isOpen: Bool)
+    
 }

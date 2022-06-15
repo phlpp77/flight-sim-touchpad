@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct LogData {
+struct LogData: Encodable {
     var attribute: String
     var oldValue: Double
     var value: Double
