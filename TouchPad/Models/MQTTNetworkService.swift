@@ -34,7 +34,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
         mqtt?.username = self.username
         mqtt?.password = self.password
 //        mqtt?.connectProperties = connectProperties
-//        mqtt?.willMessage = CocoaMQTT5Message(topic: "/will", string: "dieout")
+        mqtt?.willMessage = CocoaMQTTMessage(topic: "/will", string: "connection lost")
         mqtt?.keepAlive = 60
         mqtt?.delegate = self
         print("[MQTT] Open MQTT session")
