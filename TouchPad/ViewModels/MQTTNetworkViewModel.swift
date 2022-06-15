@@ -16,8 +16,14 @@ class MQTTNetworkViewModel: ObservableObject {
         mqttService.delegate = self
     }
     
-    func connectToMQTTServer() {
-        mqttService.openMQTT()
+    var toggleServerConnection: Bool = false {
+        willSet {
+            if newValue == true {
+                mqttService.openMQTT()
+            } else {
+                mqttService.closeMQTT()
+            }
+        }
     }
     
     func sendToLog(_ logdata: LogData) {

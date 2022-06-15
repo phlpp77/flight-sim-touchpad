@@ -39,7 +39,10 @@ class MQTTNetworkService: CocoaMQTTDelegate {
         mqtt?.delegate = self
         print("[MQTT] Open MQTT session")
         mqtt?.connect()
-        
+    }
+    
+    func closeMQTT() {
+        mqtt?.disconnect()
     }
 
     func sendMessage(_ message: String, topic: String) {
@@ -63,7 +66,7 @@ extension MQTTNetworkService {
     
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
         delegate?.didUpdateConnection(isOpen: false)
-        print("[MQTT] Server disconnected with error: \(err!)")
+        print("[MQTT] Server disconnected with error: \(err)")
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {

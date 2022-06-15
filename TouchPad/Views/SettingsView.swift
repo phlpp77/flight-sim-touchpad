@@ -31,17 +31,24 @@ struct SettingsView: View {
                 
                 HStack(spacing: 14) {
                     StatusField(
-                        title: "Server",
+                        title: "WebSocket Server",
                         status: socketNetworkVM.connectionOpen ? "Connected" : "Not connected",
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
                     
                     StatusField(
-                        title: "Offsets",
+                        title: "WebSocket Offsets",
                         status: socketNetworkVM.offsetsDeclared ? "Declared" : "Not declared",
                         statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
                         statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
+                    )
+                    
+                    StatusField(
+                        title: "MQTT Server",
+                        status: mqttNetworkVM.connectionOpen ? "Connected" : "Not connected",
+                        statusIcon: mqttNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
+                        statusColor: mqttNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
@@ -61,7 +68,7 @@ struct SettingsView: View {
                 Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                     
                     Toggle(isOn: $socketNetworkVM.toggleServerConnection) {
-                        Text("Server")
+                        Text("WebSocket Server")
                     }
                     
                     // MARK: Declare offsets
@@ -116,10 +123,9 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("MQTT")) {
-                    Button {
-                        mqttNetworkVM.connectToMQTTServer()
-                    } label: {
-                        Text("Connect to server")
+                    
+                    Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
+                        Text("MQTT Server")
                     }
                     
                     HStack {
@@ -129,6 +135,7 @@ struct SettingsView: View {
                             mqttNetworkVM.sendMessage(mqttMessage, topic: mqttTopic)
                         } label: {
                             Text("Send message")
+                                .foregroundColor(.blue)
                         }
                     }
                     
@@ -138,6 +145,7 @@ struct SettingsView: View {
                             mqttNetworkVM.receiveMessage(topic: subscribingTopic)
                         } label: {
                             Text("Subscribe")
+                                .foregroundColor(.blue)
                         }
 
                     }
