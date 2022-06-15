@@ -18,4 +18,8 @@ class MQTTNetworkViewModel: ObservableObject {
     func sendMessage(_ message: String, topic: String) {
         mqttService.sendMessage(message, topic: topic)
     }
+    
+    func receiveMessage(topic: String) {
+        mqttService.receiveMessage(topic: topic)
+    }
 }

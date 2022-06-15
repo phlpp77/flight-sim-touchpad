@@ -155,10 +155,10 @@
 				176B2F6F2818254B00B583A9 /* OffsetModels.swift */,
 				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
 				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
+				178064B22859C0E400B5A93A /* MQTTNetworkService.swift */,
 				1704209C282134E60041927A /* DataExport.swift */,
 				1733BD09281FD6E800D05827 /* DateExtension.swift */,
 				178CC90B2829063900467DC9 /* ColorExtension.swift */,
-				178064B22859C0E400B5A93A /* MQTTNetworkService.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

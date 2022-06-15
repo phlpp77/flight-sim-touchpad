@@ -15,6 +15,7 @@ struct SettingsView: View {
     
     @State private var mqttMessage = ""
     @State private var mqttTopic = ""
+    @State private var subscribingTopic = ""
     
     @State var speedText = ""
     @State var fileName = ""
@@ -128,6 +129,15 @@ struct SettingsView: View {
                             mqttNetworkVM.sendMessage(mqttMessage, topic: mqttTopic)
                         } label: {
                             Text("Send message")
+                        }
+                    }
+                    
+                    HStack {
+                        TextField("Topic", text: $subscribingTopic)
+                        Button {
+                            mqttNetworkVM.receiveMessage(topic: subscribingTopic)
+                        } label: {
+                            Text("Subscribe")
                         }
 
                     }
