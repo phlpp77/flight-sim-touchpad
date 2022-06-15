@@ -11,6 +11,7 @@ struct MainView: View {
     
     let appearanceVM = AppearanceViewModel()
     let socketNetworkVM = SocketNetworkViewModel()
+    let mqttNetworkVM = MQTTNetworkViewModel()
     
     @State var showPopover = false
     @State var showMasterWarn = false
@@ -61,7 +62,7 @@ struct MainView: View {
                             .padding(.leading, 15)
                             .foregroundColor(.gray)
                             .sheet(isPresented: $showPopover) {
-                                SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM)
+                                SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
                             }
                     }
                     Spacer()

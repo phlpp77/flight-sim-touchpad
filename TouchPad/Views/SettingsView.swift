@@ -11,6 +11,10 @@ struct SettingsView: View {
     
     @ObservedObject var appearanceVM: AppearanceViewModel
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
+    
+    @State private var mqttMessage = ""
+    @State private var mqttTopic = ""
     
     @State var speedText = ""
     @State var fileName = ""
@@ -110,6 +114,26 @@ struct SettingsView: View {
                     
                 }
                 
+                Section(header: Text("MQTT")) {
+                    Button {
+                        mqttNetworkVM.connectToMQTTServer()
+                    } label: {
+                        Text("Connect to server")
+                    }
+                    
+                    HStack {
+                        TextField("Topic", text: $mqttTopic)
+                        TextField("Message", text: $mqttMessage)
+                        Button {
+                            mqttNetworkVM.sendMessage(mqttMessage, topic: mqttTopic)
+                        } label: {
+                            Text("Send message")
+                        }
+
+                    }
+
+                }
+                
                 Section(header: Text("Logfiles")) {
                     
                     // MARK: Create log file
@@ -203,7 +227,8 @@ struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         let appearanceVM = AppearanceViewModel()
         let socketNetworkVM = SocketNetworkViewModel()
-        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM)
+        let mqttNetworkVM = MQTTNetworkViewModel()
+        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }
