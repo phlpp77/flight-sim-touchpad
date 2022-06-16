@@ -14,7 +14,7 @@ struct SettingsView: View {
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
     @State private var mqttMessage = ""
-    @State private var mqttTopic = ""
+    @State private var mqttTopic = "test/foo"
     @State private var subscribingTopic = ""
     
     @State var speedText = ""
