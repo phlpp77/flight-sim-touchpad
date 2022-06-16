@@ -115,9 +115,11 @@ struct VerticalSliderView: View {
                     
                     // MARK: Value range
                     if valueName == "speed" {
-                        RangeView()
+                        SpeedRangeView()
                     } else if valueName == "altitude" {
                         AltitudeRangeView()
+                    } else if valueName == "flaps" {
+                        
                     }
                     
                     // MARK: Value indicator

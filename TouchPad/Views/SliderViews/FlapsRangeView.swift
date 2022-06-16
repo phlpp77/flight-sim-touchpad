@@ -1,13 +1,14 @@
 //
-//  RangeView.swift
+//  FlapsRangeView.swift
 //  TouchPad
 //
-//  Created by Philipp Hemkemeyer on 09.05.22.
+//  Created by Philipp Hemkemeyer on 16.06.22.
 //
+
 
 import SwiftUI
 
-struct RangeView: View {
+struct FlapsRangeView: View {
     
     var range = 2...4
     
@@ -59,47 +60,15 @@ struct RangeView: View {
             }
             
         }
-        .frame(width: 100, height: 700)        
+        .frame(width: 100, height: 700)
         
     }
 }
 
-struct ThumbView: View {
-    
-    @Binding var value: Int
-    var unit: String
-    
-    var body: some View {
-        
-        ZStack {
-            RoundedRectangle(cornerRadius: 8)
-                .frame(width: 80, height: 30)
-                .foregroundStyle(
-                    LinearGradient(colors: [Color(hexCode: "EDEC66")!,Color(hexCode: "B4B300")!], startPoint: .topLeading, endPoint: .bottomTrailing)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .strokeBorder(
-                            LinearGradient(colors: [Color(hexCode: "E1E000")!,Color(hexCode: "B4B300")!], startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2
-                        )
-                )
-            
-            HStack(alignment: .bottom, spacing: 0.0) {
-                Text("**\(value)**")
-                Text("\(unit)")
-                    .font(.caption)
-            }
-            .foregroundColor(.black)
-        }
-    }
-    
-    
-}
 
-
-struct RangeView_Previews: PreviewProvider {
+struct FlapsView_Previews: PreviewProvider {
     static var previews: some View {
-        RangeView()
+        SpeedRangeView()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }
