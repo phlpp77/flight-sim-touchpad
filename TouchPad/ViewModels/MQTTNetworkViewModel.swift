@@ -19,7 +19,9 @@ class MQTTNetworkViewModel: ObservableObject {
     var toggleServerConnection: Bool = false {
         willSet {
             if newValue == true {
-                mqttService.openMQTT()
+                if !connectionOpen {
+                    mqttService.openMQTT()
+                }
             } else {
                 mqttService.closeMQTT()
             }
@@ -53,6 +55,7 @@ extension MQTTNetworkViewModel: MQTTNetworkServiceDelegate {
     func didUpdateConnection(isOpen: Bool) {
         DispatchQueue.main.async {
             self.connectionOpen = isOpen
+            self.toggleServerConnection = isOpen
         }
     }
 }

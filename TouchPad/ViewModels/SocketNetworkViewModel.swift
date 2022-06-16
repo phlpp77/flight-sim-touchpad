@@ -21,7 +21,9 @@ class SocketNetworkViewModel: ObservableObject {
     var toggleServerConnection: Bool = false {
         willSet {
             if newValue == true {
-                webSocketService.openWebSocket()
+                if !connectionOpen {
+                    webSocketService.openWebSocket()
+                }
             } else {
                 webSocketService.closeWebSocket()
             }
@@ -61,6 +63,11 @@ extension SocketNetworkViewModel: SocketNetworkServiceDelegate {
     func didUpdateConnection(isOpen: Bool) {
         DispatchQueue.main.async {
             self.connectionOpen = isOpen
+            self.toggleServerConnection = isOpen
+            
+            if !isOpen {
+                self.offsetsDeclared = false
+            }
         }
     }
 }

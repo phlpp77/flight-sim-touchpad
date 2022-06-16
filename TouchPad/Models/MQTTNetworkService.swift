@@ -16,6 +16,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
 
     let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
     let host = "192.168.103.103"
+//    let host = "localhost"
     let port: UInt16 = 1883
     let username = ""
     let password = ""

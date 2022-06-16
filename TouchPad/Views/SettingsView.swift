@@ -17,10 +17,11 @@ struct SettingsView: View {
     @State private var mqttTopic = "test/foo"
     @State private var subscribingTopic = ""
     
-    @State var speedText = ""
-    @State var fileName = ""
-    @State var presentFileNameAlert = false
-    @State var presentErrorAlert = false
+    @State private var speedText = ""
+    @State private var fileName = ""
+    @State private var presentFileNameAlert = false
+    @State private var presentErrorAlert = false
+    @State private var presentDoneAlert = false
     
     @State private var isPerformingTask = false
     
@@ -30,12 +31,16 @@ struct SettingsView: View {
             Form {
                 
                 HStack(spacing: 14) {
+                    Spacer()
                     StatusField(
                         title: "WebSocket Server",
                         status: socketNetworkVM.connectionOpen ? "Connected" : "Not connected",
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
+                    .onTapGesture {
+                        socketNetworkVM.toggleServerConnection.toggle()
+                    }
                     
                     StatusField(
                         title: "WebSocket Offsets",
@@ -43,6 +48,11 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
                         statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
                     )
+                    .onTapGesture {
+                        Task {
+                            await socketNetworkVM.webSocketService.declareOffsets()
+                        }
+                    }
                     
                     StatusField(
                         title: "MQTT Server",
@@ -50,17 +60,21 @@ struct SettingsView: View {
                         statusIcon: mqttNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: mqttNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
+                    .onTapGesture {
+                        mqttNetworkVM.toggleServerConnection.toggle()
+                    }
+                    Spacer()
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
                 .listRowInsets(EdgeInsets()) // remove insets so cards are inline with rest
                 
                 
                 Section(header: Text("Appearance")) {
-//                    Toggle(isOn: $appearanceVM.showTapLocation) {
-//                        Text("Show coordinates")
-//                    }
+                    //                    Toggle(isOn: $appearanceVM.showTapLocation) {
+                    //                        Text("Show coordinates")
+                    //                    }
                     Toggle(isOn: $appearanceVM.showTapIndicator) {
-                        Text("Show indicator")
+                        Text("Show tap indicators")
                     }
                 }
                 
@@ -68,33 +82,33 @@ struct SettingsView: View {
                 Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                     
                     Toggle(isOn: $socketNetworkVM.toggleServerConnection) {
-                        Text("WebSocket Server")
+                        Text("Connect WebSocket Server")
                     }
                     
                     // MARK: Declare offsets
                     Button(action: {
                         isPerformingTask = true
-                                   
-                                       Task {
-                                           await socketNetworkVM.webSocketService.declareOffsets()
-                                           isPerformingTask = false
-                                       }
+                        
+                        Task {
+                            await socketNetworkVM.webSocketService.declareOffsets()
+                            isPerformingTask = false
+                        }
                         
                     }) {
                         ZStack {
                             Text("Declare Offsets")
                                 .foregroundColor(.blue)
-                            .opacity(isPerformingTask ? 0 : 1)
-
-                                            if isPerformingTask {
-                                                ProgressView()
-                                            }
-                                        }
-                                    
+                                .opacity(isPerformingTask ? 0 : 1)
+                            
+                            if isPerformingTask {
+                                ProgressView()
+                            }
+                        }
+                        
                         
                     }
                     .disabled(isPerformingTask)
-
+                    
                     
                     // MARK: Change speed
                     HStack {
@@ -113,19 +127,19 @@ struct SettingsView: View {
                     }
                     
                     // MARK: Send string test
-//                    Button(action: {
-//                        socketNetworkVM.webSocketService.sendString("Hello from iOS Client!")
-//                    }) {
-//                        Text("Send test string to server")
-//                            .foregroundColor(.blue)
-//                    }
+                    //                    Button(action: {
+                    //                        socketNetworkVM.webSocketService.sendString("Hello from iOS Client!")
+                    //                    }) {
+                    //                        Text("Send test string to server")
+                    //                            .foregroundColor(.blue)
+                    //                    }
                     
                 }
                 
                 Section(header: Text("MQTT")) {
                     
                     Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
-                        Text("MQTT Server")
+                        Text("Connect MQTT Server")
                     }
                     
                     HStack {
@@ -147,9 +161,9 @@ struct SettingsView: View {
                             Text("Subscribe")
                                 .foregroundColor(.blue)
                         }
-
+                        
                     }
-
+                    
                 }
                 
                 Section(header: Text("Logfiles")) {
@@ -164,39 +178,53 @@ struct SettingsView: View {
                             Spacer()
                         }
                     }
-                    // Alert to get filename from user
-                    .alert(
-                        isPresented: $presentFileNameAlert,
-                        TextAlert(
-                            title: "Export log file",
-                            message: "Name the file of the log",
-                            placeholder: "Log-Testpilot-1",
-                            accept: "Export",
-                            cancel: "Cancel",
-                            keyboardType: .namePhonePad
-                        ) { result in
-                            if var text = result {
-                                if text == "" {
-                                    text = "Log-Testpilot-1"
-                                }
-                                createLogCSV(filename: text) { fileCreated in
-                                    if !fileCreated {
-                                        presentErrorAlert = true
-                                    } else {
-                                        print("Create logfile with name \(text)")
-                                    }
+                    
+                    
+                }
+                Rectangle()
+                    .opacity(0)
+                    .frame(height: 1)
+                    
+                // Alert to get filename from user
+                .alert(
+                    isPresented: $presentFileNameAlert,
+                    TextAlert(
+                        title: "Export log file",
+                        message: "Name the file of the log",
+                        placeholder: "Log-Testpilot-1",
+                        accept: "Export",
+                        cancel: "Cancel",
+                        keyboardType: .namePhonePad
+                    ) { result in
+                        if var text = result {
+                            if text == "" {
+                                text = "Log-Testpilot-1"
+                            }
+                            createLogCSV(filename: text) { fileCreated in
+                                if !fileCreated {
+                                    presentErrorAlert = true
+                                } else {
+                                    print("Create logfile with name \(text)")
+                                    presentDoneAlert = true
                                 }
                             }
                         }
-                    )
+                    }
+                )
+                
+                // Alert to inform user filename is already in use
+                .alert(Text("Error"), isPresented: $presentErrorAlert, actions: {
+                    Button("OK", role: .cancel) {presentErrorAlert = false }
                     
-                    // Alert to inform user filename is already in use
-                    .alert(Text("Error"), isPresented: $presentErrorAlert, actions: {
-                        Button("OK", role: .cancel) {presentErrorAlert = false }
-                        
-                    }, message: {Text("Filename already in use")})
+                }, message: {Text("Filename already in use")})
+                // Alert to inform user file is created and can be found in "Files" app
+                .alert(Text("Success"), isPresented: $presentDoneAlert, actions: {
+                    Button("OK", role: .cancel) {presentDoneAlert = false }
                     
-                }
+                }, message: {Text("File was created successfully and can be found in Files app on this iPad")})
+                
+                .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
+                .listRowInsets(EdgeInsets()) // remove insets so cards are inline with rest
                 
             }
             .foregroundColor(.primary)
@@ -207,38 +235,51 @@ struct SettingsView: View {
     }
     
     
-    // MARK: StatusField at the top
-    struct StatusField: View {
-        let title: String
-        var status: String
-        var statusIcon: String
-        var statusColor: Color
+    
+    
+    
+}
+
+// MARK: StatusField at the top
+struct StatusField: View {
+    let title: String
+    var status: String
+    var statusIcon: String
+    var statusColor: Color
+    
+    var body: some View {
         
-        var body: some View {
+        VStack {
+            Text(title)
+                .font(.title3)
+                .bold()
+                .foregroundColor(.black)
             
-            VStack {
-                Text(title)
-                    .font(.title2)
-                    .bold()
-                    .foregroundColor(.black)
-                
-                Group {
-                    Text("Status: \(status)")
-                    Image(systemName: statusIcon)
-                        .font(.largeTitle)
-                    
-                }
+            Spacer()
+            Text("Status: \(status)")
                 .foregroundColor(statusColor)
-                .padding(.top, 5)
-                
-            }
-            .frame(width: 150, height: 150)
-            .background(.white)
-            .cornerRadius(20)
+                .padding(.top, 1)
+            Image(systemName: statusIcon)
+                .font(.largeTitle)
+                .foregroundColor(statusColor)
+            
+            
+        }
+        .padding(2)
+        .frame(width: 150, height: 150)
+        .background(.white)
+        .cornerRadius(20)
+    }
+}
+
+struct StatusField_Previews: PreviewProvider {
+    static var previews: some View {
+        ZStack {
+            Rectangle()
+                .fill(.gray)
+            StatusField(title: "WebSocket Server", status: "Not connected", statusIcon: "externaldrive.fill.badge.checkmark", statusColor: .gray)
         }
     }
-    
-    
 }
 
 struct SettingsView_Previews: PreviewProvider {
