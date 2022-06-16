@@ -14,6 +14,7 @@ struct MainView: View {
     let mqttNetworkVM = MQTTNetworkViewModel()
     
     @State var showPopover = false
+    @State var showSecondScreen = false
     @State var showMasterWarn = false
     
     var body: some View {
@@ -37,25 +38,32 @@ struct MainView: View {
                         }
                 )
             
-            HStack {
-                Spacer()
-                VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
-                Spacer()
-                VStack {
-//                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
-                    Spacer()
-                    HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
-                        .padding(.bottom, 30)
-                }
-                Spacer()
-                VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
-                Spacer()
-            }
-            .padding(.top, 20)
-            
-            
-            VStack {
+            if !showSecondScreen {
                 HStack {
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+                    Spacer()
+                    VStack {
+    //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
+                        Spacer()
+                        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
+                            .padding(.bottom, 30)
+                    }
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
+                    Spacer()
+                }
+                .padding(.top, 20)
+            } else {
+                Text("more to come..")
+            }
+            
+            
+            
+            HStack {
+                VStack(spacing: 20) {
+                    
+                    // MARK: Settings Button
                     Button(action: {
                         self.showPopover = true
                         print("Settings opened at \(Date().localFlightSim())")
@@ -67,15 +75,23 @@ struct MainView: View {
                         }
                     }) {
                         Image(systemName: "gear")
-                            .font(.largeTitle)
-                            .padding(.leading, 10)
-                            .foregroundColor(.gray)
                             .sheet(isPresented: $showPopover) {
                                 SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
                             }
                     }
+                    
+                    // MARK: Screen Switch Button
+                    Button {
+                        showSecondScreen.toggle()
+                    } label: {
+                        Image(systemName: "rectangle.on.rectangle")
+                    }
                     Spacer()
                 }
+                .padding(.leading, 10)
+                .font(.largeTitle)
+                .foregroundColor(.gray)
+                
                 Spacer()
             }
             .padding(.top, 10)
