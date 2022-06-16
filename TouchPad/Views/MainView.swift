@@ -23,6 +23,7 @@ struct MainView: View {
             Rectangle()
                 .fill(Color(hexCode: "141414")!)
                 .ignoresSafeArea()
+                .statusBar(hidden: true)
                 .gesture(
                     DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         .onEnded { action in
@@ -35,7 +36,6 @@ struct MainView: View {
                             }
                         }
                 )
-            
             
             HStack {
                 Spacer()
@@ -51,6 +51,7 @@ struct MainView: View {
                 VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
                 Spacer()
             }
+            .padding(.top, 20)
             
             
             VStack {
@@ -67,7 +68,7 @@ struct MainView: View {
                     }) {
                         Image(systemName: "gear")
                             .font(.largeTitle)
-                            .padding(.leading, 15)
+                            .padding(.leading, 10)
                             .foregroundColor(.gray)
                             .sheet(isPresented: $showPopover) {
                                 SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
@@ -77,6 +78,7 @@ struct MainView: View {
                 }
                 Spacer()
             }
+            .padding(.top, 10)
             
             // Test rectangle
             //            Rectangle()
@@ -87,6 +89,7 @@ struct MainView: View {
         }
         
     }
+    
 }
 
 struct MainView_Previews: PreviewProvider {
