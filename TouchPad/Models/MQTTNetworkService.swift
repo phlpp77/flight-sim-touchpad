@@ -33,12 +33,12 @@ class MQTTNetworkService: CocoaMQTTDelegate {
         mqtt = CocoaMQTT(clientID: self.clientID, host: self.host, port: self.port)
         mqtt?.username = self.username
         mqtt?.password = self.password
-//        mqtt?.connectProperties = connectProperties
         mqtt?.willMessage = CocoaMQTTMessage(topic: "/will", string: "connection lost")
         mqtt?.keepAlive = 60
         mqtt?.delegate = self
         print("[MQTT] Open MQTT session")
-        mqtt?.connect()
+        let value = mqtt?.connect()
+        print(value ?? "nothing")
     }
     
     func closeMQTT() {
@@ -66,7 +66,8 @@ extension MQTTNetworkService {
     
     func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
         delegate?.didUpdateConnection(isOpen: false)
-        print("[MQTT] Server disconnected with error: \(err)")
+        let error = err?.localizedDescription ?? "No error mentioned"
+        print("[MQTT] Server disconnected with error: \(error)")
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
