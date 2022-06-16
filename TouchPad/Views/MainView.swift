@@ -14,7 +14,7 @@ struct MainView: View {
     let mqttNetworkVM = MQTTNetworkViewModel()
     
     @State var showPopover = false
-    @State var showSecondScreen = true
+    @State var showSecondScreen = false
     @State var showMasterWarn = false
     
     var body: some View {
@@ -90,6 +90,16 @@ struct MainView: View {
                     // MARK: Screen Switch Button
                     Button {
                         showSecondScreen.toggle()
+                        
+                        // MARK: Save to log
+                        let screenNumber = showSecondScreen ? 0 : 1
+                        let oldScreenNumber = showSecondScreen ? 1 : 0
+                        print("Screen switched from Screen \(screenNumber) to \(oldScreenNumber) at \(Date().localFlightSim())")
+                        let logData = LogData(attribute: "Screen switched", oldValue: Double(oldScreenNumber), value: Double(screenNumber), relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+                        log.append(logData)
+                        if mqttNetworkVM.connectionOpen {
+                            mqttNetworkVM.sendToLog(logData)
+                        }
                     } label: {
                         Image(systemName: "rectangle.on.rectangle")
                     }
