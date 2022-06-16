@@ -54,7 +54,14 @@ class SocketNetworkViewModel: ObservableObject {
                 webSocketService.changeFlaps(0)
             }
         case .gear:
-            webSocketService.changeGear(value)
+            switch value {
+            case 0:
+                webSocketService.changeGear(0)
+            case 1:
+                webSocketService.changeGear(16383)
+            default:
+                webSocketService.changeGear(0)
+            }
         case .spoiler:
             webSocketService.changeSpoiler(value)
         }

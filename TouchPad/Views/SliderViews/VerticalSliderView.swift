@@ -56,11 +56,25 @@ struct VerticalSliderView: View {
                         }
                         
                         // check for special values
-                        if value == 4 && aircraftData == .flaps {
-                            stringValue = "FULL"
-                        } else {
+                        switch aircraftData {
+                        case .flaps:
+                            if value == 4 {
+                                stringValue = "FULL"
+                            } else {
+                                stringValue = String(value)
+                            }
+                        case .gear:
+                            if value == 0 {
+                                stringValue = "UP"
+                            } else {
+                                stringValue = "DOWN"
+                            }
+//                        case .spoiler:
+//                            <#code#>
+                        default:
                             stringValue = String(value)
                         }
+        
                         
                         if !editing {
                             print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
@@ -73,8 +87,6 @@ struct VerticalSliderView: View {
                             if mqttNetworkVM.connectionOpen {
                                 mqttNetworkVM.sendToLog(logData)
                             }
-                            
-                            
                             
                             oldValue = value
                             firstMovement = true
@@ -139,8 +151,10 @@ struct VerticalSliderView: View {
                         FlapsRangeView()
                         ThumbView(value: $stringValue, unit: "")
                             .offset(y: CGFloat((500*(4-value))/4 - 250))
-                        //                    case .gear: break
-                        //                        //
+                    case .gear:
+                        GearRangeView()
+                        ThumbView(value: $stringValue, unit: "")
+                            .offset(y: CGFloat(value == 0 ? 250 : -250))
                         //                    case .spoiler: break
                         //                        //
                     default:
@@ -187,8 +201,10 @@ struct VerticalSliderView: View {
                 value = 0
                 oldValue = 0
                 stringValue = "0"
-            case .gear: break
-                //
+            case .gear:
+                value = 0
+                oldValue = 0
+                stringValue = "UP"
             case .spoiler: break
                 //
             }
