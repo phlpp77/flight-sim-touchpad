@@ -45,7 +45,7 @@ class SocketNetworkViewModel: ObservableObject {
             case 1:
                 webSocketService.changeFlaps(4095)
             case 2:
-                webSocketService.changeFlaps(8191)
+                webSocketService.changeFlaps(8192)
             case 3:
                 webSocketService.changeFlaps(12287)
             case 4:
