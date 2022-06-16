@@ -133,7 +133,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                 DeclareOffset(name: "speed", address: 16906, type: "int", size: 2),
                 DeclareOffset(name: "altitude", address: 16908, type: "int", size: 2),
                 DeclareOffset(name: "heading", address: 16910, type: "int", size: 2),
-                DeclareOffset(name: "TurnFactor", address: 16912, type: "int", size: 1)
+                DeclareOffset(name: "TurnFactor", address: 16912, type: "int", size: 1),
+                DeclareOffset(name: "flaps", address: 3036, type: "int", size: 4)
             ]
         )
         
@@ -181,7 +182,10 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     // MARK: Change flaps
     func changeFlaps(_ flaps: Int) {
-        //
+        print("[changeFlaps] start")
+        let changeFlapsOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "flaps", value: flaps)])
+        sendOffset(changeFlapsOffset)
+        print("[changeFlaps] answer: \(receiveMessage())")
     }
     
     // MARK: - Constants
