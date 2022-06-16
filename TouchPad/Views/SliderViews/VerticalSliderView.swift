@@ -71,12 +71,20 @@ struct VerticalSliderView: View {
                             } else {
                                 stringValue = "DOWN"
                             }
-//                        case .spoiler:
-//                            <#code#>
+                        case .spoiler:
+                            if value == 0 {
+                                stringValue = "RET"
+                            } else if value == 50 {
+                                stringValue = "1 / 2"
+                            } else if value == 100 {
+                                stringValue = "FULL"
+                            } else {
+                                stringValue = String(value)
+                            }
                         default:
                             stringValue = String(value)
                         }
-        
+                        
                         
                         if !editing {
                             print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
@@ -159,8 +167,10 @@ struct VerticalSliderView: View {
                         GearRangeView()
                         ThumbView(value: $stringValue, unit: "")
                             .offset(y: CGFloat(value == 0 ? -250 : 250))
-                        //                    case .spoiler: break
-                        //                        //
+                    case .spoiler:
+                        SpoilerRangeView()
+                        ThumbView(value: $stringValue, unit: "")
+                            .offset(y: CGFloat(-(500*(100-value))/100)+250)
                     default:
                         EmptyView()
                     }
@@ -209,8 +219,10 @@ struct VerticalSliderView: View {
                 value = 0
                 oldValue = 0
                 stringValue = "UP"
-            case .spoiler: break
-                //
+            case .spoiler:
+                value = 0
+                oldValue = 0
+                stringValue = "RET"
             }
         }
     }

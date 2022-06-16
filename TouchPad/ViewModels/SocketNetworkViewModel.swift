@@ -63,6 +63,16 @@ class SocketNetworkViewModel: ObservableObject {
                 webSocketService.changeGear(0)
             }
         case .spoiler:
+            switch value {
+            case 0:
+                webSocketService.changeSpoiler(0)
+            case 1...100:
+                // FIXME: Spoiler value calculation
+                let spoilerValue = Double(value) * 107.63 + 5620
+                webSocketService.changeSpoiler(5620)
+            default:
+                webSocketService.changeSpoiler(0)
+            }
             webSocketService.changeSpoiler(value)
         }
     }

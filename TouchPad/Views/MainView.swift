@@ -61,6 +61,7 @@ struct MainView: View {
                     Spacer()
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear)
                     Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 100, aircraftData: .spoiler)
                 }
                 .padding(.top, 20)
             }

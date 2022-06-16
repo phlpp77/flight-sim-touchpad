@@ -12,6 +12,7 @@
 		170420A4282284850041927A /* RingSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170420A3282284850041927A /* RingSliderView.swift */; };
 		1719061F2857A4EF002C1F9D /* ActiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */; };
 		1726B6BB285B62360053BCC0 /* GearRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726B6BA285B62360053BCC0 /* GearRangeView.swift */; };
+		1726B6BD285B713F0053BCC0 /* SpoilerRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726B6BC285B713F0053BCC0 /* SpoilerRangeView.swift */; };
 		1729249C285B43FE006EFF6B /* FlapsRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249B285B43FE006EFF6B /* FlapsRangeView.swift */; };
 		1729249E285B443A006EFF6B /* ThumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249D285B443A006EFF6B /* ThumbView.swift */; };
 		172924A0285B59D0006EFF6B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249F285B59D0006EFF6B /* Enums.swift */; };
@@ -46,6 +47,7 @@
 		170420A3282284850041927A /* RingSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderView.swift; sourceTree = "<group>"; };
 		1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveButtonView.swift; sourceTree = "<group>"; };
 		1726B6BA285B62360053BCC0 /* GearRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearRangeView.swift; sourceTree = "<group>"; };
+		1726B6BC285B713F0053BCC0 /* SpoilerRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoilerRangeView.swift; sourceTree = "<group>"; };
 		1729249B285B43FE006EFF6B /* FlapsRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlapsRangeView.swift; sourceTree = "<group>"; };
 		1729249D285B443A006EFF6B /* ThumbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbView.swift; sourceTree = "<group>"; };
 		1729249F285B59D0006EFF6B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				178CC90D2829511000467DC9 /* SpeedRangeView.swift */,
 				17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */,
 				1729249B285B43FE006EFF6B /* FlapsRangeView.swift */,
+				1726B6BC285B713F0053BCC0 /* SpoilerRangeView.swift */,
 				1726B6BA285B62360053BCC0 /* GearRangeView.swift */,
 				1729249D285B443A006EFF6B /* ThumbView.swift */,
 				178CC9092828F7D800467DC9 /* HeadingView.swift */,
@@ -270,6 +273,7 @@
 				172924A0285B59D0006EFF6B /* Enums.swift in Sources */,
 				176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */,
 				1729249C285B43FE006EFF6B /* FlapsRangeView.swift in Sources */,
+				1726B6BD285B713F0053BCC0 /* SpoilerRangeView.swift in Sources */,
 				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,
 				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */,
