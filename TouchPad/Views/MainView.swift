@@ -28,7 +28,11 @@ struct MainView: View {
                         .onEnded { action in
                             print("Global input at \(action.startLocation) at \(Date().localFlightSim())")
                             // MARK: Save to log
-                            log.append(LogData(attribute: "Global input", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: action.startLocation, startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
+                            let logData = LogData(attribute: "Global input", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: action.startLocation, startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+                            log.append(logData)
+                            if mqttNetworkVM.connectionOpen {
+                                mqttNetworkVM.sendToLog(logData)
+                            }
                         }
                 )
             
@@ -55,7 +59,11 @@ struct MainView: View {
                         self.showPopover = true
                         print("Settings opened at \(Date().localFlightSim())")
                         // MARK: Save to log
-                        log.append(LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim()))
+                        let logData = LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+                        log.append(logData)
+                        if mqttNetworkVM.connectionOpen {
+                            mqttNetworkVM.sendToLog(logData)
+                        }
                     }) {
                         Image(systemName: "gear")
                             .font(.largeTitle)
