@@ -16,7 +16,7 @@ struct GearRangeView: View {
             HStack {
                 Rectangle()
                     .frame(width: 18, height: 1)
-                Text("DOWN")
+                Text("UP")
                     .frame(height: 1)
             }
             
@@ -25,7 +25,7 @@ struct GearRangeView: View {
             HStack {
                 Rectangle()
                     .frame(width: 18, height: 1)
-                Text("UP")
+                Text("DOWN")
                     .frame(height: 1)
             }
             

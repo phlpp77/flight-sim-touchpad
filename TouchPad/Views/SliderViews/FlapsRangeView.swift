@@ -15,21 +15,23 @@ struct FlapsRangeView: View {
     var body: some View {
         
         VStack(alignment: .leading, spacing: 0) {
+            
+            ForEach(range, id: \.self) { item in
+                
+                HStack {
+                    Rectangle()
+                        .frame(width: 18, height: 1)
+                    Text("\(item)")
+                        .frame(height: 1)
+                }
+                Spacer(minLength: 0)
+            }
+            
             HStack {
                 Rectangle()
                     .frame(width: 18, height: 1)
                 Text("FULL")
                     .frame(height: 1)
-            }
-            ForEach(range.reversed(), id: \.self) { item in
-                Spacer(minLength: 0)
-            HStack {
-                Rectangle()
-                    .frame(width: 18, height: 1)
-                Text("\(item)")
-                    .frame(height: 1)
-            }
-                
             }
             
             

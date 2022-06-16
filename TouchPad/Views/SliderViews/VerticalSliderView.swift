@@ -15,13 +15,15 @@ struct VerticalSliderView: View {
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
-    var thumbWidth: CGFloat = 50
-    var thumbHeight: CGFloat = 50
+    var topToBottom: Bool = false
     var step: Int = 1
     
     let minValue: Int
     let maxValue: Int
     let aircraftData: AircraftDataType
+    let thumbWidth: CGFloat = 50
+    let thumbHeight: CGFloat = 50
+    
     
     @State private var value = 250
     @State private var oldValue = 250
@@ -131,7 +133,9 @@ struct VerticalSliderView: View {
                                 }
                         )
                     )
+                    
                     .coordinateSpace(name: "slider")
+                    .rotationEffect(Angle.degrees(topToBottom ? 180 : 0))
                     .frame(width: 120, height: 540)
                 }
                 
@@ -150,11 +154,11 @@ struct VerticalSliderView: View {
                     case .flaps:
                         FlapsRangeView()
                         ThumbView(value: $stringValue, unit: "")
-                            .offset(y: CGFloat((500*(4-value))/4 - 250))
+                            .offset(y: CGFloat(-(500*(4-value))/4 + 250))
                     case .gear:
                         GearRangeView()
                         ThumbView(value: $stringValue, unit: "")
-                            .offset(y: CGFloat(value == 0 ? 250 : -250))
+                            .offset(y: CGFloat(value == 0 ? -250 : 250))
                         //                    case .spoiler: break
                         //                        //
                     default:
