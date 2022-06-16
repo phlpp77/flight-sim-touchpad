@@ -228,6 +228,7 @@ struct SettingsView: View {
                 
             }
             .foregroundColor(.primary)
+            .font(.body)
             .navigationTitle(Text("Settings"))
             .navigationViewStyle(.stack)
         }
