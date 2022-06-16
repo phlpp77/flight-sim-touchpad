@@ -11,6 +11,7 @@ import simd
 struct RingSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     @Binding var turnFactor: Int
     
@@ -101,9 +102,13 @@ struct RingSliderView: View {
                                         isDragging = false
                                         print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
                                         // MARK: Save to log
-                                        log.append(LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor)))
+                                        let logData = LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor))
+                                        log.append(logData)
                                         if socketNetworkVM.offsetsDeclared {
                                             socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
+                                        }
+                                        if mqttNetworkVM.connectionOpen {
+                                            mqttNetworkVM.sendToLog(logData)
                                         }
                                         firstMovement = true
                                         oldDegrees = degrees
@@ -215,9 +220,10 @@ struct RingSliderView: View {
 struct RingSliderView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
+        let mqttNetworkVM = MQTTNetworkViewModel()
         let appearanceVM = AppearanceViewModel()
         
-        RingSliderView(socketNetworkVM: socketNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
+        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
     }
 }
