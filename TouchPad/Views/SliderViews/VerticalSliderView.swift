@@ -25,6 +25,7 @@ struct VerticalSliderView: View {
     
     @State private var value = 250
     @State private var oldValue = 250
+    @State private var stringValue = "250"
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
@@ -53,6 +54,14 @@ struct VerticalSliderView: View {
                             startTimeStamp = Date().localFlightSim()
                             firstMovement = false
                         }
+                        
+                        // check for special values
+                        if value == 4 && valueName == "flaps" {
+                            stringValue = "FULL"
+                        } else {
+                            stringValue = String(value)
+                        }
+                        
                         if !editing {
                             print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
                             // MARK: Save to log
@@ -64,6 +73,9 @@ struct VerticalSliderView: View {
                             if mqttNetworkVM.connectionOpen {
                                 mqttNetworkVM.sendToLog(logData)
                             }
+                            
+                            
+                            
                             oldValue = value
                             firstMovement = true
                         }
@@ -113,18 +125,21 @@ struct VerticalSliderView: View {
                 
                 ZStack {
                     
-                    // MARK: Value range
+                    // MARK: Value range and Value indicator
                     if valueName == "speed" {
                         SpeedRangeView()
+                        ThumbView(value: $stringValue, unit: "kt")
+                            .offset(y: CGFloat((700*(400-value))/300 - 350))
                     } else if valueName == "altitude" {
                         AltitudeRangeView()
+                        ThumbView(value: $stringValue, unit: "ft")
+                            .offset(y: CGFloat((700*(20000-value))/19900 - 350))
                     } else if valueName == "flaps" {
-                        
+                        FlapsRangeView()
+                        ThumbView(value: $stringValue, unit: "")
+                            .offset(y: CGFloat((500*(4-value))/4 - 250))
                     }
-                    
-                    // MARK: Value indicator
-                    ThumbView(value: $value, unit: valueName == "speed" ? "kt" : "ft")
-                        .offset(y: valueName == "speed" ? CGPoint(x: 0, y: ((700*(400-value))/300)).y - 350 : CGPoint(x: 0, y: ((700*(20000-value))/19900)).y - 350)
+                        
                 }
             }
             
@@ -147,6 +162,13 @@ struct VerticalSliderView: View {
             }
         }
         .frame(width: 200, height: 700)
+        .onAppear {
+            if valueName == "flaps" {
+                value = 0
+                oldValue = 0
+                stringValue = "0"
+            }
+        }
         
     }
 }

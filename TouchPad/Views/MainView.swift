@@ -14,7 +14,7 @@ struct MainView: View {
     let mqttNetworkVM = MQTTNetworkViewModel()
     
     @State var showPopover = false
-    @State var showSecondScreen = false
+    @State var showSecondScreen = true
     @State var showMasterWarn = false
     
     var body: some View {
@@ -55,7 +55,12 @@ struct MainView: View {
                 }
                 .padding(.top, 20)
             } else {
-                Text("more to come..")
+                HStack {
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 0, maxValue: 4, valueName: "flaps")
+                    Spacer()
+                }
+                .padding(.top, 20)
             }
             
             

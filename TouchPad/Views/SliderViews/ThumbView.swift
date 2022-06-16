@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ThumbView: View {
     
-    @Binding var value: Int
+    @Binding var value: String
     var unit: String
     
     var body: some View {
@@ -39,6 +39,6 @@ struct ThumbView: View {
 
 struct ThumbView_Previews: PreviewProvider {
     static var previews: some View {
-        ThumbView(value: .constant(230), unit: "kt")
+        ThumbView(value: .constant("230"), unit: "kt")
     }
 }

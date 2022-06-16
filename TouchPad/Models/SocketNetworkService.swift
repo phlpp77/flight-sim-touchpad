@@ -179,6 +179,11 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         print("[changeHeading] answer: \(receiveMessage())")
     }
     
+    // MARK: Change flaps
+    func changeFlaps(_ flaps: Int) {
+        //
+    }
+    
     // MARK: - Constants
     
     private struct Constants {

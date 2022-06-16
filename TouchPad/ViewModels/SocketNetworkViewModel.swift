@@ -35,6 +35,21 @@ class SocketNetworkViewModel: ObservableObject {
             webSocketService.changeSpeed(value)
         } else if name == "altitude" {
             webSocketService.changeAltitude(value)
+        } else if name == "flaps" {
+            switch value {
+            case 0:
+                webSocketService.changeFlaps(0)
+            case 1:
+                webSocketService.changeFlaps(4095)
+            case 2:
+                webSocketService.changeFlaps(8191)
+            case 3:
+                webSocketService.changeFlaps(12287)
+            case 4:
+                webSocketService.changeFlaps(16383)
+            default:
+                webSocketService.changeFlaps(0)
+            }
         }
     }
     
@@ -42,14 +57,6 @@ class SocketNetworkViewModel: ObservableObject {
         webSocketService.changeHeading(heading, turnFactor: turnFactor)
     }
     
-    // returns value of connection
-//    var connectionStatus: String {
-//        webSocketService.isConnectionOpen ? "Connected" : "Not connected"
-//    }
-    
-//    var isConnectionOpen: Bool {
-//        webSocketService.isConnectionOpen
-//    }
 }
 
 extension SocketNetworkViewModel: SocketNetworkServiceDelegate {
