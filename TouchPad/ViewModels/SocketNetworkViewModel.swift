@@ -30,12 +30,15 @@ class SocketNetworkViewModel: ObservableObject {
         }
     }
     
-    func changeValue(of name: String, to value: Int) {
-        if name == "speed" {
+    func changeValue(of name: AircraftDataType, to value: Int) {
+        switch name {
+        case .speed:
             webSocketService.changeSpeed(value)
-        } else if name == "altitude" {
+        case .altitude:
             webSocketService.changeAltitude(value)
-        } else if name == "flaps" {
+        case .heading:
+            print("Case \(name) not handled here")
+        case .flaps:
             switch value {
             case 0:
                 webSocketService.changeFlaps(0)
@@ -50,6 +53,10 @@ class SocketNetworkViewModel: ObservableObject {
             default:
                 webSocketService.changeFlaps(0)
             }
+        case .gear:
+            webSocketService.changeGear(value)
+        case .spoiler:
+            webSocketService.changeSpoiler(value)
         }
     }
     

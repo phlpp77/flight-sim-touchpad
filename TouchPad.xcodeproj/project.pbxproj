@@ -13,6 +13,7 @@
 		1719061F2857A4EF002C1F9D /* ActiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */; };
 		1729249C285B43FE006EFF6B /* FlapsRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249B285B43FE006EFF6B /* FlapsRangeView.swift */; };
 		1729249E285B443A006EFF6B /* ThumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249D285B443A006EFF6B /* ThumbView.swift */; };
+		172924A0285B59D0006EFF6B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249F285B59D0006EFF6B /* Enums.swift */; };
 		1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1733BD09281FD6E800D05827 /* DateExtension.swift */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
@@ -45,6 +46,7 @@
 		1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveButtonView.swift; sourceTree = "<group>"; };
 		1729249B285B43FE006EFF6B /* FlapsRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlapsRangeView.swift; sourceTree = "<group>"; };
 		1729249D285B443A006EFF6B /* ThumbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbView.swift; sourceTree = "<group>"; };
+		1729249F285B59D0006EFF6B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		1733BD09281FD6E800D05827 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 		178CC9082828F46B00467DC9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1729249F285B59D0006EFF6B /* Enums.swift */,
 				176B2F6F2818254B00B583A9 /* OffsetModels.swift */,
 				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
 				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
@@ -260,6 +263,7 @@
 			files = (
 				175283A427EDF803007BE399 /* ButtonsView.swift in Sources */,
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
+				172924A0285B59D0006EFF6B /* Enums.swift in Sources */,
 				176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */,
 				1729249C285B43FE006EFF6B /* FlapsRangeView.swift in Sources */,
 				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,

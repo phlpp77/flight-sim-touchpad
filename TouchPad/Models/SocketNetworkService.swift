@@ -134,7 +134,9 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                 DeclareOffset(name: "altitude", address: 16908, type: "int", size: 2),
                 DeclareOffset(name: "heading", address: 16910, type: "int", size: 2),
                 DeclareOffset(name: "TurnFactor", address: 16912, type: "int", size: 1),
-                DeclareOffset(name: "flaps", address: 3036, type: "int", size: 4)
+                DeclareOffset(name: "flaps", address: 3036, type: "int", size: 4),
+                DeclareOffset(name: "gear", address: 3048, type: "int", size: 4),
+                DeclareOffset(name: "spoiler", address: 3024, type: "int", size: 4)
             ]
         )
         
@@ -186,6 +188,22 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         let changeFlapsOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "flaps", value: flaps)])
         sendOffset(changeFlapsOffset)
         print("[changeFlaps] answer: \(receiveMessage())")
+    }
+    
+    // MARK: Change gear
+    func changeGear(_ gear: Int) {
+        print("[changeGear] start")
+        let changeGearOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "gear", value: gear)])
+        sendOffset(changeGearOffset)
+        print("[changeGear] answer: \(receiveMessage())")
+    }
+    
+    // MARK: Change spoilers
+    func changeSpoiler(_ spoiler: Int) {
+        print("[changeSpoiler] start")
+        let changeSpoilerOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "spoiler", value: spoiler)])
+        sendOffset(changeSpoilerOffset)
+        print("[changeSpoiler] answer: \(receiveMessage())")
     }
     
     // MARK: - Constants

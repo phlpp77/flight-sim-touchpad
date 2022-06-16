@@ -41,7 +41,7 @@ struct MainView: View {
             if !showSecondScreen {
                 HStack {
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
                     Spacer()
                     VStack {
     //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
@@ -50,14 +50,14 @@ struct MainView: View {
                             .padding(.bottom, 30)
                     }
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, valueName: "altitude")
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
                     Spacer()
                 }
                 .padding(.top, 20)
             } else {
                 HStack {
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 0, maxValue: 4, valueName: "flaps")
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 0, maxValue: 4, aircraftData: .flaps)
                     Spacer()
                 }
                 .padding(.top, 20)

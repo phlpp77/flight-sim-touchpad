@@ -21,7 +21,7 @@ struct VerticalSliderView: View {
     
     let minValue: Int
     let maxValue: Int
-    let valueName: String
+    let aircraftData: AircraftDataType
     
     @State private var value = 250
     @State private var oldValue = 250
@@ -56,19 +56,19 @@ struct VerticalSliderView: View {
                         }
                         
                         // check for special values
-                        if value == 4 && valueName == "flaps" {
+                        if value == 4 && aircraftData == .flaps {
                             stringValue = "FULL"
                         } else {
                             stringValue = String(value)
                         }
                         
                         if !editing {
-                            print("\(valueName) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
+                            print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
                             // MARK: Save to log
-                            let logData = LogData(attribute: valueName, oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
+                            let logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
                             log.append(logData)
                             if socketNetworkVM.offsetsDeclared {
-                                socketNetworkVM.changeValue(of: valueName, to: value)
+                                socketNetworkVM.changeValue(of: aircraftData, to: value)
                             }
                             if mqttNetworkVM.connectionOpen {
                                 mqttNetworkVM.sendToLog(logData)
@@ -112,7 +112,7 @@ struct VerticalSliderView: View {
                                                 
                                                 let gGlobal = geo.frame(in: .global)
                                                 globalPos = gGlobal.origin
-                                                globalPos.y = round(globalPos.y * 10) / 10  
+                                                globalPos.y = round(globalPos.y * 10) / 10
                                             }
                                     }
                                     .frame(width: thumbWidth, height: thumbHeight)
@@ -126,20 +126,28 @@ struct VerticalSliderView: View {
                 ZStack {
                     
                     // MARK: Value range and Value indicator
-                    if valueName == "speed" {
+                    switch aircraftData {
+                    case .speed:
                         SpeedRangeView()
                         ThumbView(value: $stringValue, unit: "kt")
                             .offset(y: CGFloat((700*(400-value))/300 - 350))
-                    } else if valueName == "altitude" {
+                    case .altitude:
                         AltitudeRangeView()
                         ThumbView(value: $stringValue, unit: "ft")
                             .offset(y: CGFloat((700*(20000-value))/19900 - 350))
-                    } else if valueName == "flaps" {
+                    case .flaps:
                         FlapsRangeView()
                         ThumbView(value: $stringValue, unit: "")
                             .offset(y: CGFloat((500*(4-value))/4 - 250))
+                        //                    case .gear: break
+                        //                        //
+                        //                    case .spoiler: break
+                        //                        //
+                    default:
+                        EmptyView()
                     }
-                        
+                    
+                    
                 }
             }
             
@@ -163,13 +171,28 @@ struct VerticalSliderView: View {
         }
         .frame(width: 200, height: 700)
         .onAppear {
-            if valueName == "flaps" {
+            // set initial values
+            switch aircraftData {
+            case .speed:
+                value = 250
+                oldValue = 250
+                stringValue = "250"
+            case .altitude:
+                value = 10000
+                oldValue = 10000
+                stringValue = "10000"
+            case .heading: break
+                //
+            case .flaps:
                 value = 0
                 oldValue = 0
                 stringValue = "0"
+            case .gear: break
+                //
+            case .spoiler: break
+                //
             }
         }
-        
     }
 }
 
@@ -179,7 +202,7 @@ struct SpeedSliderView_Previews: PreviewProvider {
         let socketNetworkVM = SocketNetworkViewModel()
         let appearanceVM = AppearanceViewModel()
         let mqttNetworkWM = MQTTNetworkViewModel()
-        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkWM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, valueName: "speed")
+        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkWM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }
