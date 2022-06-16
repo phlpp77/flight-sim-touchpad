@@ -15,7 +15,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
     
 
     let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
-    let host = "localhost"
+    let host = "192.168.103.103"
     let port: UInt16 = 1883
     let username = ""
     let password = ""
@@ -36,7 +36,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
         mqtt?.willMessage = CocoaMQTTMessage(topic: "/will", string: "connection lost")
         mqtt?.keepAlive = 60
         mqtt?.delegate = self
-        print("[MQTT] Open MQTT session")
+        print("[MQTT] Open MQTT session with host \(host)")
         let value = mqtt?.connect()
         print(value ?? "nothing")
     }
