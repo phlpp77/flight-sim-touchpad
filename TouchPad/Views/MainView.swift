@@ -68,7 +68,7 @@ struct MainView: View {
                     .opacity(showSecondScreen ? 1 : 0)
                    
                 }
-                .padding(.top, 20)
+                .padding(.vertical, 15)
             
             
             
