@@ -183,10 +183,24 @@ struct SettingsView: View {
                 }
                 
                 Section(header: Text("Information")) {
-                    Text("Version: **v1.0.0-beta**")
-                    Text("Contact: Philipp Hemkemeyer")
-                    Text("Copyright: Airbus SE")
-                    
+                    HStack {
+                        Text("Version")
+                        Spacer()
+                        Text("v1.0.0-beta")
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Contact")
+                        Spacer()
+                        Text("Philipp Hemkemeyer")
+                            .foregroundColor(.gray)
+                    }
+                    HStack {
+                        Text("Copyright")
+                        Spacer()
+                        Text("2022 | Airbus SE")
+                            .foregroundColor(.gray)
+                    }
                 }
                 
                 
