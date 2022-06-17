@@ -38,33 +38,37 @@ struct MainView: View {
                         }
                 )
             
-            if !showSecondScreen {
-                HStack {
-                    Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
-                    Spacer()
-                    VStack {
-    //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
+                ZStack {
+                    HStack {
                         Spacer()
-                        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
-                            .padding(.bottom, 30)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
+                        Spacer()
+                        VStack {
+        //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
+                            Spacer()
+                            HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
+                                .padding(.bottom, 30)
+                        }
+                        Spacer()
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
+                        Spacer()
                     }
-                    Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
-                    Spacer()
+                    .opacity(showSecondScreen ? 0 : 1)
+                    
+                
+                    HStack {
+                        Spacer()
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps)
+                        Spacer()
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear)
+                        Spacer()
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 100, aircraftData: .spoiler)
+                        Spacer()
+                    }
+                    .opacity(showSecondScreen ? 1 : 0)
+                   
                 }
                 .padding(.top, 20)
-            } else {
-                HStack {
-                    Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps)
-                    Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear)
-                    Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 100, aircraftData: .spoiler)
-                }
-                .padding(.top, 20)
-            }
             
             
             
@@ -90,7 +94,9 @@ struct MainView: View {
                     
                     // MARK: Screen Switch Button
                     Button {
-                        showSecondScreen.toggle()
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            showSecondScreen.toggle()
+                        }
                         
                         // MARK: Save to log
                         let screenNumber = showSecondScreen ? 0 : 1
