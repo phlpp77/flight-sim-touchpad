@@ -181,6 +181,15 @@ struct SettingsView: View {
                     
                     
                 }
+                
+                Section(header: Text("Information")) {
+                    Text("Version: **v1.0.0-beta**")
+                    Text("Contact: Philipp Hemkemeyer")
+                    Text("Copyright: Airbus SE")
+                    
+                }
+                
+                
                 Rectangle()
                     .opacity(0)
                     .frame(height: 1)
