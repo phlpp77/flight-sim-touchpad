@@ -186,7 +186,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("v1.0.0-beta")
+                        Text("v1.1.0-beta")
                             .foregroundColor(.gray)
                     }
                     HStack {
