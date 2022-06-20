@@ -71,9 +71,9 @@ class SocketNetworkViewModel: ObservableObject {
                 print("Spoiler Value: \(Int(spoilerValue))")
                 webSocketService.changeSpoiler(Int(spoilerValue))
             default:
-                webSocketService.changeSpoiler(0)
+//                webSocketService.changeSpoiler(0)
+                print("default spoiler")
             }
-            webSocketService.changeSpoiler(value)
         }
     }
     
