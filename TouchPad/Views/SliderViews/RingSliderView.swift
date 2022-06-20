@@ -210,8 +210,9 @@ struct RingSliderView: View {
             startTrim = 1 - abs(trim)
             endTrim = 1
         }
-        
         degrees = simd_clamp(round(Double(progress) * 360 * 10) / 10.0, -360, 360)
+        // round to every 5
+        degrees = round(degrees / 5) * 5
         vStart = vEnd
     }
     
