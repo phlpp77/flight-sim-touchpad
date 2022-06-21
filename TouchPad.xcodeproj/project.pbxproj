@@ -11,6 +11,7 @@
 		170420A2282166440041927A /* UITextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170420A1282166440041927A /* UITextFieldAlert.swift */; };
 		170420A4282284850041927A /* RingSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170420A3282284850041927A /* RingSliderView.swift */; };
 		1719061F2857A4EF002C1F9D /* ActiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */; };
+		17235083286204CC00571EB4 /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17235082286204CC00571EB4 /* ServerSettingsView.swift */; };
 		1726B6BB285B62360053BCC0 /* GearRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726B6BA285B62360053BCC0 /* GearRangeView.swift */; };
 		1726B6BD285B713F0053BCC0 /* SpoilerRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726B6BC285B713F0053BCC0 /* SpoilerRangeView.swift */; };
 		1729249C285B43FE006EFF6B /* FlapsRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249B285B43FE006EFF6B /* FlapsRangeView.swift */; };
@@ -46,6 +47,7 @@
 		170420A1282166440041927A /* UITextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAlert.swift; sourceTree = "<group>"; };
 		170420A3282284850041927A /* RingSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderView.swift; sourceTree = "<group>"; };
 		1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveButtonView.swift; sourceTree = "<group>"; };
+		17235082286204CC00571EB4 /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		1726B6BA285B62360053BCC0 /* GearRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearRangeView.swift; sourceTree = "<group>"; };
 		1726B6BC285B713F0053BCC0 /* SpoilerRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpoilerRangeView.swift; sourceTree = "<group>"; };
 		1729249B285B43FE006EFF6B /* FlapsRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlapsRangeView.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */,
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
+				17235082286204CC00571EB4 /* ServerSettingsView.swift */,
 				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
@@ -293,6 +296,7 @@
 				170420A4282284850041927A /* RingSliderView.swift in Sources */,
 				178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */,
 				17AC52B7282BCA0F009CE70E /* AltitudeRangeView.swift in Sources */,
+				17235083286204CC00571EB4 /* ServerSettingsView.swift in Sources */,
 				17555D93280707C1003B61F0 /* TouchPadModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

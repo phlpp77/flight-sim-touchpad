@@ -13,17 +13,11 @@ struct SettingsView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
-    @State private var mqttMessage = ""
-    @State private var mqttTopic = "fcu/status"
-    @State private var subscribingTopic = ""
     
-    @State private var speedText = ""
     @State private var fileName = ""
     @State private var presentFileNameAlert = false
     @State private var presentErrorAlert = false
     @State private var presentDoneAlert = false
-    
-    @State private var isPerformingTask = false
     
     var body: some View {
         
@@ -98,87 +92,6 @@ struct SettingsView: View {
                     }
                 }
                 
-                
-                Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
-                    
-                    // MARK: Connect to WebSocket Server
-                    Toggle(isOn: $socketNetworkVM.toggleServerConnection) {
-                        Text("Connect WebSocket Server")
-                    }
-                    
-                    // MARK: Declare offsets
-                    Button(action: {
-                        isPerformingTask = true
-                        
-                        Task {
-                            await socketNetworkVM.webSocketService.declareOffsets()
-                            isPerformingTask = false
-                        }
-                        
-                    }) {
-                        ZStack {
-                            Text("Declare Offsets")
-                                .foregroundColor(.blue)
-                                .opacity(isPerformingTask ? 0 : 1)
-                            
-                            if isPerformingTask {
-                                ProgressView()
-                            }
-                        }
-                        
-                        
-                    }
-                    .disabled(isPerformingTask)
-                    
-                    
-                    // MARK: Change speed
-                    HStack {
-                        TextField("Speed", text: $speedText)
-                            .keyboardType(.numberPad)
-                        Button(action: {
-                            guard let speedNumber = Int(speedText) else {
-                                print("Input is not a valid number")
-                                return
-                            }
-                            socketNetworkVM.webSocketService.changeSpeed(speedNumber)
-                        }) {
-                            Text("Set speed")
-                                .foregroundColor(.blue)
-                        }
-                    }
-                    
-                }
-                
-                Section(header: Text("MQTT")) {
-                    
-                    Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
-                        Text("Connect MQTT Server")
-                    }
-                    
-                    HStack {
-                        TextField("Topic", text: $mqttTopic)
-                        TextField("Message", text: $mqttMessage)
-                        Button {
-                            mqttNetworkVM.sendMessage(mqttMessage, topic: mqttTopic)
-                        } label: {
-                            Text("Send message")
-                                .foregroundColor(.blue)
-                        }
-                    }
-                    
-                    HStack {
-                        TextField("Topic", text: $subscribingTopic)
-                        Button {
-                            mqttNetworkVM.receiveMessage(topic: subscribingTopic)
-                        } label: {
-                            Text("Subscribe")
-                                .foregroundColor(.blue)
-                        }
-                        
-                    }
-                    
-                }
-                
                 Section(header: Text("Logfiles")) {
                     
                     // MARK: Create log file
@@ -193,6 +106,14 @@ struct SettingsView: View {
                     }
                     
                     
+                }
+                
+                Section(header: Text("Advanced settings")) {
+                    NavigationLink {
+                        ServerSettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+                    } label: {
+                        Text("Server settings")
+                    }
                 }
                 
                 Section(header: Text("Information")) {
@@ -220,47 +141,47 @@ struct SettingsView: View {
                 Rectangle()
                     .opacity(0)
                     .frame(height: 1)
-                    
+                
                 // Alert to get filename from user
-                .alert(
-                    isPresented: $presentFileNameAlert,
-                    TextAlert(
-                        title: "Export log file",
-                        message: "Name the file of the log",
-                        placeholder: "Log-Testpilot-1",
-                        accept: "Export",
-                        cancel: "Cancel",
-                        keyboardType: .namePhonePad
-                    ) { result in
-                        if var text = result {
-                            if text == "" {
-                                text = "Log-Testpilot-1"
-                            }
-                            createLogCSV(filename: text) { fileCreated in
-                                if !fileCreated {
-                                    presentErrorAlert = true
-                                } else {
-                                    print("Create logfile with name \(text)")
-                                    presentDoneAlert = true
+                    .alert(
+                        isPresented: $presentFileNameAlert,
+                        TextAlert(
+                            title: "Export log file",
+                            message: "Name the file of the log",
+                            placeholder: "Log-Testpilot-1",
+                            accept: "Export",
+                            cancel: "Cancel",
+                            keyboardType: .namePhonePad
+                        ) { result in
+                            if var text = result {
+                                if text == "" {
+                                    text = "Log-Testpilot-1"
+                                }
+                                createLogCSV(filename: text) { fileCreated in
+                                    if !fileCreated {
+                                        presentErrorAlert = true
+                                    } else {
+                                        print("Create logfile with name \(text)")
+                                        presentDoneAlert = true
+                                    }
                                 }
                             }
                         }
-                    }
-                )
+                    )
                 
                 // Alert to inform user filename is already in use
-                .alert(Text("Error"), isPresented: $presentErrorAlert, actions: {
-                    Button("OK", role: .cancel) {presentErrorAlert = false }
-                    
-                }, message: {Text("Filename already in use")})
+                    .alert(Text("Error"), isPresented: $presentErrorAlert, actions: {
+                        Button("OK", role: .cancel) {presentErrorAlert = false }
+                        
+                    }, message: {Text("Filename already in use")})
                 // Alert to inform user file is created and can be found in "Files" app
-                .alert(Text("Success"), isPresented: $presentDoneAlert, actions: {
-                    Button("OK", role: .cancel) {presentDoneAlert = false }
-                    
-                }, message: {Text("File was created successfully and can be found in Files app on this iPad")})
+                    .alert(Text("Success"), isPresented: $presentDoneAlert, actions: {
+                        Button("OK", role: .cancel) {presentDoneAlert = false }
+                        
+                    }, message: {Text("File was created successfully and can be found in Files app on this iPad")})
                 
-                .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
-                .listRowInsets(EdgeInsets()) // remove insets so cards are inline with rest
+                    .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
+                    .listRowInsets(EdgeInsets()) // remove insets so cards are inline with rest
                 
             }
             .foregroundColor(.primary)
@@ -270,11 +191,6 @@ struct SettingsView: View {
         }
         .accessibilityLabel("Settings")
     }
-    
-    
-    
-    
-    
 }
 
 // MARK: StatusField at the top
