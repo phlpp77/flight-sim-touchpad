@@ -41,6 +41,16 @@ class AppearanceViewModel: ObservableObject {
         }
     }
     
+    var screen: Screen {
+        get {
+            model.settings.screen
+        }
+        set {
+            let newState = newValue
+            model.changeScreen(newState)
+        }
+    }
+    
     // Settings from Model read only
     var settings: TouchPadModel.TouchPadSettings {
         return model.settings

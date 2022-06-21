@@ -15,3 +15,9 @@ enum AircraftDataType: String {
     case gear
     case spoiler
 }
+
+enum Screen: String, CaseIterable, Identifiable {
+    case essential
+    case additional
+    var id: Self { self }
+}

@@ -85,6 +85,17 @@ struct SettingsView: View {
                     Toggle(isOn: $appearanceVM.headingStepsInFive) {
                         Text("Lock heading every five steps")
                     }
+                    
+                    // MARK: Screen selector
+                    HStack {
+                        Text("Select screen")
+                        Spacer(minLength: 250)
+                        Picker(selection: $appearanceVM.screen, label: Text("Select screen")) {
+                            Text("Main screen").tag(Screen.essential)
+                            Text("Secondary screen").tag(Screen.additional)
+                        }
+                        .pickerStyle(.segmented)
+                    }
                 }
                 
                 

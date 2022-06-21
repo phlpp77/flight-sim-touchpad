@@ -12,10 +12,10 @@ struct TouchPadModel {
     private(set) var settings = TouchPadSettings()
     
     struct TouchPadSettings {
-//        var showTapLocation: Bool = false
         var showTapIndicator: Bool = false
         var speedStepsInFive: Bool = true
         var headingStepsInFive: Bool = true
+        var screen: Screen = .essential
         var webSocketConnectionIsOpen: Bool = false
     }
     
@@ -29,6 +29,10 @@ struct TouchPadModel {
     
     mutating func changeHeadingStepsInFive(_ newState: Bool) {
         settings.headingStepsInFive = newState
+    }
+    
+    mutating func changeScreen(_ newState: Screen) {
+        settings.screen = newState
     }
     
 }

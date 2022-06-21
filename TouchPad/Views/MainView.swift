@@ -41,10 +41,7 @@ struct MainView: View {
                 ZStack {
                     HStack {
                         Spacer()
-                        
                         VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed)
-                        
-                        
                         Spacer()
                         VStack {
         //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
@@ -56,7 +53,7 @@ struct MainView: View {
                         VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
                         Spacer()
                     }
-                    .opacity(showSecondScreen ? 0 : 1)
+                    .opacity(appearanceVM.screen == .essential ? 1 : 0)
                     
                 
                     HStack {
@@ -68,7 +65,7 @@ struct MainView: View {
                         VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 100, aircraftData: .spoiler)
                         Spacer()
                     }
-                    .opacity(showSecondScreen ? 1 : 0)
+                    .opacity(appearanceVM.screen == .additional ? 1 : 0)
                    
                 }
                 .padding(.vertical, 15)
@@ -95,24 +92,6 @@ struct MainView: View {
                             }
                     }
                     
-                    // MARK: Screen Switch Button
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            showSecondScreen.toggle()
-                        }
-                        
-                        // MARK: Save to log
-                        let screenNumber = showSecondScreen ? 0 : 1
-                        let oldScreenNumber = showSecondScreen ? 1 : 0
-                        print("Screen switched from Screen \(screenNumber) to \(oldScreenNumber) at \(Date().localFlightSim())")
-                        let logData = LogData(attribute: "Screen switched", oldValue: Double(oldScreenNumber), value: Double(screenNumber), relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
-                        log.append(logData)
-                        if mqttNetworkVM.connectionOpen {
-                            mqttNetworkVM.sendToLog(logData)
-                        }
-                    } label: {
-                        Image(systemName: "rectangle.on.rectangle")
-                    }
                     Spacer()
                 }
                 .padding(.leading, 10)
