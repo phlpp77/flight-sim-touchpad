@@ -11,15 +11,15 @@ class AppearanceViewModel: ObservableObject {
     
     @Published private var model: TouchPadModel = TouchPadModel()
     
-    var showTapLocation: Bool {
-        get {
-            model.settings.showTapLocation
-        }
-        set {
-            let newState = newValue
-            model.changeTapLocation(newState)
-        }
-    }
+//    var showTapLocation: Bool {
+//        get {
+//            model.settings.showTapLocation
+//        }
+//        set {
+//            let newState = newValue
+//            model.changeTapLocation(newState)
+//        }
+//    }
     
     var showTapIndicator: Bool {
         get {
@@ -28,6 +28,26 @@ class AppearanceViewModel: ObservableObject {
         set {
             let newState = newValue
             model.changeTapIndicator(newState)
+        }
+    }
+    
+    var speedStepsInFive: Bool {
+        get {
+            model.settings.speedStepsInFive
+        }
+        set {
+            let newState = newValue
+            model.changeSpeedStepsInFive(newState)
+        }
+    }
+    
+    var headingStepsInFive: Bool {
+        get {
+            model.settings.headingStepsInFive
+        }
+        set {
+            let newState = newValue
+            model.changeHeadingStepsInFive(newState)
         }
     }
     

@@ -41,16 +41,21 @@ struct MainView: View {
                 ZStack {
                     HStack {
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 5, minValue: 100, maxValue: 399, aircraftData: .speed)
+                        
+                            VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
+                        
+                        
                         Spacer()
                         VStack {
         //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
+                            Text("Speed steps: \(String(appearanceVM.speedStepsInFive))")
+                            Text("Heading steps: \(String(appearanceVM.headingStepsInFive))")
                             Spacer()
                             HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
                                 .padding(.bottom, 30)
                         }
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 20000, aircraftData: .altitude)
                         Spacer()
                     }
                     .opacity(showSecondScreen ? 0 : 1)

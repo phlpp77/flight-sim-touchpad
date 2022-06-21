@@ -212,7 +212,9 @@ struct RingSliderView: View {
         }
         degrees = simd_clamp(round(Double(progress) * 360 * 10) / 10.0, -360, 360)
         // round to every 5
-        degrees = round(degrees / 5) * 5
+        if appearanceVM.headingStepsInFive {
+            degrees = round(degrees / 5) * 5
+        }
         vStart = vEnd
     }
     

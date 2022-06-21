@@ -14,7 +14,7 @@ struct SettingsView: View {
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
     @State private var mqttMessage = ""
-    @State private var mqttTopic = "test/foo"
+    @State private var mqttTopic = "fcu/status"
     @State private var subscribingTopic = ""
     
     @State private var speedText = ""
@@ -70,17 +70,27 @@ struct SettingsView: View {
                 
                 
                 Section(header: Text("Appearance")) {
-                    //                    Toggle(isOn: $appearanceVM.showTapLocation) {
-                    //                        Text("Show coordinates")
-                    //                    }
+                    
+                    // MARK: Show tap indicators
                     Toggle(isOn: $appearanceVM.showTapIndicator) {
                         Text("Show tap indicators")
+                    }
+                    
+                    // MARK: Lock the speed every five steps
+                    Toggle(isOn: $appearanceVM.speedStepsInFive) {
+                        Text("Lock speed every five steps")
+                    }
+                    
+                    // MARK: Lock the heading every five steps
+                    Toggle(isOn: $appearanceVM.headingStepsInFive) {
+                        Text("Lock heading every five steps")
                     }
                 }
                 
                 
                 Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                     
+                    // MARK: Connect to WebSocket Server
                     Toggle(isOn: $socketNetworkVM.toggleServerConnection) {
                         Text("Connect WebSocket Server")
                     }
@@ -125,14 +135,6 @@ struct SettingsView: View {
                                 .foregroundColor(.blue)
                         }
                     }
-                    
-                    // MARK: Send string test
-                    //                    Button(action: {
-                    //                        socketNetworkVM.webSocketService.sendString("Hello from iOS Client!")
-                    //                    }) {
-                    //                        Text("Send test string to server")
-                    //                            .foregroundColor(.blue)
-                    //                    }
                     
                 }
                 

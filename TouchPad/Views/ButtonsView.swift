@@ -42,11 +42,11 @@ struct ButtonsView: View {
                                     .font(.system(size: 72))
                                 
                                 // Coordinates inside buttosn
-                                if appearanceVM.settings.showTapLocation {
+//                                if appearanceVM.settings.showTapLocation {
                                     Text("pressed at")
                                     // show coordinates rounded with 1 decimal place
                                     Text("x: \(String(format: "%.1f", namedButton.coordinates[0])) y: \(String(format: "%.1f",namedButton.coordinates[1]))")
-                                }
+//                                }
                                 
                             }
                             
