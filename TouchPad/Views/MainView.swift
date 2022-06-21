@@ -48,8 +48,6 @@ struct MainView: View {
                         Spacer()
                         VStack {
         //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
-                            Text("Speed steps: \(String(appearanceVM.speedStepsInFive))")
-                            Text("Heading steps: \(String(appearanceVM.headingStepsInFive))")
                             Spacer()
                             HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
                                 .padding(.bottom, 30)

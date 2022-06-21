@@ -11,16 +11,6 @@ class AppearanceViewModel: ObservableObject {
     
     @Published private var model: TouchPadModel = TouchPadModel()
     
-//    var showTapLocation: Bool {
-//        get {
-//            model.settings.showTapLocation
-//        }
-//        set {
-//            let newState = newValue
-//            model.changeTapLocation(newState)
-//        }
-//    }
-    
     var showTapIndicator: Bool {
         get {
             model.settings.showTapIndicator
