@@ -16,7 +16,7 @@ struct VerticalSliderView: View {
     @ObservedObject var appearanceVM: AppearanceViewModel
     
     var topToBottom: Bool = false
-    @State private var step: Int = 1
+    var step: Int = 1
     
     let minValue: Int
     let maxValue: Int
@@ -209,7 +209,6 @@ struct VerticalSliderView: View {
                 value = 10000
                 oldValue = 10000
                 stringValue = "10000"
-                step = 100
             case .heading: break
                 //
             case .flaps:
@@ -224,13 +223,6 @@ struct VerticalSliderView: View {
                 value = 0
                 oldValue = 0
                 stringValue = "RET"
-            }
-        }
-        .onChange(of: appearanceVM.speedStepsInFive) { _ in
-            if appearanceVM.speedStepsInFive && aircraftData == .speed {
-                step = 5
-            } else if aircraftData == .speed {
-                step = 1
             }
         }
     }

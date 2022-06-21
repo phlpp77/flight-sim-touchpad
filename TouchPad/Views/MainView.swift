@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     
-    let appearanceVM = AppearanceViewModel()
+    @ObservedObject var appearanceVM: AppearanceViewModel
     let socketNetworkVM = SocketNetworkViewModel()
     let mqttNetworkVM = MQTTNetworkViewModel()
     
@@ -42,7 +42,7 @@ struct MainView: View {
                     HStack {
                         Spacer()
                         
-                            VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed)
                         
                         
                         Spacer()
@@ -53,7 +53,7 @@ struct MainView: View {
                                 .padding(.bottom, 30)
                         }
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 20000, aircraftData: .altitude)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
                         Spacer()
                     }
                     .opacity(showSecondScreen ? 0 : 1)
@@ -137,7 +137,8 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        let appearanceVM = AppearanceViewModel()
+        MainView(appearanceVM: appearanceVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct TouchPadApp: App {
+    
+    let appearanceVM = AppearanceViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView(appearanceVM: appearanceVM)
                 .preferredColorScheme(.dark)
         }
     }
