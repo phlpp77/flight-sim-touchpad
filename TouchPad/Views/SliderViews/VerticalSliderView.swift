@@ -55,6 +55,14 @@ struct VerticalSliderView: View {
                         if firstMovement {
                             startTimeStamp = Date().localFlightSim()
                             firstMovement = false
+                        
+                            // MARK: Save touch down to log
+                            print("\(aircraftData.rawValue) slider started dragging at \(Date().localFlightSim())")
+                            let logData = LogData(attribute: String(aircraftData.rawValue), startTime: Date().localFlightSim(), endTime: Date().localFlightSim(), extra: "Touch down")
+                            log.append(logData)
+                            if mqttNetworkVM.connectionOpen {
+                                mqttNetworkVM.sendToLog(logData)
+                            }
                         }
                         
                         // check for special values

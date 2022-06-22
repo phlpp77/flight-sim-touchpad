@@ -10,10 +10,10 @@ import SwiftUI
 
 struct LogData: Encodable {
     var attribute: String
-    var oldValue: Double
-    var value: Double
-    var relativeDeviation: CGPoint
-    var globalCoordinates: CGPoint
+    var oldValue: Double = 999999
+    var value: Double = 999999
+    var relativeDeviation: CGPoint = CGPoint(x: 999999, y: 999999)
+    var globalCoordinates: CGPoint = CGPoint(x: 999999, y: 999999)
     var startTime: String
     var endTime: String
     var extra: String = ""
