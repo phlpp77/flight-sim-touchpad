@@ -114,7 +114,15 @@ struct SettingsView: View {
                     } label: {
                         Text("Server settings")
                     }
+                    
+                    NavigationLink {
+                        ToneTestButtonView()
+                    } label: {
+                        Text("Tone tests")
+                    }
                 }
+                
+                
                 
                 Section(header: Text("Information")) {
                     HStack {
