@@ -77,6 +77,14 @@ struct RingSliderView: View {
                                             oldProgress = progress
                                             startAngle = degrees
                                             firstMovement = false
+                                            
+                                            // MARK: Save touch down to log
+                                            print("Heading slider started dragging at \(Date().localFlightSim())")
+                                            let logData = LogData(attribute: "heading", startTime: Date().localFlightSim(), endTime: Date().localFlightSim(), extra: "Touch down")
+                                            log.append(logData)
+                                            if mqttNetworkVM.connectionOpen {
+                                                mqttNetworkVM.sendToLog(logData)
+                                            }
                                         }
                                         
                                         // create vectors
