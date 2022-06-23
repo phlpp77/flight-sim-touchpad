@@ -63,17 +63,7 @@ class SocketNetworkViewModel: ObservableObject {
                 webSocketService.changeGear(0)
             }
         case .spoiler:
-            switch value {
-            case 0:
-                webSocketService.changeSpoiler(0)
-            case 1...100:
-                let spoilerValue = 5620 + (Double(value)-1)*(10763/99)
-                print("Spoiler Value: \(Int(spoilerValue))")
-                webSocketService.changeSpoiler(Int(spoilerValue))
-            default:
-//                webSocketService.changeSpoiler(0)
-                print("default spoiler")
-            }
+            webSocketService.changeSpoiler(value)
         }
     }
     

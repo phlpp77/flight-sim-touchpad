@@ -80,9 +80,9 @@ struct VerticalSliderView: View {
                                 stringValue = "DOWN"
                             }
                         case .spoiler:
-                            if value == 0 {
+                            if value == 10 {
                                 stringValue = "RET"
-                            } else if value == 50 {
+                            } else if value == 55 {
                                 stringValue = "1 / 2"
                             } else if value == 100 {
                                 stringValue = "FULL"
@@ -178,7 +178,7 @@ struct VerticalSliderView: View {
                     case .spoiler:
                         SpoilerRangeView()
                         ThumbView(value: $stringValue, unit: "")
-                            .offset(y: CGFloat(-(500*(100-value))/100)+250)
+                            .offset(y: CGFloat(-(500*(100-value))/90)+250)
                     default:
                         EmptyView()
                     }
@@ -228,8 +228,8 @@ struct VerticalSliderView: View {
                 oldValue = 0
                 stringValue = "UP"
             case .spoiler:
-                value = 0
-                oldValue = 0
+                value = 10
+                oldValue = 10
                 stringValue = "RET"
             }
         }

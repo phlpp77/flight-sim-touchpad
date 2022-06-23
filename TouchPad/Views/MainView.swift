@@ -58,7 +58,7 @@ struct MainView: View {
                 
                     HStack {
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 100, aircraftData: .spoiler)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler)
                         Spacer()
                         VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear)
                         Spacer()
