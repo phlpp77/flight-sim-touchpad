@@ -46,6 +46,7 @@ struct RingSliderView: View {
                         .font(.largeTitle)
                         .foregroundColor(.white)
                         .frame(width: 100, alignment: .center)
+                        .offset(y: -170)
                     
                     Circle()
                         .trim(from: startTrim, to: endTrim)
