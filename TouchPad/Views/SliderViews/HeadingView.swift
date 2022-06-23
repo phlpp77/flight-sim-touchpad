@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AudioToolbox
 
 struct HeadingView: View {
     
@@ -43,6 +44,9 @@ struct HeadingView: View {
                                 ))
                         .offset(x: turnFactor == 0 ? -95 : 95)
                         .animation(.interactiveSpring(), value: turnFactor)
+                        .onChange(of: turnFactor) { _ in
+                            AudioServicesPlaySystemSound(1105)
+                        }
                     
                     // MARK: Buttons
                     LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
