@@ -80,7 +80,7 @@ struct RingSliderView: View {
                                             firstMovement = false
                                             
                                             // MARK: Save touch down to log
-                                            print("Heading slider started dragging at \(Date().localFlightSim())")
+                                            print("heading slider started dragging at \(Date().localFlightSim())")
                                             let logData = LogData(attribute: "heading", startTime: Date().localFlightSim(), endTime: Date().localFlightSim(), extra: "Touch down")
                                             log.append(logData)
                                             if mqttNetworkVM.connectionOpen {
@@ -109,7 +109,7 @@ struct RingSliderView: View {
                                     }
                                     .onEnded { _ in
                                         isDragging = false
-                                        print("Heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
+                                        print("heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
                                         // MARK: Save to log
                                         let logData = LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor))
                                         log.append(logData)
