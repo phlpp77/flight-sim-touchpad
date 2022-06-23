@@ -7,6 +7,7 @@
 
 import SwiftUI
 import simd
+import AudioToolbox
 
 struct RingSliderView: View {
     
@@ -120,7 +121,6 @@ struct RingSliderView: View {
                                         }
                                         firstMovement = true
                                         oldDegrees = degrees
-                                        
                                     }
                                 
                             )
@@ -140,11 +140,11 @@ struct RingSliderView: View {
                     .coordinateSpace(name: "Circle")
                     .offset(y: -geo.size.width / 2)
                     .rotationEffect(Angle.degrees(360 * Double(progress)))
-                    
-                    
-                    
-                    
-                    
+                    .onChange(of: degrees) { _ in
+                        if appearanceVM.sliderSoundEffect {
+                            AudioServicesPlaySystemSound(1104)
+                        }
+                    }
                 }
             }
             .coordinateSpace(name: "RingSlider")
@@ -218,11 +218,12 @@ struct RingSliderView: View {
             startTrim = 1 - abs(trim)
             endTrim = 1
         }
-        degrees = simd_clamp(round(Double(progress) * 360 * 10) / 10.0, -360, 360)
+        var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
         // round to every 5
         if appearanceVM.headingStepsInFive {
-            degrees = round(degrees / 5) * 5
+            localDegrees = round(localDegrees / 5) * 5
         }
+        degrees = localDegrees
         vStart = vEnd
     }
     

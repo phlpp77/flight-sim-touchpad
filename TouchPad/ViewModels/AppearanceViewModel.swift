@@ -51,6 +51,16 @@ class AppearanceViewModel: ObservableObject {
         }
     }
     
+    var sliderSoundEffect: Bool {
+        get {
+            model.settings.sliderSoundEffect
+        }
+        set {
+            let newState = newValue
+            model.changeSliderSoundEffect(newState)
+        }
+    }
+    
     // Settings from Model read only
     var settings: TouchPadModel.TouchPadSettings {
         return model.settings

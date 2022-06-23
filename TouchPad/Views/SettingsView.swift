@@ -70,6 +70,11 @@ struct SettingsView: View {
                         Text("Show tap indicators")
                     }
                     
+                    // MARK: Toggle slider sound effect
+                    Toggle(isOn: $appearanceVM.sliderSoundEffect) {
+                        Text("\(appearanceVM.sliderSoundEffect ? "Disable" : "Enable") sound effects of sliders")
+                    }
+                    
                     // MARK: Lock the speed every five steps
                     Toggle(isOn: $appearanceVM.speedStepsInFive) {
                         Text("Lock speed every five steps")

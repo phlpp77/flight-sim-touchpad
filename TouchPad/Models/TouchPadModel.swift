@@ -17,6 +17,7 @@ struct TouchPadModel {
         var speedStepsInFive: Bool = true
         var headingStepsInFive: Bool = true
         var screen: Screen = .essential
+        var sliderSoundEffect: Bool = true
         var webSocketConnectionIsOpen: Bool = false
     }
     
@@ -43,6 +44,10 @@ struct TouchPadModel {
     
     mutating func changeScreen(_ newState: Screen) {
         settings.screen = newState
+    }
+    
+    mutating func changeSliderSoundEffect(_ newState: Bool) {
+        settings.sliderSoundEffect = newState
     }
     
     mutating func changeStartValues(of valueType: AircraftDataType, to value: Int) {
