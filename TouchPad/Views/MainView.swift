@@ -13,6 +13,8 @@ struct MainView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
+    @EnvironmentObject var model: TouchPadModel
+    
     @State var showPopover = false
     @State var showSecondScreen = false
     @State var showMasterWarn = false
@@ -41,7 +43,7 @@ struct MainView: View {
                 ZStack {
                     HStack {
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $model.aircraftData.speed)
                         Spacer()
                         VStack {
         //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
@@ -50,7 +52,7 @@ struct MainView: View {
                                 .padding(.bottom, 30)
                         }
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $model.aircraftData.altitude)
                         Spacer()
                     }
                     .opacity(appearanceVM.screen == .essential ? 1 : 0)
@@ -58,11 +60,11 @@ struct MainView: View {
                 
                     HStack {
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler, value: $model.aircraftData.spoiler)
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear, value: $model.aircraftData.gear)
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps)
+                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps, value: $model.aircraftData.flaps)
                         Spacer()
                     }
                     .opacity(appearanceVM.screen == .additional ? 1 : 0)

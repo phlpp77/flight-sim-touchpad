@@ -93,7 +93,7 @@ class TouchPadModel: ObservableObject {
         let decoder = JSONDecoder()
         
         switch topic {
-        case "fcu/aircraftData":
+        case "fcu/aircraft/data":
             do {
                 let aircraftData = try decoder.decode(MQTTAircraftData.self, from: jsonString)
                 handleAircraftData(mqttData: aircraftData)
