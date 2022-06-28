@@ -14,7 +14,7 @@ struct ServerSettingsView: View {
     
     @State private var mqttMessage = ""
     @State private var mqttTopic = "fcu/status"
-    @State private var subscribingTopic = ""
+    @State private var subscribingTopic = "test/foo"
     @State private var speedText = ""
     
     @State private var isPerformingTask = false

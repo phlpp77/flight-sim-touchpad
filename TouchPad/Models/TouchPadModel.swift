@@ -6,11 +6,29 @@
 //
 
 import Foundation
+import Combine
 
 struct TouchPadModel {
     
     private(set) var settings = TouchPadSettings()
-    private(set) var startValues = AircraftStartValues()
+    private(set) var aircraftData = AircraftData()
+    
+    // Setup of MQTT service and combine
+    let mqttService = MQTTNetworkService.shared
+    let didSetAircraftData = PassthroughSubject<Void, Never>()
+    private var subscriptions = Set<AnyCancellable>()
+    
+    init() {
+        setupSubscribers()
+    }
+    
+    mutating func setupSubscribers() {
+        mqttService.didReceiveMessage
+            .sink { message in
+            print("message in model: \(message)")
+        }
+        .store(in: &subscriptions)
+    }
     
     struct TouchPadSettings {
         var showTapIndicator: Bool = false
@@ -21,7 +39,7 @@ struct TouchPadModel {
         var webSocketConnectionIsOpen: Bool = false
     }
     
-    struct AircraftStartValues {
+    struct AircraftData {
         var speed: Int = 250
         var heading: Double = 0
         var altitude: Int = 10000
@@ -50,20 +68,20 @@ struct TouchPadModel {
         settings.sliderSoundEffect = newState
     }
     
-    mutating func changeStartValues(of valueType: AircraftDataType, to value: Int) {
+    mutating func changeAircraftData(of valueType: AircraftDataType, to value: Int) {
         switch valueType {
         case .speed:
-            startValues.speed = value
+            aircraftData.speed = value
         case .altitude:
-            startValues.altitude = value
+            aircraftData.altitude = value
         case .heading:
-            startValues.heading = Double(value)
+            aircraftData.heading = Double(value)
         case .flaps:
-            startValues.flaps = value
+            aircraftData.flaps = value
         case .gear:
-            startValues.gear = value
+            aircraftData.gear = value
         case .spoiler:
-            startValues.spoiler = value
+            aircraftData.spoiler = value
         }
     }
 }

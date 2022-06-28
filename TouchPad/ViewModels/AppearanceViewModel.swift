@@ -9,7 +9,7 @@ import Foundation
 
 class AppearanceViewModel: ObservableObject {
     
-    @Published private var model: TouchPadModel = TouchPadModel()
+    @Published var model: TouchPadModel = TouchPadModel()
     
     var showTapIndicator: Bool {
         get {
