@@ -25,6 +25,7 @@ struct ViewModelConnector: View {
         
             MainView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
                 .preferredColorScheme(.dark)
+                .environmentObject(model)
 
         
     }

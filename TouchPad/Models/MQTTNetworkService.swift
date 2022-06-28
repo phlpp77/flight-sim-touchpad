@@ -55,6 +55,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
     
 }
 
+// MARK: - MQTT callbacks
 extension MQTTNetworkService {
     
     func mqttDidPing(_ mqtt: CocoaMQTT) {

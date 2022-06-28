@@ -10,7 +10,7 @@ import SwiftUI
 
 class AppearanceViewModel: ObservableObject {
     
-    @Published var model: TouchPadModel
+    var model: TouchPadModel
     
     init(model: TouchPadModel) {
         self.model = model
