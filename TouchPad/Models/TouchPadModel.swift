@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import CocoaMQTT
 
 struct TouchPadModel {
     
@@ -24,8 +25,8 @@ struct TouchPadModel {
     
     mutating func setupSubscribers() {
         mqttService.didReceiveMessage
-            .sink { message in
-            print("message in model: \(message)")
+            .sink { [unowned self] message in
+            handleMessages(message: message)
         }
         .store(in: &subscriptions)
     }
@@ -39,7 +40,7 @@ struct TouchPadModel {
         var webSocketConnectionIsOpen: Bool = false
     }
     
-    struct AircraftData {
+    struct AircraftData: Codable {
         var speed: Int = 250
         var heading: Double = 0
         var altitude: Int = 10000
@@ -83,5 +84,47 @@ struct TouchPadModel {
         case .spoiler:
             aircraftData.spoiler = value
         }
+    }
+    
+    private mutating func handleMessages(message: CocoaMQTTMessage) {
+        let topic = message.topic
+        let jsonString = message.string!.data(using: .utf8)!
+        
+        let decoder = JSONDecoder()
+        
+        switch topic {
+        case "fcu/aircraftData":
+            do {
+                let aircraftData = try decoder.decode(MQTTAircraftData.self, from: jsonString)
+                handleAircraftData(mqttData: aircraftData)
+            } catch {
+                print("[MQTT message handler] error: \(error.localizedDescription)")
+            }
+        default:
+            print("[MQTT message handler] topic \(topic) not found")
+        }
+    }
+    
+    private mutating func handleAircraftData(mqttData: MQTTAircraftData) {
+        switch mqttData.type {
+        case "aircraftStartValues":
+            changeAircraftStartValues(values: mqttData.data)
+        default:
+            print("[MQTT aircraftData handler] type \(mqttData.type) not found")
+        }
+    }
+    
+    private mutating func changeAircraftStartValues(values: AircraftData) {
+        changeAircraftData(of: .speed, to: values.speed)
+        changeAircraftData(of: .altitude, to: values.altitude)
+        changeAircraftData(of: .heading, to: Int(values.heading))
+        changeAircraftData(of: .spoiler, to: values.spoiler)
+        changeAircraftData(of: .gear, to: values.gear)
+        changeAircraftData(of: .flaps, to: values.flaps)
+    }
+    
+    struct MQTTAircraftData: Codable {
+        var type: String
+        var data: AircraftData
     }
 }
