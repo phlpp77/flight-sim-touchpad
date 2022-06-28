@@ -25,8 +25,8 @@ class TouchPadModel: ObservableObject {
     
     func setupSubscribers() {
         mqttService.didReceiveMessage
-            .sink { [unowned self] message in
-            handleMessages(message: message)
+            .sink { message in
+                self.handleMessages(message: message)
         }
         .store(in: &subscriptions)
     }
@@ -115,6 +115,7 @@ class TouchPadModel: ObservableObject {
     }
     
     private func changeAircraftStartValues(values: AircraftData) {
+        print("set speed to values: \(values)")
         changeAircraftData(of: .speed, to: values.speed)
         changeAircraftData(of: .altitude, to: values.altitude)
         changeAircraftData(of: .heading, to: Int(values.heading))
