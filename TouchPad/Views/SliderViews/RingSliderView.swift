@@ -13,7 +13,7 @@ struct RingSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var model: TouchPadModel
     @Binding var turnFactor: Int
     
     var circleDiameter: CGFloat = 50
@@ -142,7 +142,7 @@ struct RingSliderView: View {
                     .offset(y: -geo.size.width / 2)
                     .rotationEffect(Angle.degrees(360 * Double(progress)))
                     .onChange(of: degrees) { _ in
-                        if appearanceVM.sliderSoundEffect {
+                        if model.settings.sliderSoundEffect {
                             AudioServicesPlaySystemSound(1104)
                         }
                     }
@@ -152,7 +152,7 @@ struct RingSliderView: View {
             .aspectRatio(contentMode: .fit)
             
             // MARK: Marker
-            if appearanceVM.showTapIndicator {
+            if model.settings.showTapIndicator {
                 Rectangle()
                     .fill(.blue)
                     .position(markerPos)
@@ -221,7 +221,7 @@ struct RingSliderView: View {
         }
         var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
         // round to every 5
-        if appearanceVM.headingStepsInFive {
+        if model.settings.headingStepsInFive {
             localDegrees = round(localDegrees / 5) * 5
         }
         degrees = localDegrees
@@ -232,12 +232,10 @@ struct RingSliderView: View {
 
 struct RingSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = TouchPadModel()
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
-        let appearanceVM = AppearanceViewModel(model: model)
         
-        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
+        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1))
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
     }
 }
