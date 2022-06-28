@@ -10,8 +10,8 @@ import SwiftUI
 struct MainView: View {
     
     @ObservedObject var appearanceVM: AppearanceViewModel
-    let socketNetworkVM = SocketNetworkViewModel()
-    let mqttNetworkVM = MQTTNetworkViewModel()
+    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
+    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
     @State var showPopover = false
     @State var showSecondScreen = false
@@ -116,8 +116,11 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        let appearanceVM = AppearanceViewModel()
-        MainView(appearanceVM: appearanceVM)
+        let model = TouchPadModel()
+        let socketNetworkVM = SocketNetworkViewModel()
+        let mqttNetworkVM = MQTTNetworkViewModel()
+        let appearanceVM = AppearanceViewModel(model: model)
+        MainView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

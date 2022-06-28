@@ -6,10 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 class AppearanceViewModel: ObservableObject {
     
-    @Published var model: TouchPadModel = TouchPadModel()
+    @Published var model: TouchPadModel
+    
+    init(model: TouchPadModel) {
+        self.model = model
+    }
     
     var showTapIndicator: Bool {
         get {

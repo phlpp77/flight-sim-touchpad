@@ -232,9 +232,10 @@ struct RingSliderView: View {
 
 struct RingSliderView_Previews: PreviewProvider {
     static var previews: some View {
+        let model = TouchPadModel()
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
-        let appearanceVM = AppearanceViewModel()
+        let appearanceVM = AppearanceViewModel(model: model)
         
         RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
             .previewDevice("iPad Pro (11-inch) (3rd generation)")

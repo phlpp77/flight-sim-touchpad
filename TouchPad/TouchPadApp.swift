@@ -10,17 +10,13 @@ import SwiftUI
 @main
 struct TouchPadApp: App {
     
-    @StateObject var appearanceVM = AppearanceViewModel()
-    let touchPadModel = TouchPadModel()
+    
+    @StateObject private var model = TouchPadModel()
     
     var body: some Scene {
         WindowGroup {
-            MainView(appearanceVM: appearanceVM)
-                .preferredColorScheme(.dark)
-//                .environmentObject(appearanceVM)
-                .onAppear {
-                    appearanceVM.model = touchPadModel
-                }
+            ViewModelConnector(model: model)
+                .environmentObject(model)
         }
     }
 }

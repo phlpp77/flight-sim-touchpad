@@ -82,7 +82,8 @@ struct ButtonsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let appearanceVM = AppearanceViewModel()
+        let model = TouchPadModel()
+        let appearanceVM = AppearanceViewModel(model: model)
         ButtonsView(appearanceVM: appearanceVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)

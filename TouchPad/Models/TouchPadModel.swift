@@ -9,10 +9,10 @@ import Foundation
 import Combine
 import CocoaMQTT
 
-struct TouchPadModel {
+class TouchPadModel: ObservableObject {
     
-    private(set) var settings = TouchPadSettings()
-    private(set) var aircraftData = AircraftData()
+    @Published public var settings = TouchPadSettings()
+    @Published public var aircraftData = AircraftData()
     
     // Setup of MQTT service and combine
     let mqttService = MQTTNetworkService.shared
@@ -23,7 +23,7 @@ struct TouchPadModel {
         setupSubscribers()
     }
     
-    mutating func setupSubscribers() {
+    func setupSubscribers() {
         mqttService.didReceiveMessage
             .sink { [unowned self] message in
             handleMessages(message: message)
@@ -49,27 +49,27 @@ struct TouchPadModel {
         var spoiler: Int = 0
     }
     
-    mutating func changeTapIndicator(_ newState: Bool) {
+    func changeTapIndicator(_ newState: Bool) {
         settings.showTapIndicator = newState
     }
     
-    mutating func changeSpeedStepsInFive(_ newState: Bool) {
+    func changeSpeedStepsInFive(_ newState: Bool) {
         settings.speedStepsInFive = newState
     }
     
-    mutating func changeHeadingStepsInFive(_ newState: Bool) {
+    func changeHeadingStepsInFive(_ newState: Bool) {
         settings.headingStepsInFive = newState
     }
     
-    mutating func changeScreen(_ newState: Screen) {
+    func changeScreen(_ newState: Screen) {
         settings.screen = newState
     }
     
-    mutating func changeSliderSoundEffect(_ newState: Bool) {
+    func changeSliderSoundEffect(_ newState: Bool) {
         settings.sliderSoundEffect = newState
     }
     
-    mutating func changeAircraftData(of valueType: AircraftDataType, to value: Int) {
+    func changeAircraftData(of valueType: AircraftDataType, to value: Int) {
         switch valueType {
         case .speed:
             aircraftData.speed = value
@@ -86,7 +86,7 @@ struct TouchPadModel {
         }
     }
     
-    private mutating func handleMessages(message: CocoaMQTTMessage) {
+    private func handleMessages(message: CocoaMQTTMessage) {
         let topic = message.topic
         let jsonString = message.string!.data(using: .utf8)!
         
@@ -105,7 +105,7 @@ struct TouchPadModel {
         }
     }
     
-    private mutating func handleAircraftData(mqttData: MQTTAircraftData) {
+    private func handleAircraftData(mqttData: MQTTAircraftData) {
         switch mqttData.type {
         case "aircraftStartValues":
             changeAircraftStartValues(values: mqttData.data)
@@ -114,7 +114,7 @@ struct TouchPadModel {
         }
     }
     
-    private mutating func changeAircraftStartValues(values: AircraftData) {
+    private func changeAircraftStartValues(values: AircraftData) {
         changeAircraftData(of: .speed, to: values.speed)
         changeAircraftData(of: .altitude, to: values.altitude)
         changeAircraftData(of: .heading, to: Int(values.heading))

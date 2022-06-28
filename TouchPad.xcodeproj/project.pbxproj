@@ -39,6 +39,7 @@
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
 		17AC52B7282BCA0F009CE70E /* AltitudeRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */; };
 		17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */; };
+		17CE622D286B210F0017E26D /* ViewModelConnector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17CE622C286B210F0017E26D /* ViewModelConnector.swift */; };
 		17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +77,7 @@
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
 		17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltitudeRangeView.swift; sourceTree = "<group>"; };
 		17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderView.swift; sourceTree = "<group>"; };
+		17CE622C286B210F0017E26D /* ViewModelConnector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelConnector.swift; sourceTree = "<group>"; };
 		17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +144,7 @@
 		178CC9062828F42500467DC9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				17CE622C286B210F0017E26D /* ViewModelConnector.swift */,
 				1768B5A527F709D30046DCFC /* MainView.swift */,
 				1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */,
 				1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */,
@@ -293,6 +296,7 @@
 				178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */,
 				1768B5A627F709D30046DCFC /* MainView.swift in Sources */,
 				1722F87F286334BC0072BEDC /* ToneTestButtonView.swift in Sources */,
+				17CE622D286B210F0017E26D /* ViewModelConnector.swift in Sources */,
 				178064B52859DF5B00B5A93A /* MQTTNetworkViewModel.swift in Sources */,
 				1729249E285B443A006EFF6B /* ThumbView.swift in Sources */,
 				175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */,
@@ -448,7 +452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.philipphemkemeyer.TouchPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -483,7 +487,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.0;
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = de.philipphemkemeyer.TouchPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
