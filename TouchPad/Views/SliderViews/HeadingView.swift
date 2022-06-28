@@ -14,6 +14,8 @@ struct HeadingView: View {
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
+    @EnvironmentObject var model: TouchPadModel
+    
     @State var turnFactor = 1
     
     var body: some View {
@@ -87,7 +89,7 @@ struct HeadingView: View {
                     .aspectRatio(contentMode: .fit)
                     .allowsHitTesting(false)
                 
-                RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: $turnFactor)
+                RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: $turnFactor, degrees: $model.aircraftData.heading)
                     .padding(53)
                 
             }

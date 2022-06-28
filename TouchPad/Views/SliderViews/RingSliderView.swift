@@ -21,7 +21,7 @@ struct RingSliderView: View {
     
     @State private var progress: CGFloat = .zero
     @State private var oldProgress: CGFloat = .zero
-    @State private var degrees: Double = .zero
+    @Binding var degrees: Double
     @State private var oldDegrees: Double = .zero
     @State private var startTrim: CGFloat = .zero
     @State private var endTrim: CGFloat = .zero
@@ -235,7 +235,7 @@ struct RingSliderView_Previews: PreviewProvider {
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
         
-        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1))
+        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), degrees: .constant(0))
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
     }
 }
