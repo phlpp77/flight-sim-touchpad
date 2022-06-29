@@ -17,9 +17,20 @@ class TouchPadModel {
     
     // Setup of MQTT service and combine
     let mqttService = MQTTNetworkService.shared
-    let didSetAircraftData = PassthroughSubject<Void, Never>()
-    let didSetSpeed = PassthroughSubject<Void, Never>()
+    
+    // MARK: Combine setup
+    
+    // Settings updates
     let didSetShowTapIndicator = PassthroughSubject<Void, Never>()
+    let didSetSpeedStepsInFive = PassthroughSubject<Void, Never>()
+    let didSetHeadingStepsInFive = PassthroughSubject<Void, Never>()
+    let didSetScreen = PassthroughSubject<Void, Never>()
+    let didSetSliderSoundEffect = PassthroughSubject<Void, Never>()
+    
+    // Aircraft data updates
+    let didSetSpeed = PassthroughSubject<Void, Never>()
+    let didSetAircraftData = PassthroughSubject<Void, Never>()
+    
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
@@ -34,6 +45,7 @@ class TouchPadModel {
         .store(in: &subscriptions)
     }
     
+    // MARK: Model for Settings
     struct TouchPadSettings {
         var showTapIndicator: Bool = false
         var speedStepsInFive: Bool = true
@@ -43,6 +55,7 @@ class TouchPadModel {
         var webSocketConnectionIsOpen: Bool = false
     }
     
+    // MARK: Model for Aircraft data
     struct AircraftData: Codable {
         var speed: Int = 250
         var heading: Double = 0
@@ -59,18 +72,22 @@ class TouchPadModel {
     
     func changeSpeedStepsInFive(_ newState: Bool) {
         settings.speedStepsInFive = newState
+        didSetSpeedStepsInFive.send()
     }
     
     func changeHeadingStepsInFive(_ newState: Bool) {
         settings.headingStepsInFive = newState
+        didSetHeadingStepsInFive.send()
     }
     
     func changeScreen(_ newState: Screen) {
         settings.screen = newState
+        didSetScreen.send()
     }
     
     func changeSliderSoundEffect(_ newState: Bool) {
         settings.sliderSoundEffect = newState
+        didSetSliderSoundEffect.send()
     }
     
     func changeAircraftData(of valueType: AircraftDataType, to value: Int) {

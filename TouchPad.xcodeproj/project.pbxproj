@@ -168,10 +168,10 @@
 			isa = PBXGroup;
 			children = (
 				17555D90280704DB003B61F0 /* AppearanceViewModel.swift */,
-				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
-				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
 				174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */,
 				174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */,
+				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
+				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";

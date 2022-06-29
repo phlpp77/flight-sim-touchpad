@@ -20,6 +20,7 @@ class VerticalSliderViewModel: ObservableObject {
         self.updateGear()
         self.updateSpoiler()
         
+        // setup the combine subscribers
         setupSubscribers()
     }
     

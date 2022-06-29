@@ -20,6 +20,7 @@ class AppearanceViewModel: ObservableObject {
         self.updateScreen()
         self.updateSliderSoundEffect()
         
+        // setup the combine subscribers
         setupSubscribers()
     }
     
@@ -29,6 +30,26 @@ class AppearanceViewModel: ObservableObject {
         state.didSetShowTapIndicator
             .sink {
                 self.updateShowTapIndicator()
+        }
+        .store(in: &subscriptions)
+        state.didSetSpeedStepsInFive
+            .sink {
+                self.updateSpeedStepsInFive()
+        }
+        .store(in: &subscriptions)
+        state.didSetHeadingStepsInFive
+            .sink {
+                self.updateHeadingStepsInFive()
+        }
+        .store(in: &subscriptions)
+        state.didSetScreen
+            .sink {
+                self.updateScreen()
+        }
+        .store(in: &subscriptions)
+        state.didSetSliderSoundEffect
+            .sink {
+                self.updateSliderSoundEffect()
         }
         .store(in: &subscriptions)
     }
