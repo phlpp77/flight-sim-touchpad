@@ -72,19 +72,27 @@ struct VerticalSliderView: View {
                         
                         if !editing {
                             print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
+                            
                             // MARK: Save to log
+                            // Create Log component
                             let logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
+                            // Add to local log on iPad
                             log.append(logData)
-                            if socketNetworkVM.offsetsDeclared {
-                                socketNetworkVM.changeValue(of: aircraftData, to: value)
-                            }
+                            // Add to remote log via MQTT
                             if mqttNetworkVM.connectionOpen {
                                 mqttNetworkVM.sendToLog(logData)
                             }
-                            verticalSliderVM.changeValue(of: aircraftData, to: value)
                             
-                            oldValue = value
+                            // MARK: Update values
+                            // Update local value on state
+                            verticalSliderVM.changeValue(of: aircraftData, to: value)
+                            // Update remote value via WebSocket
+                            if socketNetworkVM.offsetsDeclared {
+                                socketNetworkVM.changeValue(of: aircraftData, to: value)
+                            }
+                            
                             firstMovement = true
+                            oldValue = value
                         }
                     })
                     .valueSliderStyle(

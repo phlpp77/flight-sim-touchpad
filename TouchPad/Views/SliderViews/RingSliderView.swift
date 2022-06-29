@@ -14,7 +14,7 @@ struct RingSliderView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @EnvironmentObject var appearanceVM: AppearanceViewModel
-    @EnvironmentObject var ringSliderVm: RingSliderViewModel
+    @EnvironmentObject var ringSliderVM: RingSliderViewModel
     @Binding var turnFactor: Int
     
     var circleDiameter: CGFloat = 50
@@ -125,7 +125,7 @@ struct RingSliderView: View {
                                         
                                         // MARK: Update values
                                         // Update local value on state
-                                        ringSliderVm.changeValue(to: Int(degrees))
+                                        ringSliderVM.changeValue(to: Int(degrees))
                                         // Update remote value via WebSocket
                                         if socketNetworkVM.offsetsDeclared {
                                             socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
@@ -176,7 +176,7 @@ struct RingSliderView: View {
                     )
             }
         }
-        .onChange(of: ringSliderVm.changed) { _ in
+        .onChange(of: ringSliderVM.changed) { _ in
             calculateIndicatorLine()
         }
         
