@@ -14,12 +14,13 @@ struct RingSliderView: View {
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @EnvironmentObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var ringSliderVm: RingSliderViewModel
     @Binding var turnFactor: Int
     
     var circleDiameter: CGFloat = 50
     var showMarker: Bool = false
     
-    @State private var progress: CGFloat = .zero
+    @Binding var progress: CGFloat
     @State private var oldProgress: CGFloat = .zero
     @Binding var degrees: Double
     @State private var oldDegrees: Double = .zero
@@ -165,7 +166,9 @@ struct RingSliderView: View {
                     )
             }
         }
-        
+        .onChange(of: ringSliderVm.changed) { _ in
+            calculateIndicatorLine()
+        }
         
     }
     
@@ -190,7 +193,19 @@ struct RingSliderView: View {
             progress += 1
         }
         
-        // MARK: Calculation of indicator line
+        calculateIndicatorLine()
+        
+        var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
+        // round to every 5
+        if appearanceVM.headingStepsInFive {
+            localDegrees = round(localDegrees / 5) * 5
+        }
+        degrees = localDegrees
+        vStart = vEnd
+    }
+    
+    // MARK: Calculation of indicator line
+    func calculateIndicatorLine() {
         var trim: CGFloat = .zero
         // turn right
         if turnFactor == 1 {
@@ -219,13 +234,6 @@ struct RingSliderView: View {
             startTrim = 1 - abs(trim)
             endTrim = 1
         }
-        var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
-        // round to every 5
-        if appearanceVM.headingStepsInFive {
-            localDegrees = round(localDegrees / 5) * 5
-        }
-        degrees = localDegrees
-        vStart = vEnd
     }
     
 }
@@ -235,7 +243,7 @@ struct RingSliderView_Previews: PreviewProvider {
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
         
-        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), degrees: .constant(0))
+        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), progress: .constant(.zero), degrees: .constant(0))
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
     }
 }
