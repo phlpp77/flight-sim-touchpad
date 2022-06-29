@@ -111,6 +111,14 @@ struct MainView: View {
             //                .position(x: 580, y: 686)
             
         }
+        // MARK: Try to connect to servers at startup
+        .onAppear {
+            mqttNetworkVM.openConnection()
+            socketNetworkVM.openConnection()
+            Task {
+                await socketNetworkVM.webSocketService.declareOffsets()
+            }
+        }
         
     }
     

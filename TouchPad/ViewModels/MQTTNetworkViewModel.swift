@@ -29,6 +29,13 @@ class MQTTNetworkViewModel: ObservableObject {
         }
     }
     
+    // Open the connection to the MQTT server if not already connected
+    func openConnection() {
+        if !connectionOpen {
+            mqttService.openMQTT()
+        }
+    }
+    
     func sendToLog(_ logdata: LogData) {
         
         let jsonEncoder = JSONEncoder()
