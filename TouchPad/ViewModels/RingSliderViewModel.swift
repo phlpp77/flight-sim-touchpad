@@ -26,6 +26,11 @@ class RingSliderViewModel: ObservableObject {
     private func setupSubscribers() {
         state.didSetAircraftData
             .sink {
+                self.setHeadingFromServer()
+            }
+            .store(in: &subscriptions)
+        state.didSetHeading
+            .sink {
                 self.updateHeading()
             }
             .store(in: &subscriptions)
@@ -36,8 +41,17 @@ class RingSliderViewModel: ObservableObject {
     @Published public var progress: CGFloat!
     @Published public var changed: Int = 0
     
+    // MARK: Functions/Vars to interact with the state
+    /// Change the value of an aircraft data
+    public func changeValue(to value: Int) {
+        state.changeAircraftData(of: .heading, to: value)
+    }
+    
     // MARK: Update functions to be called from state via combine
     private func updateHeading() {
+        degrees = state.aircraftData.heading
+    }
+    private func setHeadingFromServer() {
         degrees = state.aircraftData.heading
         progress = degrees / 360
         changed += 1

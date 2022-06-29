@@ -14,11 +14,7 @@ class VerticalSliderViewModel: ObservableObject {
     private var state: TouchPadModel
     init(state: TouchPadModel) {
         self.state = state
-        self.updateSpeed()
-        self.updateAltitude()
-        self.updateFlaps()
-        self.updateGear()
-        self.updateSpoiler()
+        self.updateAllData()
         
         // setup the combine subscribers
         setupSubscribers()
@@ -29,11 +25,7 @@ class VerticalSliderViewModel: ObservableObject {
     private func setupSubscribers() {
         state.didSetAircraftData
             .sink {
-                self.updateSpeed()
-                self.updateAltitude()
-                self.updateFlaps()
-                self.updateGear()
-                self.updateSpoiler()
+                self.updateAllData()
             }
             .store(in: &subscriptions)
         state.didSetSpeed
@@ -64,24 +56,31 @@ class VerticalSliderViewModel: ObservableObject {
     }
     
     // MARK: Vars that are used inside the view
-    @Published public var speed: Int = 250
-    @Published public var altitude: Int = 10000
-    @Published public var flaps: Int = 0
-    @Published public var gear: Int = 0
-    @Published public var spoiler: Int = 0
+    @Published public var speed: Int!
+    @Published public var altitude: Int!
+    @Published public var flaps: Int!
+    @Published public var gear: Int!
+    @Published public var spoiler: Int!
     
+    // MARK: Functions/Vars to interact with the state
     /// Change the value of an aircraft data
     public func changeValue(of type: AircraftDataType, to value: Int) {
         state.changeAircraftData(of: type, to: value)
     }
     
     // MARK: Update functions to be called from state via combine
+    private func updateAllData() {
+        self.updateSpeed()
+        self.updateAltitude()
+        self.updateFlaps()
+        self.updateGear()
+        self.updateSpoiler()
+    }
     private func updateSpeed() {
         speed = state.aircraftData.speed
     }
     private func updateAltitude() {
         altitude = state.aircraftData.altitude
-        print("altitude updaed")
     }
     private func updateFlaps() {
         flaps = state.aircraftData.flaps

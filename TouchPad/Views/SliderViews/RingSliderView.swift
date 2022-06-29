@@ -112,15 +112,25 @@ struct RingSliderView: View {
                                     .onEnded { _ in
                                         isDragging = false
                                         print("heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
+                                        
                                         // MARK: Save to log
+                                        // Create Log component
                                         let logData = LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor))
+                                        // Add to local log on iPad
                                         log.append(logData)
-                                        if socketNetworkVM.offsetsDeclared {
-                                            socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
-                                        }
+                                        // Add to remote log via MQTT
                                         if mqttNetworkVM.connectionOpen {
                                             mqttNetworkVM.sendToLog(logData)
                                         }
+                                        
+                                        // MARK: Update values
+                                        // Update local value on state
+                                        ringSliderVm.changeValue(to: Int(degrees))
+                                        // Update remote value via WebSocket
+                                        if socketNetworkVM.offsetsDeclared {
+                                            socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
+                                        }
+                                        
                                         firstMovement = true
                                         oldDegrees = degrees
                                     }
