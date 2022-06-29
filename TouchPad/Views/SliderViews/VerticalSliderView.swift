@@ -16,7 +16,7 @@ struct VerticalSliderView: View {
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
-    @EnvironmentObject var model: TouchPadModel
+    @EnvironmentObject var verticalSliderVM: VerticalSliderViewModel
     
     var topToBottom: Bool = false
     var step: Int = 1
@@ -171,7 +171,7 @@ struct VerticalSliderView: View {
             }
             
             // MARK: Show positions
-            if model.settings.showTapIndicator {
+            if appearanceVM.showTapIndicator {
                 ZStack {
                     // Position of startTap location
                     Rectangle()

@@ -12,9 +12,9 @@ struct HeadingView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
-    @ObservedObject var appearanceVM: AppearanceViewModel
     
-    @EnvironmentObject var model: TouchPadModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var ringSliderVM: RingSliderViewModel
     
     @State var turnFactor = 1
     
@@ -89,7 +89,7 @@ struct HeadingView: View {
                     .aspectRatio(contentMode: .fit)
                     .allowsHitTesting(false)
                 
-                RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: $turnFactor, degrees: $model.aircraftData.heading)
+                RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: $turnFactor, degrees: $ringSliderVM.heading)
                     .padding(53)
                 
             }
@@ -122,12 +122,10 @@ struct HeadingView: View {
 
 struct HeadingView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = TouchPadModel()
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
-        let appearanceVM = AppearanceViewModel(model: model)
         
-        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
+        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

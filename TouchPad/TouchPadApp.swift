@@ -11,12 +11,12 @@ import SwiftUI
 struct TouchPadApp: App {
     
     
-    @StateObject private var model = TouchPadModel()
+//    @StateObject private var model = TouchPadModel()
     
     var body: some Scene {
         WindowGroup {
-            ViewModelConnector(model: model)
-                .environmentObject(model)
+            ViewModelConnector()
+            
         }
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
@@ -250,11 +250,11 @@ struct StatusField_Previews: PreviewProvider {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = TouchPadModel()
+    
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
-        let appearanceVM = AppearanceViewModel(model: model)
-        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+       
+        SettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

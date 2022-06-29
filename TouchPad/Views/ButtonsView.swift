@@ -16,7 +16,7 @@ struct NamedButton: Identifiable {
 
 struct ButtonsView: View {
     
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
     
     @State var xPosition: CGFloat = 0
     @State var testOutput = "Test"
@@ -51,7 +51,7 @@ struct ButtonsView: View {
                             }
                             
                             // Touch position indicator
-                            if appearanceVM.settings.showTapIndicator {
+                            if appearanceVM.showTapIndicator {
                                 Rectangle()
                                     .frame(width: 5, height: 5)
                                     .foregroundColor(.green)
@@ -82,9 +82,8 @@ struct ButtonsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let model = TouchPadModel()
-        let appearanceVM = AppearanceViewModel(model: model)
-        ButtonsView(appearanceVM: appearanceVM)
+       
+        ButtonsView()
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

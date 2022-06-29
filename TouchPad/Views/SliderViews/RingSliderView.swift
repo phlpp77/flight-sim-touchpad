@@ -13,7 +13,7 @@ struct RingSliderView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
-    @EnvironmentObject var model: TouchPadModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
     @Binding var turnFactor: Int
     
     var circleDiameter: CGFloat = 50
@@ -142,7 +142,7 @@ struct RingSliderView: View {
                     .offset(y: -geo.size.width / 2)
                     .rotationEffect(Angle.degrees(360 * Double(progress)))
                     .onChange(of: degrees) { _ in
-                        if model.settings.sliderSoundEffect {
+                        if appearanceVM.sliderSoundEffect {
                             AudioServicesPlaySystemSound(1104)
                         }
                     }
@@ -152,7 +152,7 @@ struct RingSliderView: View {
             .aspectRatio(contentMode: .fit)
             
             // MARK: Marker
-            if model.settings.showTapIndicator {
+            if appearanceVM.showTapIndicator {
                 Rectangle()
                     .fill(.blue)
                     .position(markerPos)
@@ -221,7 +221,7 @@ struct RingSliderView: View {
         }
         var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
         // round to every 5
-        if model.settings.headingStepsInFive {
+        if appearanceVM.headingStepsInFive {
             localDegrees = round(localDegrees / 5) * 5
         }
         degrees = localDegrees

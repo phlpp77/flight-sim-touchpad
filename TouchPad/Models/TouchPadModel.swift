@@ -10,7 +10,7 @@ import Combine
 import CocoaMQTT
 import AVFoundation
 
-class TouchPadModel: ObservableObject {
+class TouchPadModel {
     
     @Published public var settings = TouchPadSettings()
     @Published public var aircraftData = AircraftData()
@@ -18,6 +18,7 @@ class TouchPadModel: ObservableObject {
     // Setup of MQTT service and combine
     let mqttService = MQTTNetworkService.shared
     let didSetAircraftData = PassthroughSubject<Void, Never>()
+    let didSetSpeed = PassthroughSubject<Void, Never>()
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
@@ -123,6 +124,7 @@ class TouchPadModel: ObservableObject {
         changeAircraftData(of: .spoiler, to: values.spoiler)
         changeAircraftData(of: .gear, to: values.gear)
         changeAircraftData(of: .flaps, to: values.flaps)
+        didSetAircraftData.send()
         
         // Voice feedback
         let speechSynthesizer = AVSpeechSynthesizer()
