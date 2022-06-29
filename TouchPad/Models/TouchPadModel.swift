@@ -123,15 +123,12 @@ class TouchPadModel: ObservableObject {
         changeAircraftData(of: .spoiler, to: values.spoiler)
         changeAircraftData(of: .gear, to: values.gear)
         changeAircraftData(of: .flaps, to: values.flaps)
-        // Line 1. Create an instance of AVSpeechSynthesizer.
-        var speechSynthesizer = AVSpeechSynthesizer()
-        // Line 2. Create an instance of AVSpeechUtterance and pass in a String to be spoken.
-        var speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: "Values have been set.")
-        //Line 3. Specify the speech utterance rate. 1 = speaking extremely the higher the values the slower speech patterns. The default rate, AVSpeechUtteranceDefaultSpeechRate is 0.5
-        speechUtterance.rate = AVSpeechUtteranceMaximumSpeechRate / 4.0
-        // Line 4. Specify the voice. It is explicitly set to English here, but it will use the device default if not specified.
+        
+        // Voice feedback
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: "Values have been set.")
+        speechUtterance.rate = 0.55
         speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        // Line 5. Pass in the urrerance to the synthesizer to actually speak.
         speechSynthesizer.speak(speechUtterance)
     }   
     
