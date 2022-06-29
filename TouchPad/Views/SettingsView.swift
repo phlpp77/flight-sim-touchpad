@@ -71,17 +71,17 @@ struct SettingsView: View {
                     }
                     
                     // MARK: Toggle slider sound effect
-                    Toggle(isOn: $appearanceVM.sliderSoundEffect) {
+                    Toggle(isOn: $appearanceVM.toggleSliderSoundEffect) {
                         Text("\(appearanceVM.sliderSoundEffect ? "Disable" : "Enable") sound effects of sliders")
                     }
                     
                     // MARK: Lock the speed every five steps
-                    Toggle(isOn: $appearanceVM.speedStepsInFive) {
+                    Toggle(isOn: $appearanceVM.toggleSpeedStepsInFive) {
                         Text("Lock speed every five steps")
                     }
                     
                     // MARK: Lock the heading every five steps
-                    Toggle(isOn: $appearanceVM.headingStepsInFive) {
+                    Toggle(isOn: $appearanceVM.toggleHeadingStepsInFive) {
                         Text("Lock heading every five steps")
                     }
                     
@@ -89,7 +89,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Select screen")
                         Spacer(minLength: 250)
-                        Picker(selection: $appearanceVM.screen, label: Text("Select screen")) {
+                        Picker(selection: $appearanceVM.toggleScreen, label: Text("Select screen")) {
                             Text("Main screen").tag(Screen.essential)
                             Text("Secondary screen").tag(Screen.additional)
                         }

@@ -70,6 +70,38 @@ class AppearanceViewModel: ObservableObject {
                 state.changeTapIndicator(newValue)
             }
         }
+    public var toggleSpeedStepsInFive: Bool {
+            get {
+                self.speedStepsInFive
+            }
+            set {
+                state.changeSpeedStepsInFive(newValue)
+            }
+        }
+    public var toggleHeadingStepsInFive: Bool {
+            get {
+                self.headingStepsInFive
+            }
+            set {
+                state.changeHeadingStepsInFive(newValue)
+            }
+        }
+    public var toggleScreen: Screen {
+            get {
+                self.screen
+            }
+            set {
+                state.changeScreen(newValue)
+            }
+        }
+    public var toggleSliderSoundEffect: Bool {
+            get {
+                self.sliderSoundEffect
+            }
+            set {
+                state.changeSliderSoundEffect(newValue)
+            }
+        }
     
     // MARK: Update functions to be called from state via combine
     private func updateShowTapIndicator() {
