@@ -10,13 +10,17 @@ import SwiftUI
 @main
 struct TouchPadApp: App {
     
-    
-//    @StateObject private var model = TouchPadModel()
+    let container = StateContainer()
     
     var body: some Scene {
         WindowGroup {
-            ViewModelConnector()
-            
+            MainView()
+                .preferredColorScheme(.dark)
+                .environmentObject(container.appearanceVM)
+                .environmentObject(container.verticalSliderVM)
+                .environmentObject(container.ringSliderVM)
+                .environmentObject(container.mqttNetworkVM)
+                .environmentObject(container.socketNetworkVM)
         }
     }
 }
