@@ -26,7 +26,7 @@ class VerticalSliderViewModel: ObservableObject {
     
     // MARK: Combine setup
     private var subscriptions = Set<AnyCancellable>()
-    func setupSubscribers() {
+    private func setupSubscribers() {
         state.didSetAircraftData
             .sink {
                 self.updateSpeed()
@@ -34,8 +34,8 @@ class VerticalSliderViewModel: ObservableObject {
                 self.updateFlaps()
                 self.updateGear()
                 self.updateSpoiler()
-        }
-        .store(in: &subscriptions)
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Vars that are used inside the view
