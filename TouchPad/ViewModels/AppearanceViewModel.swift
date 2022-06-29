@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import SwiftUI
+import Combine
 
 class AppearanceViewModel: ObservableObject {
     
@@ -19,6 +19,18 @@ class AppearanceViewModel: ObservableObject {
         self.updateHeadingStepsInFive()
         self.updateScreen()
         self.updateSliderSoundEffect()
+        
+        setupSubscribers()
+    }
+    
+    // MARK: Combine setup
+    private var subscriptions = Set<AnyCancellable>()
+    func setupSubscribers() {
+        state.didSetShowTapIndicator
+            .sink {
+                self.updateShowTapIndicator()
+        }
+        .store(in: &subscriptions)
     }
     
     // MARK: Vars that are used inside the view
@@ -27,6 +39,16 @@ class AppearanceViewModel: ObservableObject {
     @Published public var headingStepsInFive: Bool!
     @Published public var screen: Screen = .essential
     @Published public var sliderSoundEffect: Bool!
+    
+    // MARK: Functions/Vars to interact with the state
+    public var toggleShowTapIndicator: Bool {
+            get {
+                self.showTapIndicator
+            }
+            set {
+                state.changeTapIndicator(newValue)
+            }
+        }
     
     // MARK: Update functions to be called from state via combine
     private func updateShowTapIndicator() {

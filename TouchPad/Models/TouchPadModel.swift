@@ -19,6 +19,7 @@ class TouchPadModel {
     let mqttService = MQTTNetworkService.shared
     let didSetAircraftData = PassthroughSubject<Void, Never>()
     let didSetSpeed = PassthroughSubject<Void, Never>()
+    let didSetShowTapIndicator = PassthroughSubject<Void, Never>()
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
@@ -53,6 +54,7 @@ class TouchPadModel {
     
     func changeTapIndicator(_ newState: Bool) {
         settings.showTapIndicator = newState
+        didSetShowTapIndicator.send()
     }
     
     func changeSpeedStepsInFive(_ newState: Bool) {

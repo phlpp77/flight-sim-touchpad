@@ -66,7 +66,7 @@ struct SettingsView: View {
                 Section(header: Text("Appearance")) {
                     
                     // MARK: Show tap indicators
-                    Toggle(isOn: $appearanceVM.showTapIndicator) {
+                    Toggle(isOn: $appearanceVM.toggleShowTapIndicator) {
                         Text("Show tap indicators")
                     }
                     
