@@ -38,7 +38,7 @@ class RingSliderViewModel: ObservableObject {
     
     // MARK: Vars that are used inside the view
     @Published public var degrees: Double!
-    @Published public var progress: CGFloat!
+    @Published public var progress: CGFloat = .zero
     @Published public var changed: Int = 0
     
     // MARK: Functions/Vars to interact with the state
