@@ -89,7 +89,7 @@ struct HeadingView: View {
                     .aspectRatio(contentMode: .fit)
                     .allowsHitTesting(false)
                 
-                RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: $turnFactor, progress: $ringSliderVM.progress, degrees: $ringSliderVM.degrees)
+                RingSliderView(turnFactor: $turnFactor, progress: $ringSliderVM.progress, oldProgress: $ringSliderVM.oldProgress, degrees: $ringSliderVM.degrees, oldDegrees: $ringSliderVM.oldDegrees, startTrim: $ringSliderVM.startTrim, endTrim: $ringSliderVM.endTrim, startAngle: $ringSliderVM.startAngle)
                     .padding(53)
                 
             }

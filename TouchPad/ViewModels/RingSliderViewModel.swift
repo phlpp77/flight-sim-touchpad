@@ -38,7 +38,12 @@ class RingSliderViewModel: ObservableObject {
     
     // MARK: Vars that are used inside the view
     @Published public var degrees: Double!
+    @Published public var oldDegrees: Double = .zero
     @Published public var progress: CGFloat = .zero
+    @Published public var oldProgress: CGFloat = .zero
+    @Published public var startTrim: CGFloat = .zero
+    @Published public var endTrim: CGFloat = .zero
+    @Published public var startAngle: Double = .zero
     @Published public var changed: Int = 0
     
     // MARK: Functions/Vars to interact with the state
@@ -54,6 +59,11 @@ class RingSliderViewModel: ObservableObject {
     private func setHeadingFromServer() {
         degrees = state.aircraftData.heading
         progress = degrees / 360
+        oldDegrees = .zero
+        oldProgress = .zero
+        startTrim = .zero
+        endTrim = degrees / 360
+        startAngle = .zero
         changed += 1
     }
 }

@@ -11,8 +11,8 @@ import AudioToolbox
 
 struct RingSliderView: View {
     
-    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
-    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
     @EnvironmentObject var appearanceVM: AppearanceViewModel
     @EnvironmentObject var ringSliderVM: RingSliderViewModel
     @Binding var turnFactor: Int
@@ -21,12 +21,12 @@ struct RingSliderView: View {
     var showMarker: Bool = false
     
     @Binding var progress: CGFloat
-    @State private var oldProgress: CGFloat = .zero
+    @Binding var oldProgress: CGFloat
     @Binding var degrees: Double
-    @State private var oldDegrees: Double = .zero
-    @State private var startTrim: CGFloat = .zero
-    @State private var endTrim: CGFloat = .zero
-    @State private var startAngle: Double = .zero
+    @Binding var oldDegrees: Double
+    @Binding var startTrim: CGFloat
+    @Binding var endTrim: CGFloat
+    @Binding var startAngle: Double
     @State private var globalPos: CGPoint = .zero
     
     @State private var markerPos: CGPoint = .zero
@@ -176,10 +176,6 @@ struct RingSliderView: View {
                     )
             }
         }
-        .onChange(of: ringSliderVM.changed) { _ in
-            calculateIndicatorLine()
-        }
-        
     }
     
     
@@ -248,12 +244,12 @@ struct RingSliderView: View {
     
 }
 
-struct RingSliderView_Previews: PreviewProvider {
-    static var previews: some View {
-        let socketNetworkVM = SocketNetworkViewModel()
-        let mqttNetworkVM = MQTTNetworkViewModel()
-        
-        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), progress: .constant(.zero), degrees: .constant(0))
-            .previewDevice("iPad Pro (11-inch) (3rd generation)")
-    }
-}
+//struct RingSliderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let socketNetworkVM = SocketNetworkViewModel()
+//        let mqttNetworkVM = MQTTNetworkViewModel()
+//
+//        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), progress: .constant(.zero), degrees: .constant(0))
+//            .previewDevice("iPad Pro (11-inch) (3rd generation)")
+//    }
+//}
