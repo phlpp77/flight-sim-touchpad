@@ -46,10 +46,10 @@ struct MainView: View {
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
                     Spacer()
                     VStack {
-                        //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
-                        StateValuesTestView()
-                            .hoverEffect()
-                        
+                        if appearanceVM.showTestValueWindow {
+                            StateValuesTestView()
+                                .hoverEffect()
+                        }
                         Spacer()
                         HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
                             .padding(.bottom, 30)

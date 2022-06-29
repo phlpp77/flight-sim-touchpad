@@ -70,6 +70,11 @@ struct SettingsView: View {
                         Text("Show tap indicators")
                     }
                     
+                    // MARK: Show test value window
+                    Toggle(isOn: $appearanceVM.toggleShowTestValueWindow) {
+                        Text("Show values in state")
+                    }
+                    
                     // MARK: Toggle slider sound effect
                     Toggle(isOn: $appearanceVM.toggleSliderSoundEffect) {
                         Text("\(appearanceVM.sliderSoundEffect ? "Disable" : "Enable") sound effects of sliders")

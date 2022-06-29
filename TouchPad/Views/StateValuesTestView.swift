@@ -14,14 +14,14 @@ struct StateValuesTestView: View {
     var body: some View {
         VStack {
             HStack {
-                VStack {
+                VStack(alignment: .leading) {
                     Text("show tap indicator: \(String(stateValuesTestVM.showTapIndicator))")
                     Text("speed steps in five: \(String(stateValuesTestVM.speedStepsInFive))")
                     Text("heading steps in five: \(String(stateValuesTestVM.headingStepsInFive))")
                     Text("screen selected: \(stateValuesTestVM.screen.rawValue)")
                     Text("sound effects on: \(String(stateValuesTestVM.sliderSoundEffect))")
                 }
-                VStack {
+                VStack(alignment: .leading) {
                     Text("speed: \(stateValuesTestVM.speed)")
                     Text("heading: \(stateValuesTestVM.heading)")
                     Text("altitude: \(stateValuesTestVM.altitude)")
@@ -37,8 +37,10 @@ struct StateValuesTestView: View {
                     .font(.largeTitle)
             }
         }
-        .cornerRadius(12)
+        .padding(4)
         .background(Color.gray)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        
     }
 }
 

@@ -26,6 +26,7 @@ class TouchPadModel {
     let didSetHeadingStepsInFive = PassthroughSubject<Void, Never>()
     let didSetScreen = PassthroughSubject<Void, Never>()
     let didSetSliderSoundEffect = PassthroughSubject<Void, Never>()
+    let didSetShowTestValueWindow = PassthroughSubject<Void, Never>()
     
     // Aircraft data updates
     let didSetSpeed = PassthroughSubject<Void, Never>()
@@ -58,6 +59,7 @@ class TouchPadModel {
         var headingStepsInFive: Bool = true
         var screen: Screen = .essential
         var sliderSoundEffect: Bool = true
+        var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
     }
     
@@ -75,25 +77,25 @@ class TouchPadModel {
         settings.showTapIndicator = newState
         didSetShowTapIndicator.send()
     }
-    
     func changeSpeedStepsInFive(_ newState: Bool) {
         settings.speedStepsInFive = newState
         didSetSpeedStepsInFive.send()
     }
-    
     func changeHeadingStepsInFive(_ newState: Bool) {
         settings.headingStepsInFive = newState
         didSetHeadingStepsInFive.send()
     }
-    
     func changeScreen(_ newState: Screen) {
         settings.screen = newState
         didSetScreen.send()
     }
-    
     func changeSliderSoundEffect(_ newState: Bool) {
         settings.sliderSoundEffect = newState
         didSetSliderSoundEffect.send()
+    }
+    func changeShowTestValueWindow(_ newState: Bool) {
+        settings.showTestValueWindow = newState
+        didSetShowTestValueWindow.send()
     }
     
     func changeAircraftData(of valueType: AircraftDataType, to value: Int) {

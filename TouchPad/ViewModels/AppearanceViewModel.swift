@@ -19,6 +19,7 @@ class AppearanceViewModel: ObservableObject {
         self.updateHeadingStepsInFive()
         self.updateScreen()
         self.updateSliderSoundEffect()
+        self.updateShowTestValueWindow()
         
         // setup the combine subscribers
         setupSubscribers()
@@ -52,6 +53,11 @@ class AppearanceViewModel: ObservableObject {
                 self.updateSliderSoundEffect()
             }
             .store(in: &subscriptions)
+        state.didSetShowTestValueWindow
+            .sink {
+                self.updateShowTestValueWindow()
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Vars that are used inside the view
@@ -60,6 +66,7 @@ class AppearanceViewModel: ObservableObject {
     @Published public var headingStepsInFive: Bool!
     @Published public var screen: Screen = .essential
     @Published public var sliderSoundEffect: Bool!
+    @Published public var showTestValueWindow: Bool!
     
     // MARK: Functions/Vars to interact with the state
     public var toggleShowTapIndicator: Bool {
@@ -102,6 +109,14 @@ class AppearanceViewModel: ObservableObject {
             state.changeSliderSoundEffect(newValue)
         }
     }
+    public var toggleShowTestValueWindow: Bool {
+        get {
+            self.showTestValueWindow
+        }
+        set {
+            state.changeShowTestValueWindow(newValue)
+        }
+    }
     
     // MARK: Update functions to be called from state via combine
     private func updateShowTapIndicator() {
@@ -118,5 +133,8 @@ class AppearanceViewModel: ObservableObject {
     }
     private func updateSliderSoundEffect() {
         sliderSoundEffect = state.settings.sliderSoundEffect
+    }
+    private func updateShowTestValueWindow() {
+        showTestValueWindow = state.settings.showTestValueWindow
     }
 }
