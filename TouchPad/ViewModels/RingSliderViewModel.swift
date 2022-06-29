@@ -41,6 +41,5 @@ class RingSliderViewModel: ObservableObject {
         degrees = state.aircraftData.heading
         progress = degrees / 360
         changed += 1
-        print("update heading: degrees: \(degrees) and progress: \(progress)")
     }
 }

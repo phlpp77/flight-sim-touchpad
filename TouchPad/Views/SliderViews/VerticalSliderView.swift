@@ -81,9 +81,8 @@ struct VerticalSliderView: View {
                             if mqttNetworkVM.connectionOpen {
                                 mqttNetworkVM.sendToLog(logData)
                             }
-                            //                            if aircraftData == .speed {
-                            //                                model.aircraftData.speed = value
-                            //                            }
+                            verticalSliderVM.changeValue(of: aircraftData, to: value)
+                            
                             oldValue = value
                             firstMovement = true
                         }

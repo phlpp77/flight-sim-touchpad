@@ -36,6 +36,31 @@ class VerticalSliderViewModel: ObservableObject {
                 self.updateSpoiler()
             }
             .store(in: &subscriptions)
+        state.didSetSpeed
+            .sink {
+                self.updateSpeed()
+            }
+            .store(in: &subscriptions)
+        state.didSetAltitude
+            .sink {
+                self.updateAltitude()
+            }
+            .store(in: &subscriptions)
+        state.didSetFlaps
+            .sink {
+                self.updateFlaps()
+            }
+            .store(in: &subscriptions)
+        state.didSetGear
+            .sink {
+                self.updateGear()
+            }
+            .store(in: &subscriptions)
+        state.didSetSpoiler
+            .sink {
+                self.updateSpoiler()
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Vars that are used inside the view
@@ -45,12 +70,18 @@ class VerticalSliderViewModel: ObservableObject {
     @Published public var gear: Int = 0
     @Published public var spoiler: Int = 0
     
+    /// Change the value of an aircraft data
+    public func changeValue(of type: AircraftDataType, to value: Int) {
+        state.changeAircraftData(of: type, to: value)
+    }
+    
     // MARK: Update functions to be called from state via combine
     private func updateSpeed() {
         speed = state.aircraftData.speed
     }
     private func updateAltitude() {
         altitude = state.aircraftData.altitude
+        print("altitude updaed")
     }
     private func updateFlaps() {
         flaps = state.aircraftData.flaps

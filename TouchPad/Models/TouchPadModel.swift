@@ -29,6 +29,12 @@ class TouchPadModel {
     
     // Aircraft data updates
     let didSetSpeed = PassthroughSubject<Void, Never>()
+    let didSetAltitude = PassthroughSubject<Void, Never>()
+    let didSetHeading = PassthroughSubject<Void, Never>()
+    let didSetFlaps = PassthroughSubject<Void, Never>()
+    let didSetGear = PassthroughSubject<Void, Never>()
+    let didSetSpoiler = PassthroughSubject<Void, Never>()
+    // Update of all aircraft data
     let didSetAircraftData = PassthroughSubject<Void, Never>()
     
     private var subscriptions = Set<AnyCancellable>()
@@ -94,16 +100,22 @@ class TouchPadModel {
         switch valueType {
         case .speed:
             aircraftData.speed = value
+            didSetSpeed.send()
         case .altitude:
             aircraftData.altitude = value
+            didSetAltitude.send()
         case .heading:
             aircraftData.heading = Double(value)
+            didSetHeading.send()
         case .flaps:
             aircraftData.flaps = value
+            didSetFlaps.send()
         case .gear:
             aircraftData.gear = value
+            didSetGear.send()
         case .spoiler:
             aircraftData.spoiler = value
+            didSetSpoiler.send()
         }
     }
     
