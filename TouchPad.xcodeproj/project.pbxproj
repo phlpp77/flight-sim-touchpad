@@ -22,6 +22,8 @@
 		174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F792E286C40E800EB7EDB /* StateContainer.swift */; };
 		174F7931286C43DA00EB7EDB /* VerticalSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */; };
 		174F7933286C45B600EB7EDB /* RingSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */; };
+		174F7936286C839800EB7EDB /* StateValuesTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7935286C839800EB7EDB /* StateValuesTestView.swift */; };
+		174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
 		175283A627EDF807007BE399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A527EDF807007BE399 /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 		174F792E286C40E800EB7EDB /* StateContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateContainer.swift; sourceTree = "<group>"; };
 		174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderViewModel.swift; sourceTree = "<group>"; };
 		174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderViewModel.swift; sourceTree = "<group>"; };
+		174F7935286C839800EB7EDB /* StateValuesTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValuesTestView.swift; sourceTree = "<group>"; };
+		174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValuesTestViewModel.swift; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				1768B5A527F709D30046DCFC /* MainView.swift */,
 				1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */,
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
+				174F7935286C839800EB7EDB /* StateValuesTestView.swift */,
 				174F7934286C685900EB7EDB /* SettingsViews */,
 				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
@@ -177,6 +182,7 @@
 				174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */,
 				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
 				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
+				174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -302,8 +308,10 @@
 				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
+				174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
 				174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */,
+				174F7936286C839800EB7EDB /* StateValuesTestView.swift in Sources */,
 				1719061F2857A4EF002C1F9D /* ActiveButtonView.swift in Sources */,
 				178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */,
 				1704209D282134E60041927A /* DataExport.swift in Sources */,

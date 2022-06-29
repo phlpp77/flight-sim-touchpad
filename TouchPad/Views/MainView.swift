@@ -47,6 +47,9 @@ struct MainView: View {
                     Spacer()
                     VStack {
                         //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
+                        StateValuesTestView()
+                            .hoverEffect()
+                        
                         Spacer()
                         HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
                             .padding(.bottom, 30)
