@@ -38,26 +38,26 @@ class VerticalSliderViewModel: ObservableObject {
     }
     
     // MARK: Vars that are used inside the view
-    @Published var speed: Int = 250
-    @Published var altitude: Int = 10000
-    @Published var flaps: Int = 0
-    @Published var gear: Int = 0
-    @Published var spoiler: Int = 0
+    @Published public var speed: Int = 250
+    @Published public var altitude: Int = 10000
+    @Published public var flaps: Int = 0
+    @Published public var gear: Int = 0
+    @Published public var spoiler: Int = 0
     
     // MARK: Update functions to be called from state via combine
-    func updateSpeed() {
+    private func updateSpeed() {
         speed = state.aircraftData.speed
     }
-    func updateAltitude() {
+    private func updateAltitude() {
         altitude = state.aircraftData.altitude
     }
-    func updateFlaps() {
+    private func updateFlaps() {
         flaps = state.aircraftData.flaps
     }
-    func updateGear() {
+    private func updateGear() {
         gear = state.aircraftData.gear
     }
-    func updateSpoiler() {
+    private func updateSpoiler() {
         spoiler = state.aircraftData.spoiler
     }
 }

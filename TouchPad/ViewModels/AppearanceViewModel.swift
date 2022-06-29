@@ -22,26 +22,26 @@ class AppearanceViewModel: ObservableObject {
     }
     
     // MARK: Vars that are used inside the view
-    @Published var showTapIndicator: Bool!
-    @Published var speedStepsInFive: Bool!
-    @Published var headingStepsInFive: Bool!
-    @Published var screen: Screen!
-    @Published var sliderSoundEffect: Bool!
+    @Published public var showTapIndicator: Bool!
+    @Published public var speedStepsInFive: Bool!
+    @Published public var headingStepsInFive: Bool!
+    @Published public var screen: Screen = .essential
+    @Published public var sliderSoundEffect: Bool!
     
     // MARK: Update functions to be called from state via combine
-    func updateShowTapIndicator() {
+    private func updateShowTapIndicator() {
         showTapIndicator = state.settings.showTapIndicator
     }
-    func updateSpeedStepsInFive() {
+    private func updateSpeedStepsInFive() {
         speedStepsInFive = state.settings.speedStepsInFive
     }
-    func updateHeadingStepsInFive() {
+    private func updateHeadingStepsInFive() {
         headingStepsInFive = state.settings.headingStepsInFive
     }
-    func updateScreen() {
+    private func updateScreen() {
         screen = state.settings.screen
     }
-    func updateSliderSoundEffect() {
+    private func updateSliderSoundEffect() {
         sliderSoundEffect = state.settings.sliderSoundEffect
     }
     
