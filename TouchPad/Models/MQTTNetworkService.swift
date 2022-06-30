@@ -7,25 +7,25 @@
 
 import Foundation
 import CocoaMQTT
+import Combine
 
 class MQTTNetworkService: CocoaMQTTDelegate {
     
-    
-    
-    
-
     let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
     let host = "192.168.103.103"
+//    let host = "192.168.103.105"
 //    let host = "localhost"
     let port: UInt16 = 1883
     let username = ""
     let password = ""
     let connectProperties = MqttConnectProperties()
     var mqtt: CocoaMQTT?
+    
+    static let shared = MQTTNetworkService()
     weak var delegate: MQTTNetworkServiceDelegate?
+    let didReceiveMessage = PassthroughSubject<CocoaMQTTMessage, Never>()
     
     func openMQTT() {
-        
         connectProperties.topicAliasMaximum = 0
         connectProperties.sessionExpiryInterval = 0
         connectProperties.receiveMaximum = 100
@@ -38,8 +38,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
         mqtt?.keepAlive = 60
         mqtt?.delegate = self
         print("[MQTT] Open MQTT session with host \(host)")
-        let value = mqtt?.connect()
-        print(value ?? "nothing")
+        _ = mqtt?.connect()
     }
     
     func closeMQTT() {
@@ -53,8 +52,11 @@ class MQTTNetworkService: CocoaMQTTDelegate {
     func receiveMessage(topic: String) {
         mqtt?.subscribe(topic)
     }
+    
+    
 }
 
+// MARK: - MQTT callbacks
 extension MQTTNetworkService {
     
     func mqttDidPing(_ mqtt: CocoaMQTT) {
@@ -74,6 +76,7 @@ extension MQTTNetworkService {
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         delegate?.didUpdateConnection(isOpen: true)
         print("[MQTT] Server connected")
+        receiveMessage(topic: "fcu/aircraft/data")
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
@@ -81,7 +84,8 @@ extension MQTTNetworkService {
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-        print("[MQTT] Message received \(message)")
+        print("[MQTT] Message received in topic \(message.topic) with payload \(message.string!)")
+        didReceiveMessage.send(message)
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {

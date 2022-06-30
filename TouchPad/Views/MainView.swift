@@ -9,9 +9,11 @@ import SwiftUI
 
 struct MainView: View {
     
-    @ObservedObject var appearanceVM: AppearanceViewModel
-    let socketNetworkVM = SocketNetworkViewModel()
-    let mqttNetworkVM = MQTTNetworkViewModel()
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var verticalSliderVM: VerticalSliderViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
+    
     
     @State var showPopover = false
     @State var showSecondScreen = false
@@ -38,37 +40,40 @@ struct MainView: View {
                         }
                 )
             
-                ZStack {
-                    HStack {
-                        Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed)
-                        Spacer()
-                        VStack {
-        //                    ActiveButtonView(text: "WARN", color: .red, active: $showMasterWarn)
-                            Spacer()
-                            HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
-                                .padding(.bottom, 30)
+            ZStack {
+                HStack {
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
+                    Spacer()
+                    VStack {
+                        if appearanceVM.showTestValueWindow {
+                            StateValuesTestView()
+                                .hoverEffect()
                         }
                         Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude)
-                        Spacer()
+                        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+                            .padding(.bottom, 30)
                     }
-                    .opacity(appearanceVM.screen == .essential ? 1 : 0)
-                    
-                
-                    HStack {
-                        Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler)
-                        Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear)
-                        Spacer()
-                        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps)
-                        Spacer()
-                    }
-                    .opacity(appearanceVM.screen == .additional ? 1 : 0)
-                   
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $verticalSliderVM.altitude)
+                    Spacer()
                 }
-                .padding(.vertical, 15)
+                .opacity(appearanceVM.screen == .essential ? 1 : 0)
+                
+                
+                HStack {
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler, value: $verticalSliderVM.spoiler)
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear, value: $verticalSliderVM.gear)
+                    Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps, value: $verticalSliderVM.flaps)
+                    Spacer()
+                }
+                .opacity(appearanceVM.screen == .additional ? 1 : 0)
+                
+            }
+            .padding(.vertical, 15)
             
             
             
@@ -88,7 +93,7 @@ struct MainView: View {
                     }) {
                         Image(systemName: "gear")
                             .sheet(isPresented: $showPopover) {
-                                SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+                                SettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
                             }
                     }
                     
@@ -109,6 +114,14 @@ struct MainView: View {
             //                .position(x: 580, y: 686)
             
         }
+        // MARK: Try to connect to servers at startup
+        .onAppear {
+            mqttNetworkVM.openConnection()
+            socketNetworkVM.openConnection()
+            Task {
+                await socketNetworkVM.webSocketService.declareOffsets()
+            }
+        }
         
     }
     
@@ -116,8 +129,7 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     static var previews: some View {
-        let appearanceVM = AppearanceViewModel()
-        MainView(appearanceVM: appearanceVM)
+        MainView()
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

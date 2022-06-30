@@ -16,6 +16,8 @@ struct VerticalSliderView: View {
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     @ObservedObject var appearanceVM: AppearanceViewModel
     
+    @EnvironmentObject var verticalSliderVM: VerticalSliderViewModel
+    
     var topToBottom: Bool = false
     var step: Int = 1
     
@@ -26,9 +28,9 @@ struct VerticalSliderView: View {
     let thumbHeight: CGFloat = 50
     
     
-    @State private var value = 250
+    @Binding var value: Int
     @State private var oldValue = 250
-    @State private var stringValue = "250"
+    @State var stringValue = "250"
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
@@ -56,7 +58,7 @@ struct VerticalSliderView: View {
                         if firstMovement {
                             startTimeStamp = Date().localFlightSim()
                             firstMovement = false
-                        
+                            
                             // MARK: Save touch down to log
                             print("\(aircraftData.rawValue) slider started dragging at \(Date().localFlightSim())")
                             let logData = LogData(attribute: String(aircraftData.rawValue), startTime: Date().localFlightSim(), endTime: Date().localFlightSim(), extra: "Touch down")
@@ -66,49 +68,31 @@ struct VerticalSliderView: View {
                             }
                         }
                         
-                        // check for special values
-                        switch aircraftData {
-                        case .flaps:
-                            if value == 4 {
-                                stringValue = "FULL"
-                            } else {
-                                stringValue = String(value)
-                            }
-                        case .gear:
-                            if value == 0 {
-                                stringValue = "UP"
-                            } else {
-                                stringValue = "DOWN"
-                            }
-                        case .spoiler:
-                            if value == 10 {
-                                stringValue = "RET"
-                            } else if value == 55 {
-                                stringValue = "1 / 2"
-                            } else if value == 100 {
-                                stringValue = "FULL"
-                            } else {
-                                stringValue = String(value)
-                            }
-                        default:
-                            stringValue = String(value)
-                        }
-                        
+                        formatSpecialValues()
                         
                         if !editing {
                             print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
+                            
                             // MARK: Save to log
+                            // Create Log component
                             let logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
+                            // Add to local log on iPad
                             log.append(logData)
-                            if socketNetworkVM.offsetsDeclared {
-                                socketNetworkVM.changeValue(of: aircraftData, to: value)
-                            }
+                            // Add to remote log via MQTT
                             if mqttNetworkVM.connectionOpen {
                                 mqttNetworkVM.sendToLog(logData)
                             }
                             
-                            oldValue = value
+                            // MARK: Update values
+                            // Update local value on state
+                            verticalSliderVM.changeValue(of: aircraftData, to: value)
+                            // Update remote value via WebSocket
+                            if socketNetworkVM.offsetsDeclared {
+                                socketNetworkVM.changeValue(of: aircraftData, to: value)
+                            }
+                            
                             firstMovement = true
+                            oldValue = value
                         }
                     })
                     .valueSliderStyle(
@@ -239,17 +223,52 @@ struct VerticalSliderView: View {
                 stringValue = "RET"
             }
         }
+        .onChange(of: value) { _ in
+            stringValue = String(value)
+            formatSpecialValues()
+        }
+    }
+    
+    func formatSpecialValues() {
+        // check for special values
+        switch aircraftData {
+        case .flaps:
+            if value == 4 {
+                stringValue = "FULL"
+            } else {
+                stringValue = String(value)
+            }
+        case .gear:
+            if value == 0 {
+                stringValue = "UP"
+            } else {
+                stringValue = "DOWN"
+            }
+        case .spoiler:
+            if value == 10 {
+                stringValue = "RET"
+            } else if value == 55 {
+                stringValue = "1 / 2"
+            } else if value == 100 {
+                stringValue = "FULL"
+            } else {
+                stringValue = String(value)
+            }
+        default:
+            stringValue = String(value)
+        }
     }
 }
 
 
-struct SpeedSliderView_Previews: PreviewProvider {
-    static var previews: some View {
-        let socketNetworkVM = SocketNetworkViewModel()
-        let appearanceVM = AppearanceViewModel()
-        let mqttNetworkWM = MQTTNetworkViewModel()
-        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkWM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed)
-            .previewDevice("iPad Pro (11-inch) (3rd generation)")
-            .previewInterfaceOrientation(.landscapeLeft)
-    }
-}
+//struct SpeedSliderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let model = TouchPadModel()
+//        let socketNetworkVM = SocketNetworkViewModel()
+//        let mqttNetworkVM = MQTTNetworkViewModel()
+//        let appearanceVM = AppearanceViewModel(model: model)
+//        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed, value: model.aircraftData.speed)
+//            .previewDevice("iPad Pro (11-inch) (3rd generation)")
+//            .previewInterfaceOrientation(.landscapeLeft)
+//    }
+//}

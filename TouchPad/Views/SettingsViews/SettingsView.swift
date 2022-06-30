@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
     
@@ -66,22 +66,27 @@ struct SettingsView: View {
                 Section(header: Text("Appearance")) {
                     
                     // MARK: Show tap indicators
-                    Toggle(isOn: $appearanceVM.showTapIndicator) {
+                    Toggle(isOn: $appearanceVM.toggleShowTapIndicator) {
                         Text("Show tap indicators")
                     }
                     
+                    // MARK: Show test value window
+                    Toggle(isOn: $appearanceVM.toggleShowTestValueWindow) {
+                        Text("Show values in state")
+                    }
+                    
                     // MARK: Toggle slider sound effect
-                    Toggle(isOn: $appearanceVM.sliderSoundEffect) {
+                    Toggle(isOn: $appearanceVM.toggleSliderSoundEffect) {
                         Text("\(appearanceVM.sliderSoundEffect ? "Disable" : "Enable") sound effects of sliders")
                     }
                     
                     // MARK: Lock the speed every five steps
-                    Toggle(isOn: $appearanceVM.speedStepsInFive) {
+                    Toggle(isOn: $appearanceVM.toggleSpeedStepsInFive) {
                         Text("Lock speed every five steps")
                     }
                     
                     // MARK: Lock the heading every five steps
-                    Toggle(isOn: $appearanceVM.headingStepsInFive) {
+                    Toggle(isOn: $appearanceVM.toggleHeadingStepsInFive) {
                         Text("Lock heading every five steps")
                     }
                     
@@ -89,7 +94,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Select screen")
                         Spacer(minLength: 250)
-                        Picker(selection: $appearanceVM.screen, label: Text("Select screen")) {
+                        Picker(selection: $appearanceVM.toggleScreen, label: Text("Select screen")) {
                             Text("Main screen").tag(Screen.essential)
                             Text("Secondary screen").tag(Screen.additional)
                         }
@@ -133,7 +138,11 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
+<<<<<<< HEAD:TouchPad/Views/SettingsView.swift
                         Text("v1.1.1-beta")
+=======
+                        Text("v2.0.0-beta")
+>>>>>>> MQTT-bidirectional-connection:TouchPad/Views/SettingsViews/SettingsView.swift
                             .foregroundColor(.gray)
                     }
                     HStack {
@@ -250,10 +259,11 @@ struct StatusField_Previews: PreviewProvider {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        let appearanceVM = AppearanceViewModel()
+    
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
-        SettingsView(appearanceVM: appearanceVM, socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+       
+        SettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

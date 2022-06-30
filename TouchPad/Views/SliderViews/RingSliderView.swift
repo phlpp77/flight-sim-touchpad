@@ -11,21 +11,22 @@ import AudioToolbox
 
 struct RingSliderView: View {
     
-    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
-    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var ringSliderVM: RingSliderViewModel
     @Binding var turnFactor: Int
     
     var circleDiameter: CGFloat = 50
     var showMarker: Bool = false
     
-    @State private var progress: CGFloat = .zero
-    @State private var oldProgress: CGFloat = .zero
-    @State private var degrees: Double = .zero
-    @State private var oldDegrees: Double = .zero
-    @State private var startTrim: CGFloat = .zero
-    @State private var endTrim: CGFloat = .zero
-    @State private var startAngle: Double = .zero
+    @Binding var progress: CGFloat
+    @Binding var oldProgress: CGFloat
+    @Binding var degrees: Double
+    @Binding var oldDegrees: Double
+    @Binding var startTrim: CGFloat
+    @Binding var endTrim: CGFloat
+    @Binding var startAngle: Double
     @State private var globalPos: CGPoint = .zero
     
     @State private var markerPos: CGPoint = .zero
@@ -111,15 +112,25 @@ struct RingSliderView: View {
                                     .onEnded { _ in
                                         isDragging = false
                                         print("heading set from: \(oldDegrees) to \(degrees) with turn-factor \(turnFactor) and with a relative deviation \(relativeDeviation) on global Position \(globalPos) at \(Date().localFlightSim())")
+                                        
                                         // MARK: Save to log
+                                        // Create Log component
                                         let logData = LogData(attribute: "heading", oldValue: oldDegrees, value: degrees, relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim(), extra: String(turnFactor))
+                                        // Add to local log on iPad
                                         log.append(logData)
-                                        if socketNetworkVM.offsetsDeclared {
-                                            socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
-                                        }
+                                        // Add to remote log via MQTT
                                         if mqttNetworkVM.connectionOpen {
                                             mqttNetworkVM.sendToLog(logData)
                                         }
+                                        
+                                        // MARK: Update values
+                                        // Update local value on state
+                                        ringSliderVM.changeValue(to: Int(degrees))
+                                        // Update remote value via WebSocket
+                                        if socketNetworkVM.offsetsDeclared {
+                                            socketNetworkVM.changeHeading(Int(degrees), turnFactor: turnFactor)
+                                        }
+                                        
                                         firstMovement = true
                                         oldDegrees = degrees
                                     }
@@ -165,8 +176,6 @@ struct RingSliderView: View {
                     )
             }
         }
-        
-        
     }
     
     
@@ -190,7 +199,19 @@ struct RingSliderView: View {
             progress += 1
         }
         
-        // MARK: Calculation of indicator line
+        calculateIndicatorLine()
+        
+        var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
+        // round to every 5
+        if appearanceVM.headingStepsInFive {
+            localDegrees = round(localDegrees / 5) * 5
+        }
+        degrees = localDegrees
+        vStart = vEnd
+    }
+    
+    // MARK: Calculation of indicator line
+    func calculateIndicatorLine() {
         var trim: CGFloat = .zero
         // turn right
         if turnFactor == 1 {
@@ -219,24 +240,16 @@ struct RingSliderView: View {
             startTrim = 1 - abs(trim)
             endTrim = 1
         }
-        var localDegrees = simd_clamp(round(Double(progress) * 360), -360, 360)
-        // round to every 5
-        if appearanceVM.headingStepsInFive {
-            localDegrees = round(localDegrees / 5) * 5
-        }
-        degrees = localDegrees
-        vStart = vEnd
     }
     
 }
 
-struct RingSliderView_Previews: PreviewProvider {
-    static var previews: some View {
-        let socketNetworkVM = SocketNetworkViewModel()
-        let mqttNetworkVM = MQTTNetworkViewModel()
-        let appearanceVM = AppearanceViewModel()
-        
-        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, turnFactor: .constant(-1))
-            .previewDevice("iPad Pro (11-inch) (3rd generation)")
-    }
-}
+//struct RingSliderView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let socketNetworkVM = SocketNetworkViewModel()
+//        let mqttNetworkVM = MQTTNetworkViewModel()
+//
+//        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), progress: .constant(.zero), degrees: .constant(0))
+//            .previewDevice("iPad Pro (11-inch) (3rd generation)")
+//    }
+//}

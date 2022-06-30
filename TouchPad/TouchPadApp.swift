@@ -10,12 +10,18 @@ import SwiftUI
 @main
 struct TouchPadApp: App {
     
-    let appearanceVM = AppearanceViewModel()
+    let container = StateContainer()
     
     var body: some Scene {
         WindowGroup {
-            MainView(appearanceVM: appearanceVM)
+            MainView()
                 .preferredColorScheme(.dark)
+                .environmentObject(container.appearanceVM)
+                .environmentObject(container.verticalSliderVM)
+                .environmentObject(container.ringSliderVM)
+                .environmentObject(container.mqttNetworkVM)
+                .environmentObject(container.socketNetworkVM)
+                .environmentObject(container.stateValuesTestVM)
         }
     }
 }

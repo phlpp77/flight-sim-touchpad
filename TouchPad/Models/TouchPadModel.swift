@@ -6,22 +6,65 @@
 //
 
 import Foundation
+import Combine
+import CocoaMQTT
+import AVFoundation
 
-struct TouchPadModel {
+class TouchPadModel {
     
-    private(set) var settings = TouchPadSettings()
-    private(set) var startValues = AircraftStartValues()
+    @Published public var settings = TouchPadSettings()
+    @Published public var aircraftData = AircraftData()
     
+    // Setup of MQTT service and combine
+    let mqttService = MQTTNetworkService.shared
+    
+    // MARK: Combine setup
+    
+    // Settings updates
+    let didSetShowTapIndicator = PassthroughSubject<Void, Never>()
+    let didSetSpeedStepsInFive = PassthroughSubject<Void, Never>()
+    let didSetHeadingStepsInFive = PassthroughSubject<Void, Never>()
+    let didSetScreen = PassthroughSubject<Void, Never>()
+    let didSetSliderSoundEffect = PassthroughSubject<Void, Never>()
+    let didSetShowTestValueWindow = PassthroughSubject<Void, Never>()
+    
+    // Aircraft data updates
+    let didSetSpeed = PassthroughSubject<Void, Never>()
+    let didSetAltitude = PassthroughSubject<Void, Never>()
+    let didSetHeading = PassthroughSubject<Void, Never>()
+    let didSetFlaps = PassthroughSubject<Void, Never>()
+    let didSetGear = PassthroughSubject<Void, Never>()
+    let didSetSpoiler = PassthroughSubject<Void, Never>()
+    // Update of all aircraft data
+    let didSetAircraftData = PassthroughSubject<Void, Never>()
+    
+    private var subscriptions = Set<AnyCancellable>()
+    
+    init() {
+        setupSubscribers()
+    }
+    
+    func setupSubscribers() {
+        mqttService.didReceiveMessage
+            .sink { message in
+                self.handleMessages(message: message)
+        }
+        .store(in: &subscriptions)
+    }
+    
+    // MARK: Model for Settings
     struct TouchPadSettings {
         var showTapIndicator: Bool = false
         var speedStepsInFive: Bool = true
         var headingStepsInFive: Bool = true
         var screen: Screen = .essential
         var sliderSoundEffect: Bool = true
+        var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
     }
     
-    struct AircraftStartValues {
+    // MARK: Model for Aircraft data
+    struct AircraftData: Codable {
         var speed: Int = 250
         var heading: Double = 0
         var altitude: Int = 10000
@@ -30,40 +73,102 @@ struct TouchPadModel {
         var spoiler: Int = 0
     }
     
-    mutating func changeTapIndicator(_ newState: Bool) {
+    func changeTapIndicator(_ newState: Bool) {
         settings.showTapIndicator = newState
+        didSetShowTapIndicator.send()
     }
-    
-    mutating func changeSpeedStepsInFive(_ newState: Bool) {
+    func changeSpeedStepsInFive(_ newState: Bool) {
         settings.speedStepsInFive = newState
+        didSetSpeedStepsInFive.send()
     }
-    
-    mutating func changeHeadingStepsInFive(_ newState: Bool) {
+    func changeHeadingStepsInFive(_ newState: Bool) {
         settings.headingStepsInFive = newState
+        didSetHeadingStepsInFive.send()
     }
-    
-    mutating func changeScreen(_ newState: Screen) {
+    func changeScreen(_ newState: Screen) {
         settings.screen = newState
+        didSetScreen.send()
     }
-    
-    mutating func changeSliderSoundEffect(_ newState: Bool) {
+    func changeSliderSoundEffect(_ newState: Bool) {
         settings.sliderSoundEffect = newState
+        didSetSliderSoundEffect.send()
+    }
+    func changeShowTestValueWindow(_ newState: Bool) {
+        settings.showTestValueWindow = newState
+        didSetShowTestValueWindow.send()
     }
     
-    mutating func changeStartValues(of valueType: AircraftDataType, to value: Int) {
+    func changeAircraftData(of valueType: AircraftDataType, to value: Int) {
         switch valueType {
         case .speed:
-            startValues.speed = value
+            aircraftData.speed = value
+            didSetSpeed.send()
         case .altitude:
-            startValues.altitude = value
+            aircraftData.altitude = value
+            didSetAltitude.send()
         case .heading:
-            startValues.heading = Double(value)
+            aircraftData.heading = Double(value)
+            didSetHeading.send()
         case .flaps:
-            startValues.flaps = value
+            aircraftData.flaps = value
+            didSetFlaps.send()
         case .gear:
-            startValues.gear = value
+            aircraftData.gear = value
+            didSetGear.send()
         case .spoiler:
-            startValues.spoiler = value
+            aircraftData.spoiler = value
+            didSetSpoiler.send()
         }
+    }
+    
+    private func handleMessages(message: CocoaMQTTMessage) {
+        let topic = message.topic
+        let jsonString = message.string!.data(using: .utf8)!
+        
+        let decoder = JSONDecoder()
+        
+        switch topic {
+        case "fcu/aircraft/data":
+            do {
+                let aircraftData = try decoder.decode(MQTTAircraftData.self, from: jsonString)
+                handleAircraftData(mqttData: aircraftData)
+            } catch {
+                print("[MQTT message handler] error: \(error.localizedDescription)")
+            }
+        default:
+            print("[MQTT message handler] topic \(topic) not found")
+        }
+    }
+    
+    private func handleAircraftData(mqttData: MQTTAircraftData) {
+        switch mqttData.type {
+        case "aircraftStartValues":
+            changeAircraftStartValues(values: mqttData.data)
+        default:
+            print("[MQTT aircraftData handler] type \(mqttData.type) not found")
+        }
+    }
+    
+    private func changeAircraftStartValues(values: AircraftData) {
+        print("set speed to values: \(values)")
+        changeAircraftData(of: .speed, to: values.speed)
+        changeAircraftData(of: .altitude, to: values.altitude)
+        changeAircraftData(of: .heading, to: Int(values.heading))
+        changeAircraftData(of: .spoiler, to: values.spoiler)
+        changeAircraftData(of: .gear, to: values.gear)
+        changeAircraftData(of: .flaps, to: values.flaps)
+        didSetAircraftData.send()
+        
+        // Voice feedback
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: "Values have been set.")
+        speechUtterance.rate = 0.55
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        speechSynthesizer.speak(speechUtterance)
+    }   
+    
+    struct MQTTAircraftData: Codable {
+        var type: String
+        var data: AircraftData
     }
 }

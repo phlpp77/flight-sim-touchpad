@@ -12,7 +12,9 @@ struct HeadingView: View {
     
     @ObservedObject var socketNetworkVM: SocketNetworkViewModel
     @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var ringSliderVM: RingSliderViewModel
     
     @State var turnFactor = 1
     
@@ -87,7 +89,7 @@ struct HeadingView: View {
                     .aspectRatio(contentMode: .fit)
                     .allowsHitTesting(false)
                 
-                RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, turnFactor: $turnFactor)
+                RingSliderView(turnFactor: $turnFactor, progress: $ringSliderVM.progress, oldProgress: $ringSliderVM.oldProgress, degrees: $ringSliderVM.degrees, oldDegrees: $ringSliderVM.oldDegrees, startTrim: $ringSliderVM.startTrim, endTrim: $ringSliderVM.endTrim, startAngle: $ringSliderVM.startAngle)
                     .padding(53)
                 
             }
@@ -122,9 +124,8 @@ struct HeadingView_Previews: PreviewProvider {
     static var previews: some View {
         let socketNetworkVM = SocketNetworkViewModel()
         let mqttNetworkVM = MQTTNetworkViewModel()
-        let appearanceVM = AppearanceViewModel()
         
-        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM)
+        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

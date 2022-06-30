@@ -6,63 +6,135 @@
 //
 
 import Foundation
+import Combine
 
 class AppearanceViewModel: ObservableObject {
     
-    @Published private var model: TouchPadModel = TouchPadModel()
+    // MARK: Initial setup
+    private var state: TouchPadModel
+    init(state: TouchPadModel) {
+        self.state = state
+        self.updateShowTapIndicator()
+        self.updateSpeedStepsInFive()
+        self.updateHeadingStepsInFive()
+        self.updateScreen()
+        self.updateSliderSoundEffect()
+        self.updateShowTestValueWindow()
+        
+        // setup the combine subscribers
+        setupSubscribers()
+    }
     
-    var showTapIndicator: Bool {
+    // MARK: Combine setup
+    private var subscriptions = Set<AnyCancellable>()
+    private func setupSubscribers() {
+        state.didSetShowTapIndicator
+            .sink {
+                self.updateShowTapIndicator()
+            }
+            .store(in: &subscriptions)
+        state.didSetSpeedStepsInFive
+            .sink {
+                self.updateSpeedStepsInFive()
+            }
+            .store(in: &subscriptions)
+        state.didSetHeadingStepsInFive
+            .sink {
+                self.updateHeadingStepsInFive()
+            }
+            .store(in: &subscriptions)
+        state.didSetScreen
+            .sink {
+                self.updateScreen()
+            }
+            .store(in: &subscriptions)
+        state.didSetSliderSoundEffect
+            .sink {
+                self.updateSliderSoundEffect()
+            }
+            .store(in: &subscriptions)
+        state.didSetShowTestValueWindow
+            .sink {
+                self.updateShowTestValueWindow()
+            }
+            .store(in: &subscriptions)
+    }
+    
+    // MARK: Vars that are used inside the view
+    @Published public var showTapIndicator: Bool!
+    @Published public var speedStepsInFive: Bool!
+    @Published public var headingStepsInFive: Bool!
+    @Published public var screen: Screen = .essential
+    @Published public var sliderSoundEffect: Bool!
+    @Published public var showTestValueWindow: Bool!
+    
+    // MARK: Functions/Vars to interact with the state
+    public var toggleShowTapIndicator: Bool {
         get {
-            model.settings.showTapIndicator
+            self.showTapIndicator
         }
         set {
-            let newState = newValue
-            model.changeTapIndicator(newState)
+            state.changeTapIndicator(newValue)
+        }
+    }
+    public var toggleSpeedStepsInFive: Bool {
+        get {
+            self.speedStepsInFive
+        }
+        set {
+            state.changeSpeedStepsInFive(newValue)
+        }
+    }
+    public var toggleHeadingStepsInFive: Bool {
+        get {
+            self.headingStepsInFive
+        }
+        set {
+            state.changeHeadingStepsInFive(newValue)
+        }
+    }
+    public var toggleScreen: Screen {
+        get {
+            self.screen
+        }
+        set {
+            state.changeScreen(newValue)
+        }
+    }
+    public var toggleSliderSoundEffect: Bool {
+        get {
+            self.sliderSoundEffect
+        }
+        set {
+            state.changeSliderSoundEffect(newValue)
+        }
+    }
+    public var toggleShowTestValueWindow: Bool {
+        get {
+            self.showTestValueWindow
+        }
+        set {
+            state.changeShowTestValueWindow(newValue)
         }
     }
     
-    var speedStepsInFive: Bool {
-        get {
-            model.settings.speedStepsInFive
-        }
-        set {
-            let newState = newValue
-            model.changeSpeedStepsInFive(newState)
-        }
+    // MARK: Update functions to be called from state via combine
+    private func updateShowTapIndicator() {
+        showTapIndicator = state.settings.showTapIndicator
     }
-    
-    var headingStepsInFive: Bool {
-        get {
-            model.settings.headingStepsInFive
-        }
-        set {
-            let newState = newValue
-            model.changeHeadingStepsInFive(newState)
-        }
+    private func updateSpeedStepsInFive() {
+        speedStepsInFive = state.settings.speedStepsInFive
     }
-    
-    var screen: Screen {
-        get {
-            model.settings.screen
-        }
-        set {
-            let newState = newValue
-            model.changeScreen(newState)
-        }
+    private func updateHeadingStepsInFive() {
+        headingStepsInFive = state.settings.headingStepsInFive
     }
-    
-    var sliderSoundEffect: Bool {
-        get {
-            model.settings.sliderSoundEffect
-        }
-        set {
-            let newState = newValue
-            model.changeSliderSoundEffect(newState)
-        }
+    private func updateScreen() {
+        screen = state.settings.screen
     }
-    
-    // Settings from Model read only
-    var settings: TouchPadModel.TouchPadSettings {
-        return model.settings
+    private func updateSliderSoundEffect() {
+        sliderSoundEffect = state.settings.sliderSoundEffect
+    }
+    private func updateShowTestValueWindow() {
+        showTestValueWindow = state.settings.showTestValueWindow
     }
 }

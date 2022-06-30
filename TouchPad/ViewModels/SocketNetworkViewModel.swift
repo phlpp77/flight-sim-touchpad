@@ -30,6 +30,13 @@ class SocketNetworkViewModel: ObservableObject {
         }
     }
     
+    // Open the connection to the MQTT server if not already connected
+    func openConnection() {
+        if !connectionOpen {
+            webSocketService.openWebSocket()
+        }
+    }
+    
     func changeValue(of name: AircraftDataType, to value: Int) {
         switch name {
         case .speed:

@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Combine
 
 class MQTTNetworkViewModel: ObservableObject {
     
-    @Published var mqttService = MQTTNetworkService()
+    let mqttService = MQTTNetworkService.shared
     @Published var connectionOpen = false
     
     init() {
@@ -25,6 +26,13 @@ class MQTTNetworkViewModel: ObservableObject {
             } else {
                 mqttService.closeMQTT()
             }
+        }
+    }
+    
+    // Open the connection to the MQTT server if not already connected
+    func openConnection() {
+        if !connectionOpen {
+            mqttService.openMQTT()
         }
     }
     
