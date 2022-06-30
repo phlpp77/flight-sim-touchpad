@@ -138,11 +138,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-<<<<<<< HEAD:TouchPad/Views/SettingsView.swift
-                        Text("v1.1.1-beta")
-=======
                         Text("v2.0.0-beta")
->>>>>>> MQTT-bidirectional-connection:TouchPad/Views/SettingsViews/SettingsView.swift
                             .foregroundColor(.gray)
                     }
                     HStack {
