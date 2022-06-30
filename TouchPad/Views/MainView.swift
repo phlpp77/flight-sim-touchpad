@@ -46,6 +46,7 @@ struct MainView: View {
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
                     Spacer()
                     VStack {
+                        ATCMessagesView()
                         if appearanceVM.showTestValueWindow {
                             StateValuesTestView()
                                 .hoverEffect()
