@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ATCMessagesView: View {
     
-    @State var message: String = "Turn left HDG 300"
+    @EnvironmentObject var atcMessagesVM: ATCMessagesViewModel
     
     private let dateFormatter = { () -> DateFormatter in
         let formatter = DateFormatter()
@@ -31,7 +31,7 @@ struct ATCMessagesView: View {
             .frame(height: 25)
             Divider()
                 .overlay(Color(hexCode: "FFF000")!)
-            Text("[\(Date(), formatter: dateFormatter())] \(message)")
+            Text("[\(Date(), formatter: dateFormatter())] \(atcMessagesVM.message != "" ? atcMessagesVM.message : "No new message")")
                 .textCase(.uppercase)
         }
         .frame(width: 450)

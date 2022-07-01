@@ -14,6 +14,7 @@ class TouchPadModel {
     
     @Published public var settings = TouchPadSettings()
     @Published public var aircraftData = AircraftData()
+    @Published public var serviceData = ServiceData()
     
     // Setup of MQTT service and combine
     let mqttService = MQTTNetworkService.shared
@@ -38,6 +39,9 @@ class TouchPadModel {
     // Update of all aircraft data
     let didSetAircraftData = PassthroughSubject<Void, Never>()
     
+    // Service data updates
+    let didSetATCMessage = PassthroughSubject<Void, Never>()
+    
     private var subscriptions = Set<AnyCancellable>()
     
     init() {
@@ -48,8 +52,8 @@ class TouchPadModel {
         mqttService.didReceiveMessage
             .sink { message in
                 self.handleMessages(message: message)
-        }
-        .store(in: &subscriptions)
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Model for Settings
@@ -71,6 +75,11 @@ class TouchPadModel {
         var flaps: Int = 0
         var gear: Int = 0
         var spoiler: Int = 0
+    }
+    
+    // MARK: Model for additional service data
+    struct ServiceData: Codable {
+        var atcMessage: String = ""
     }
     
     func changeTapIndicator(_ newState: Bool) {
@@ -121,6 +130,11 @@ class TouchPadModel {
         }
     }
     
+    func changeATCMessage(message: String) {
+        serviceData.atcMessage = message
+        didSetATCMessage.send()
+    }
+    
     private func handleMessages(message: CocoaMQTTMessage) {
         let topic = message.topic
         let jsonString = message.string!.data(using: .utf8)!
@@ -135,6 +149,13 @@ class TouchPadModel {
             } catch {
                 print("[MQTT message handler] error: \(error.localizedDescription)")
             }
+        case "fcu/service/atc":
+            do {
+                let serviceData = try decoder.decode(MQTTServiceData.self, from: jsonString)
+                handleServiceData(mqttData: serviceData)
+            } catch {
+                print("[MQTT message handler] error: \(error.localizedDescription)")
+            }
         default:
             print("[MQTT message handler] topic \(topic) not found")
         }
@@ -146,6 +167,15 @@ class TouchPadModel {
             changeAircraftStartValues(values: mqttData.data)
         default:
             print("[MQTT aircraftData handler] type \(mqttData.type) not found")
+        }
+    }
+    
+    private func handleServiceData(mqttData: MQTTServiceData) {
+        switch mqttData.type {
+        case "atcMessage":
+            changeATCMessage(message: mqttData.data.atcMessage)
+        default:
+            print("[MQTT serviceData handler] type \(mqttData.type) not found")
         }
     }
     
@@ -165,10 +195,15 @@ class TouchPadModel {
         speechUtterance.rate = 0.55
         speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         speechSynthesizer.speak(speechUtterance)
-    }   
+    }
     
     struct MQTTAircraftData: Codable {
         var type: String
         var data: AircraftData
+    }
+    
+    struct MQTTServiceData: Codable {
+        var type: String
+        var data: ServiceData
     }
 }

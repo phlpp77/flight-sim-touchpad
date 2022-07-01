@@ -12,9 +12,9 @@ import Combine
 class MQTTNetworkService: CocoaMQTTDelegate {
     
     let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
-    let host = "192.168.103.103"
+//    let host = "192.168.103.103"
 //    let host = "192.168.103.105"
-//    let host = "localhost"
+    let host = "localhost"
     let port: UInt16 = 1883
     let username = ""
     let password = ""
@@ -77,6 +77,7 @@ extension MQTTNetworkService {
         delegate?.didUpdateConnection(isOpen: true)
         print("[MQTT] Server connected")
         receiveMessage(topic: "fcu/aircraft/data")
+        receiveMessage(topic: "fcu/service/atc")
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {

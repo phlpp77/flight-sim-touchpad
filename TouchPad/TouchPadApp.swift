@@ -19,6 +19,7 @@ struct TouchPadApp: App {
                 .environmentObject(container.appearanceVM)
                 .environmentObject(container.verticalSliderVM)
                 .environmentObject(container.ringSliderVM)
+                .environmentObject(container.atcMessagesVM)
                 .environmentObject(container.mqttNetworkVM)
                 .environmentObject(container.socketNetworkVM)
                 .environmentObject(container.stateValuesTestVM)

@@ -45,6 +45,7 @@
 		17AC52B7282BCA0F009CE70E /* AltitudeRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */; };
 		17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */; };
 		17B982AA286D97580013D08B /* ATCMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B982A9286D97580013D08B /* ATCMessagesView.swift */; };
+		17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */; };
 		17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 		17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltitudeRangeView.swift; sourceTree = "<group>"; };
 		17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderView.swift; sourceTree = "<group>"; };
 		17B982A9286D97580013D08B /* ATCMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCMessagesView.swift; sourceTree = "<group>"; };
+		17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCMessagesViewModel.swift; sourceTree = "<group>"; };
 		17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 				17555D90280704DB003B61F0 /* AppearanceViewModel.swift */,
 				174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */,
 				174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */,
+				17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */,
 				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
 				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
 				174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */,
@@ -312,6 +315,7 @@
 				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
+				17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */,
 				174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
 				174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */,
