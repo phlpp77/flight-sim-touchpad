@@ -13,7 +13,8 @@ struct ATCMessagesView: View {
     
     private let dateFormatter = { () -> DateFormatter in
         let formatter = DateFormatter()
-        formatter.timeStyle = .short
+        formatter.timeZone = TimeZone.init(identifier: "GMT")
+        formatter.dateFormat = "HH:mm:ss zzz"
         return formatter
     }
     
