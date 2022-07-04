@@ -13,8 +13,8 @@ struct ATCMessagesView: View {
     
     private let dateFormatter = { () -> DateFormatter in
         let formatter = DateFormatter()
-        formatter.timeZone = TimeZone.init(identifier: "GMT")
-        formatter.dateFormat = "HH:mm:ss zzz"
+        formatter.timeZone = TimeZone.init(identifier: "UTC")
+        formatter.dateFormat = "HH:mm:ss"
         return formatter
     }
     
@@ -32,7 +32,7 @@ struct ATCMessagesView: View {
             .frame(height: 25)
             Divider()
                 .overlay(Color(hexCode: "FFF000")!)
-            Text("[\(Date(), formatter: dateFormatter())] \(atcMessagesVM.message != "" ? atcMessagesVM.message : "No new message")")
+            Text("[\(dateFormatter().string(from: Date())) UTC] \(atcMessagesVM.message != "" ? atcMessagesVM.message : "No new message")")
                 .textCase(.uppercase)
         }
         .frame(width: 450)
