@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import AudioToolbox
 
 class ATCMessagesViewModel: ObservableObject {
     
@@ -39,5 +40,6 @@ class ATCMessagesViewModel: ObservableObject {
     // MARK: Update functions to be called from state via combine
     private func updateATCMessage() {
         message = state.serviceData.atcMessage
+        AudioServicesPlaySystemSound(1000)
     }
 }

@@ -138,11 +138,6 @@ struct VerticalSliderView: View {
                     .coordinateSpace(name: "slider")
                     .rotationEffect(Angle.degrees(topToBottom ? 180 : 0))
                     .frame(width: 120, height: 540)
-                    .onChange(of: value) { _ in
-                        if appearanceVM.sliderSoundEffect {
-                            AudioServicesPlaySystemSound(1104)
-                        }
-                    }
                 }
                 
                 ZStack {
@@ -226,6 +221,9 @@ struct VerticalSliderView: View {
         .onChange(of: value) { _ in
             stringValue = String(value)
             formatSpecialValues()
+            if appearanceVM.sliderSoundEffect {
+                AudioServicesPlaySystemSound(1104)
+            }
         }
     }
     
