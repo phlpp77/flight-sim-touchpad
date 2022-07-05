@@ -10,8 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject var appearanceVM: AppearanceViewModel
-    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
-    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
     
     
     @State private var fileName = ""
@@ -120,7 +120,7 @@ struct SettingsView: View {
                 
                 Section(header: Text("Advanced settings")) {
                     NavigationLink {
-                        ServerSettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+                        ServerSettingsView()
                     } label: {
                         Text("Server settings")
                     }
@@ -255,11 +255,7 @@ struct StatusField_Previews: PreviewProvider {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-    
-        let socketNetworkVM = SocketNetworkViewModel()
-        let mqttNetworkVM = MQTTNetworkViewModel()
-       
-        SettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+        SettingsView()
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)
     }

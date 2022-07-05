@@ -10,8 +10,8 @@ import AudioToolbox
 
 struct HeadingView: View {
     
-    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
-    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
     
     @EnvironmentObject var appearanceVM: AppearanceViewModel
     @EnvironmentObject var ringSliderVM: RingSliderViewModel
@@ -122,10 +122,7 @@ struct HeadingView: View {
 
 struct HeadingView_Previews: PreviewProvider {
     static var previews: some View {
-        let socketNetworkVM = SocketNetworkViewModel()
-        let mqttNetworkVM = MQTTNetworkViewModel()
-        
-        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+        HeadingView()
             .previewInterfaceOrientation(.landscapeLeft)
     }
 }

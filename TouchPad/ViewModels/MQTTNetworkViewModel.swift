@@ -10,11 +10,39 @@ import Combine
 
 class MQTTNetworkViewModel: ObservableObject {
     
+    // MARK: Initial setup
+    private var state: TouchPadModel
     let mqttService = MQTTNetworkService.shared
-    @Published var connectionOpen = false
+    init(state: TouchPadModel) {
+        self.state = state
+        self.updateIPConfig()
+        self.mqttService.delegate = self
+        
+        // setup the combine subscribers
+        setupSubscribers()
+    }
     
-    init() {
-        mqttService.delegate = self
+    // MARK: Combine setup
+    private var subscriptions = Set<AnyCancellable>()
+    private func setupSubscribers() {
+        state.didSetATCMessage
+            .sink {
+                self.updateIPConfig()
+            }
+            .store(in: &subscriptions)
+    }
+    
+    // MARK: Vars that are used inside the view
+    @Published public var connectionOpen = false
+    @Published public var ipConfig: IPConfig!
+    
+    // MARK: Functions/Vars to interact with the state
+    // none
+    
+    // MARK: Update functions to be called from state via combine
+    private func updateIPConfig() {
+        ipConfig = state.settings.ipConfig
+        mqttService.host = ipConfig.rawValue
     }
     
     var toggleServerConnection: Bool = false {

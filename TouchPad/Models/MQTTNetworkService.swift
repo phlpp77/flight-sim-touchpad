@@ -12,9 +12,7 @@ import Combine
 class MQTTNetworkService: CocoaMQTTDelegate {
     
     let clientID = "CocoaMQTT-" + String(ProcessInfo().processIdentifier)
-//    let host = "192.168.103.103"
-//    let host = "192.168.103.105"
-    let host = "localhost"
+    var host: String?
     let port: UInt16 = 1883
     let username = ""
     let password = ""
@@ -30,14 +28,13 @@ class MQTTNetworkService: CocoaMQTTDelegate {
         connectProperties.sessionExpiryInterval = 0
         connectProperties.receiveMaximum = 100
         connectProperties.maximumPacketSize = 500
-        
-        mqtt = CocoaMQTT(clientID: self.clientID, host: self.host, port: self.port)
+        mqtt = CocoaMQTT(clientID: self.clientID, host: self.host!, port: self.port)
         mqtt?.username = self.username
         mqtt?.password = self.password
         mqtt?.willMessage = CocoaMQTTMessage(topic: "/will", string: "connection lost")
         mqtt?.keepAlive = 60
         mqtt?.delegate = self
-        print("[MQTT] Open MQTT session with host \(host)")
+        print("[MQTT] Open MQTT session with host \(host!)")
         _ = mqtt?.connect()
     }
     

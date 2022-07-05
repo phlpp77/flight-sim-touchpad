@@ -21,3 +21,9 @@ enum Screen: String, CaseIterable, Identifiable {
     case additional
     var id: Self { self }
 }
+
+enum IPConfig: String, CaseIterable, Identifiable {
+    case lab = "192.168.103.103"
+    case localhost = "localhost"
+    var id: Self { self }
+}

@@ -36,6 +36,7 @@ class TouchPadModel {
     let didSetFlaps = PassthroughSubject<Void, Never>()
     let didSetGear = PassthroughSubject<Void, Never>()
     let didSetSpoiler = PassthroughSubject<Void, Never>()
+    let didSetIPConfig = PassthroughSubject<Void, Never>()
     // Update of all aircraft data
     let didSetAircraftData = PassthroughSubject<Void, Never>()
     
@@ -65,6 +66,7 @@ class TouchPadModel {
         var sliderSoundEffect: Bool = true
         var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
+        var ipConfig: IPConfig = .lab
     }
     
     // MARK: Model for Aircraft data
@@ -82,6 +84,7 @@ class TouchPadModel {
         var atcMessage: String = ""
     }
     
+    // MARK: - Functions to change model data
     func changeTapIndicator(_ newState: Bool) {
         settings.showTapIndicator = newState
         didSetShowTapIndicator.send()
@@ -106,6 +109,10 @@ class TouchPadModel {
         settings.showTestValueWindow = newState
         didSetShowTestValueWindow.send()
     }
+    func changeIPConfig(_ newState: IPConfig) {
+        settings.ipConfig = newState
+        didSetIPConfig.send()
+    }
     
     func changeAircraftData(of valueType: AircraftDataType, to value: Int) {
         switch valueType {
@@ -129,12 +136,13 @@ class TouchPadModel {
             didSetSpoiler.send()
         }
     }
-    
+
     func changeATCMessage(message: String) {
         serviceData.atcMessage = message
         didSetATCMessage.send()
     }
     
+    // MARK: - Functions to handle MQTT incoming messages
     private func handleMessages(message: CocoaMQTTMessage) {
         let topic = message.topic
         let jsonString = message.string!.data(using: .utf8)!

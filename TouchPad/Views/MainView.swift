@@ -52,7 +52,7 @@ struct MainView: View {
                                 .hoverEffect()
                         }
                         Spacer()
-                        HeadingView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+                        HeadingView()
                             .padding(.bottom, 30)
                     }
                     Spacer()
@@ -94,7 +94,7 @@ struct MainView: View {
                     }) {
                         Image(systemName: "gear")
                             .sheet(isPresented: $showPopover) {
-                                SettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+                                SettingsView()
                             }
                     }
                     

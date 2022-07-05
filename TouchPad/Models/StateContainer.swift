@@ -18,7 +18,7 @@ struct StateContainer {
     let ringSliderVM: RingSliderViewModel
     let atcMessagesVM: ATCMessagesViewModel
     let socketNetworkVM = SocketNetworkViewModel()
-    let mqttNetworkVM = MQTTNetworkViewModel()
+    let mqttNetworkVM: MQTTNetworkViewModel
     let stateValuesTestVM: StateValuesTestViewModel
     
     init() {
@@ -26,6 +26,7 @@ struct StateContainer {
         verticalSliderVM = VerticalSliderViewModel(state: state)
         ringSliderVM = RingSliderViewModel(state: state)
         atcMessagesVM = ATCMessagesViewModel(state: state)
+        mqttNetworkVM = MQTTNetworkViewModel(state: state)
         stateValuesTestVM = StateValuesTestViewModel(state: state)
     }
 }

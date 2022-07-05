@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ServerSettingsView: View {
     
-    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
-    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
     
     @State private var mqttMessage = ""
     @State private var mqttTopic = "fcu/status"
@@ -110,8 +110,6 @@ struct ServerSettingsView: View {
 
 struct ServerSettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        let socketNetworkVM = SocketNetworkViewModel()
-        let mqttNetworkVM = MQTTNetworkViewModel()
-        ServerSettingsView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM)
+        ServerSettingsView()
     }
 }
