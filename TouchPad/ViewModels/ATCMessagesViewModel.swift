@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import AudioToolbox
+import AVFoundation
 
 class ATCMessagesViewModel: ObservableObject {
     
@@ -41,5 +42,11 @@ class ATCMessagesViewModel: ObservableObject {
     private func updateATCMessage() {
         message = state.serviceData.atcMessage
         AudioServicesPlaySystemSound(1000)
+        
+        // Voice feedback
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance = AVSpeechUtterance(string: message)
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        speechSynthesizer.speak(speechUtterance)
     }
 }
