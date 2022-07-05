@@ -109,9 +109,9 @@
 		174F7934286C685900EB7EDB /* SettingsViews */ = {
 			isa = PBXGroup;
 			children = (
-				1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */,
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
 				17235082286204CC00571EB4 /* ServerSettingsView.swift */,
+				1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */,
 			);
 			path = SettingsViews;
 			sourceTree = "<group>";

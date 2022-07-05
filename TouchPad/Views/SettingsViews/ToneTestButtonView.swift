@@ -19,6 +19,7 @@ struct ToneTestButtonView: View {
     var body: some View {
         ScrollView {
             VStack {
+                ProgressView("Showing", value: 0.5)
                 ForEach(codes, id: \.self) { code in
                     Button {
                         AudioServicesPlaySystemSound(code)
