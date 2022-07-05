@@ -16,6 +16,7 @@ struct ServerSettingsView: View {
     @State private var mqttTopic = "fcu/status"
     @State private var subscribingTopic = "test/foo"
     @State private var speedText = ""
+    @State private var ipConfigText = "XXX"
     
     @State private var isPerformingTask = false
     
@@ -73,6 +74,17 @@ struct ServerSettingsView: View {
             }
             
             Section(header: Text("MQTT")) {
+                
+                HStack {
+                    Text("Select IP address")
+                    Spacer(minLength: 250)
+                    Picker(selection: $mqttNetworkVM.toggleIPConfig, label: Text("Select IP adress")) {
+                        Text("Lab").tag(IPConfig.lab)
+                        Text("Localhost").tag(IPConfig.localhost)
+                        TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
+                    }
+                    .pickerStyle(.segmented)
+                }
                 
                 Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
                     Text("Connect MQTT Server")
