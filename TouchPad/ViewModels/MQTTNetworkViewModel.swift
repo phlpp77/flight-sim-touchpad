@@ -25,7 +25,7 @@ class MQTTNetworkViewModel: ObservableObject {
     // MARK: Combine setup
     private var subscriptions = Set<AnyCancellable>()
     private func setupSubscribers() {
-        state.didSetATCMessage
+        state.didSetIPConfig
             .sink {
                 self.updateIPConfig()
             }
@@ -42,7 +42,7 @@ class MQTTNetworkViewModel: ObservableObject {
     // MARK: Update functions to be called from state via combine
     private func updateIPConfig() {
         ipConfig = state.settings.ipConfig
-        mqttService.host = ipConfig.rawValue
+        mqttService.host = ipConfig.ip
     }
     
     var toggleServerConnection: Bool = false {
@@ -54,6 +54,14 @@ class MQTTNetworkViewModel: ObservableObject {
             } else {
                 mqttService.closeMQTT()
             }
+        }
+    }
+    public var toggleIPConfig: IPConfig {
+        get {
+            self.ipConfig
+        }
+        set {
+            state.changeIPConfig(newValue)
         }
     }
     

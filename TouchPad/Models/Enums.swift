@@ -22,8 +22,25 @@ enum Screen: String, CaseIterable, Identifiable {
     var id: Self { self }
 }
 
-enum IPConfig: String, CaseIterable, Identifiable {
-    case lab = "192.168.103.103"
-    case localhost = "localhost"
-    var id: Self { self }
+enum IPConfig: Hashable, CaseIterable, Identifiable {
+//    var id: ObjectIdentifier
+    
+    static var allCases: [IPConfig] = [.lab, .localhost, .custom("")]
+    
+    case lab
+    case localhost
+    case custom(String)
+    
+    var ip: String {
+        switch self {
+        case .lab:
+            return "192.168.103.103"
+        case .localhost:
+            return "localhost"
+        case .custom(let customValue):
+            return customValue
+        }
+    }
+    
+    var id: Self.ID { self.id }
 }
