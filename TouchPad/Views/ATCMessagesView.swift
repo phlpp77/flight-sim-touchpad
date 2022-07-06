@@ -11,8 +11,8 @@ struct ATCMessagesView: View {
     
     @EnvironmentObject var atcMessagesVM: ATCMessagesViewModel
     
-    private let animationTime: Double = 20
-    private let additionalMessageShowTime: Double = 5
+    private let animationTime: Double = 60
+    private let additionalMessageShowTime: Double = 10
     @State private var width: CGFloat = 0
     @State private var height: CGFloat = 0
     @State private var showDivider = false
