@@ -17,7 +17,7 @@ struct RingSliderView: View {
     @EnvironmentObject var ringSliderVM: RingSliderViewModel
     @Binding var turnFactor: Int
     
-    var circleDiameter: CGFloat = 50
+    var circleDiameter: CGFloat = 75
     var showMarker: Bool = false
     
     @Binding var progress: CGFloat
