@@ -61,7 +61,6 @@ struct MainView: View {
                 }
                 .opacity(appearanceVM.screen == .essential ? 1 : 0)
                 
-                
                 HStack {
                     Spacer()
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler, value: $verticalSliderVM.spoiler)

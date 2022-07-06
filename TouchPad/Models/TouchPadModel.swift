@@ -66,7 +66,7 @@ class TouchPadModel {
         var sliderSoundEffect: Bool = true
         var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
-        var ipConfig: IPConfig = .localhost
+        var ipConfig: IPConfig = .lab
     }
     
     // MARK: Model for Aircraft data
