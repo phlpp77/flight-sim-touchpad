@@ -24,8 +24,8 @@ struct VerticalSliderView: View {
     let minValue: Int
     let maxValue: Int
     let aircraftData: AircraftDataType
-    let thumbWidth: CGFloat = 75
-    let thumbHeight: CGFloat = 75
+    let thumbWidth: CGFloat = 100
+    let thumbHeight: CGFloat = 100
     
     
     @Binding var value: Int
