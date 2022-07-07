@@ -11,7 +11,6 @@ struct ATCMessagesView: View {
     
     @EnvironmentObject var atcMessagesVM: ATCMessagesViewModel
     
-    private let animationTime: Double = 60
     private let additionalMessageShowTime: Double = 10
     @State private var width: CGFloat = 0
     @State private var height: CGFloat = 0
@@ -76,16 +75,16 @@ struct ATCMessagesView: View {
         // extend the progress bar to the maximum
         width = 436
         // animate down to 0 with duration
-        withAnimation(.linear(duration: animationTime)) {
+        withAnimation(.linear(duration: atcMessagesVM.animationTime)) {
             width = 0
         }
         // disable divider and close height after other animation finished
-        withAnimation(.easeInOut.delay(animationTime)) {
+        withAnimation(.easeInOut.delay(atcMessagesVM.animationTime)) {
             height = 0
             showDivider = false
         }
         // erase the message after additional time
-        DispatchQueue.main.asyncAfter(deadline: .now() + animationTime + additionalMessageShowTime) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + atcMessagesVM.animationTime + additionalMessageShowTime) {
             atcMessagesVM.message = ""
         }
     }

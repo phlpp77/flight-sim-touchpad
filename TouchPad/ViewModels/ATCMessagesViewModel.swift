@@ -34,6 +34,7 @@ class ATCMessagesViewModel: ObservableObject {
     
     // MARK: Vars that are used inside the view
     @Published public var message: String!
+    @Published public var animationTime: Double!
     
     // MARK: Functions/Vars to interact with the state
     // none
@@ -41,6 +42,7 @@ class ATCMessagesViewModel: ObservableObject {
     // MARK: Update functions to be called from state via combine
     private func updateATCMessage() {
         message = state.serviceData.atcMessage
+        animationTime = state.serviceData.showDuration
         AudioServicesPlaySystemSound(1000)
         
         // Voice feedback

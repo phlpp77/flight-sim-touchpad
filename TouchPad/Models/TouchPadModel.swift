@@ -82,6 +82,7 @@ class TouchPadModel {
     // MARK: Model for additional service data
     struct ServiceData: Codable {
         var atcMessage: String = ""
+        var showDuration: Double = 60
     }
     
     // MARK: - Functions to change model data
@@ -137,8 +138,9 @@ class TouchPadModel {
         }
     }
 
-    func changeATCMessage(message: String) {
+    func changeATCMessage(message: String, duration: Double) {
         serviceData.atcMessage = message
+        serviceData.showDuration = duration
         didSetATCMessage.send()
     }
     
@@ -181,7 +183,7 @@ class TouchPadModel {
     private func handleServiceData(mqttData: MQTTServiceData) {
         switch mqttData.type {
         case "atcMessage":
-            changeATCMessage(message: mqttData.data.atcMessage)
+            changeATCMessage(message: mqttData.data.atcMessage, duration: mqttData.data.showDuration)
         default:
             print("[MQTT serviceData handler] type \(mqttData.type) not found")
         }
