@@ -16,70 +16,70 @@ struct HeadingView: View {
     @EnvironmentObject var appearanceVM: AppearanceViewModel
     @EnvironmentObject var ringSliderVM: RingSliderViewModel
     
-    @State var turnFactor = 1
+    @State var turnFactor = 0
     
     var body: some View {
         VStack {
             
-            VStack {
-                Text("Direction of turn")
-                    .padding()
-                ZStack {
-                    
-                    // MARK: Indication Overlay
-                    Capsule()
-                        .frame(width: 100, height: 50)
-                        .foregroundStyle(
-                            LinearGradient(gradient: Gradient(colors: [Color(hexCode: "828282")!, Color.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                        .overlay(
-                            Capsule()
-                                .stroke(
-                                    LinearGradient(colors: [Color.white, Color(hexCode: "B9B9B9")!], startPoint: .topLeading, endPoint: .bottomTrailing),
-                                    lineWidth: 4
-                                ))
-                        .overlay(
-                            Capsule()
-                                .stroke(
-                                    LinearGradient(colors: [Color(hexCode: "B9B9B9")!, Color.white], startPoint: .topLeading, endPoint: .bottomTrailing),
-                                    lineWidth: 2
-                                ))
-                        .offset(x: turnFactor == 0 ? -95 : 95)
-                        .animation(.interactiveSpring(), value: turnFactor)
-                        .onChange(of: turnFactor) { _ in
-                            AudioServicesPlaySystemSound(1105)
-                        }
-                    
-                    // MARK: Buttons
-                    LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
-                        
-                        Button(action:  {
-                            turnFactor = 0
-                        }) {
-                            Image(systemName: "arrow.turn.up.left")
-                                .foregroundColor(turnFactor == 0 ? .black : .white)
-                        }
-                        
-                        Image(systemName: "diamond.fill")
-                            .font(.title3)
-                            .foregroundColor(turnFactor == -1 ? .black : .white)
-                        
-                        Button(action:  {
-                            turnFactor = 1
-                        }) {
-                            Image(systemName: "arrow.turn.up.right")
-                                .foregroundColor(turnFactor == 1 ? .black : .white)
-                        }
-                    }
-                    
-                }
-                .padding(6)
-                .font(.largeTitle)
-                .foregroundColor(.white)
-                .frame(width: 300)
-                .background(Color.black)
-                .mask(Capsule())
-            }
+//            VStack {
+//                Text("Direction of turn")
+//                    .padding()
+//                ZStack {
+//
+//                    // MARK: Indication Overlay
+//                    Capsule()
+//                        .frame(width: 100, height: 50)
+//                        .foregroundStyle(
+//                            LinearGradient(gradient: Gradient(colors: [Color(hexCode: "828282")!, Color.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
+//                        )
+//                        .overlay(
+//                            Capsule()
+//                                .stroke(
+//                                    LinearGradient(colors: [Color.white, Color(hexCode: "B9B9B9")!], startPoint: .topLeading, endPoint: .bottomTrailing),
+//                                    lineWidth: 4
+//                                ))
+//                        .overlay(
+//                            Capsule()
+//                                .stroke(
+//                                    LinearGradient(colors: [Color(hexCode: "B9B9B9")!, Color.white], startPoint: .topLeading, endPoint: .bottomTrailing),
+//                                    lineWidth: 2
+//                                ))
+//                        .offset(x: turnFactor == 0 ? -95 : 95)
+//                        .animation(.interactiveSpring(), value: turnFactor)
+//                        .onChange(of: turnFactor) { _ in
+//                            AudioServicesPlaySystemSound(1105)
+//                        }
+//
+//                    // MARK: Buttons
+//                    LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
+//
+//                        Button(action:  {
+//                            turnFactor = 0
+//                        }) {
+//                            Image(systemName: "arrow.turn.up.left")
+//                                .foregroundColor(turnFactor == 0 ? .black : .white)
+//                        }
+//
+//                        Image(systemName: "diamond.fill")
+//                            .font(.title3)
+//                            .foregroundColor(turnFactor == -1 ? .black : .white)
+//
+//                        Button(action:  {
+//                            turnFactor = 1
+//                        }) {
+//                            Image(systemName: "arrow.turn.up.right")
+//                                .foregroundColor(turnFactor == 1 ? .black : .white)
+//                        }
+//                    }
+//
+//                }
+//                .padding(6)
+//                .font(.largeTitle)
+//                .foregroundColor(.white)
+//                .frame(width: 300)
+//                .background(Color.black)
+//                .mask(Capsule())
+//            }
             
             
             ZStack {
@@ -93,7 +93,7 @@ struct HeadingView: View {
                     .padding(53)
                 
             }
-            .padding(.top, 30)
+            .padding(.top, 80)
             .padding()
             
             
