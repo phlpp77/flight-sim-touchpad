@@ -99,12 +99,13 @@ struct VerticalSliderView: View {
                         VerticalValueSliderStyle(
                             track:
                                 VerticalValueTrack(
-                                    view: HStack {
+                                    view:
+                                        HStack {
                                         Spacer()
                                         Capsule()
                                             .frame(width: 34)
                                             .foregroundColor(Color(hexCode: "FFF000")!)
-                                            .opacity(0.6)
+                                            .opacity(aircraftData != .verticalSpeed ? 0.6 : 0)
                                         Spacer()
                                     }
                                         .allowsHitTesting(false),
