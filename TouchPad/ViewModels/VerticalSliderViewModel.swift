@@ -53,6 +53,11 @@ class VerticalSliderViewModel: ObservableObject {
                 self.updateSpoiler()
             }
             .store(in: &subscriptions)
+        state.didSetVerticalSpeed
+            .sink {
+                self.updateVerticalSpeed()
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Vars that are used inside the view
@@ -61,6 +66,7 @@ class VerticalSliderViewModel: ObservableObject {
     @Published public var flaps: Int!
     @Published public var gear: Int!
     @Published public var spoiler: Int!
+    @Published public var verticalSpeed: Int!
     
     // MARK: Functions/Vars to interact with the state
     /// Change the value of an aircraft data
@@ -75,6 +81,7 @@ class VerticalSliderViewModel: ObservableObject {
         self.updateFlaps()
         self.updateGear()
         self.updateSpoiler()
+        self.updateVerticalSpeed()
     }
     private func updateSpeed() {
         speed = state.aircraftData.speed
@@ -90,5 +97,8 @@ class VerticalSliderViewModel: ObservableObject {
     }
     private func updateSpoiler() {
         spoiler = state.aircraftData.spoiler
+    }
+    private func updateVerticalSpeed() {
+        verticalSpeed = state.aircraftData.verticalSpeed
     }
 }

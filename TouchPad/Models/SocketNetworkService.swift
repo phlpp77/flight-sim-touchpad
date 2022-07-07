@@ -206,6 +206,14 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         print("[changeSpoiler] answer: \(receiveMessage())")
     }
     
+    // MARK: Change vertical speed
+    func changeVerticalSpeed(_ verticalSpeed: Int) {
+        print("[changeVerticalSpeed] start")
+        let changeVerticalSpeedOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "verticalSpeed", value: verticalSpeed)])
+        sendOffset(changeVerticalSpeedOffset)
+        print("[changeVerticalSpeed] answer: \(receiveMessage())")
+    }
+    
     // MARK: - Constants
     
     private struct Constants {

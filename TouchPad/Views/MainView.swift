@@ -58,6 +58,8 @@ struct MainView: View {
                     Spacer()
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $verticalSliderVM.altitude)
                     Spacer()
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: -5000, maxValue: 5000, aircraftData: .verticalSpeed, value: $verticalSliderVM.verticalSpeed)
+                    Spacer()
                 }
                 .opacity(appearanceVM.screen == .essential ? 1 : 0)
                 

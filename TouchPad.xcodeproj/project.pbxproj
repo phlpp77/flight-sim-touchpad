@@ -19,6 +19,7 @@
 		1729249E285B443A006EFF6B /* ThumbView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249D285B443A006EFF6B /* ThumbView.swift */; };
 		172924A0285B59D0006EFF6B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249F285B59D0006EFF6B /* Enums.swift */; };
 		1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1733BD09281FD6E800D05827 /* DateExtension.swift */; };
+		173FDA902876FAB600464896 /* VerticalSpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173FDA8F2876FAB500464896 /* VerticalSpeedRangeView.swift */; };
 		174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F792E286C40E800EB7EDB /* StateContainer.swift */; };
 		174F7931286C43DA00EB7EDB /* VerticalSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */; };
 		174F7933286C45B600EB7EDB /* RingSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */; };
@@ -63,6 +64,7 @@
 		1729249D285B443A006EFF6B /* ThumbView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbView.swift; sourceTree = "<group>"; };
 		1729249F285B59D0006EFF6B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		1733BD09281FD6E800D05827 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		173FDA8F2876FAB500464896 /* VerticalSpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSpeedRangeView.swift; sourceTree = "<group>"; };
 		174F792E286C40E800EB7EDB /* StateContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateContainer.swift; sourceTree = "<group>"; };
 		174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderViewModel.swift; sourceTree = "<group>"; };
 		174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderViewModel.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 			children = (
 				17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */,
 				178CC90D2829511000467DC9 /* SpeedRangeView.swift */,
+				173FDA8F2876FAB500464896 /* VerticalSpeedRangeView.swift */,
 				17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */,
 				1729249B285B43FE006EFF6B /* FlapsRangeView.swift */,
 				1726B6BC285B713F0053BCC0 /* SpoilerRangeView.swift */,
@@ -309,6 +312,7 @@
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
 				172924A0285B59D0006EFF6B /* Enums.swift in Sources */,
 				176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */,
+				173FDA902876FAB600464896 /* VerticalSpeedRangeView.swift in Sources */,
 				1729249C285B43FE006EFF6B /* FlapsRangeView.swift in Sources */,
 				1726B6BD285B713F0053BCC0 /* SpoilerRangeView.swift in Sources */,
 				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,

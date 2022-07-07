@@ -164,6 +164,11 @@ struct VerticalSliderView: View {
                         SpoilerRangeView()
                         ThumbView(value: $stringValue, unit: "")
                             .offset(y: CGFloat(-(500*(100-value))/90)+250)
+                    case .verticalSpeed:
+                        VerticalSpeedRangeView()
+                        ThumbView(value: $stringValue, unit: "kt")
+                            .offset(y: CGFloat((700*(5000-value))/10000)-350)
+//                            .offset(y: CGFloat(-(500*(100-value))/90)+250)
                     default:
                         EmptyView()
                     }
@@ -216,6 +221,10 @@ struct VerticalSliderView: View {
                 value = 10
                 oldValue = 10
                 stringValue = "RET"
+            case .verticalSpeed:
+                value = 200
+                 oldValue = 200
+                stringValue = "200"
             }
         }
         .onChange(of: value) { _ in
