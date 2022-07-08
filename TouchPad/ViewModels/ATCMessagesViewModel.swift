@@ -45,10 +45,14 @@ class ATCMessagesViewModel: ObservableObject {
         animationTime = state.serviceData.showDuration
         SoundService.shared.atcSound()
         
-        // Voice feedback
-        let speechSynthesizer = AVSpeechSynthesizer()
-        let speechUtterance = AVSpeechUtterance(string: message)
-        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        speechSynthesizer.speak(speechUtterance)
+        // Read out the ATC message
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            let speechSynthesizer = AVSpeechSynthesizer()
+            let speechUtterance = AVSpeechUtterance(string: self.message)
+            speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            speechSynthesizer.speak(speechUtterance)
+        }
+        
+        
     }
 }
