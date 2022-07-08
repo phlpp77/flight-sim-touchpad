@@ -43,7 +43,7 @@ class ATCMessagesViewModel: ObservableObject {
     private func updateATCMessage() {
         message = state.serviceData.atcMessage
         animationTime = state.serviceData.showDuration
-        AudioServicesPlaySystemSound(1000)
+        SoundService.shared.atcSound()
         
         // Voice feedback
         let speechSynthesizer = AVSpeechSynthesizer()

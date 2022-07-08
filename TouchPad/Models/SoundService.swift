@@ -17,6 +17,11 @@ class SoundService {
         playSound(path: path)
     }
     
+    public func atcSound() {
+        let path = Bundle.main.path(forResource: "atc.mp3", ofType:nil)!
+        playSound(path: path)
+    }
+    
     private func playSound(path: String) {
         let url = URL(fileURLWithPath: path)
         do {
