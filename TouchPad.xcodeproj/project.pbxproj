@@ -20,6 +20,8 @@
 		172924A0285B59D0006EFF6B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1729249F285B59D0006EFF6B /* Enums.swift */; };
 		1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1733BD09281FD6E800D05827 /* DateExtension.swift */; };
 		173FDA902876FAB600464896 /* VerticalSpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173FDA8F2876FAB500464896 /* VerticalSpeedRangeView.swift */; };
+		173FDA932878353100464896 /* tock.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 173FDA922878353100464896 /* tock.mp3 */; };
+		173FDA952878361400464896 /* SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173FDA942878361400464896 /* SoundService.swift */; };
 		174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F792E286C40E800EB7EDB /* StateContainer.swift */; };
 		174F7931286C43DA00EB7EDB /* VerticalSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */; };
 		174F7933286C45B600EB7EDB /* RingSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */; };
@@ -65,6 +67,8 @@
 		1729249F285B59D0006EFF6B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		1733BD09281FD6E800D05827 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		173FDA8F2876FAB500464896 /* VerticalSpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSpeedRangeView.swift; sourceTree = "<group>"; };
+		173FDA922878353100464896 /* tock.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tock.mp3; sourceTree = "<group>"; };
+		173FDA942878361400464896 /* SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundService.swift; sourceTree = "<group>"; };
 		174F792E286C40E800EB7EDB /* StateContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateContainer.swift; sourceTree = "<group>"; };
 		174F7930286C43DA00EB7EDB /* VerticalSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderViewModel.swift; sourceTree = "<group>"; };
 		174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderViewModel.swift; sourceTree = "<group>"; };
@@ -108,6 +112,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		173FDA912878351C00464896 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				173FDA922878353100464896 /* tock.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		174F7934286C685900EB7EDB /* SettingsViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +150,7 @@
 		175283A027EDF803007BE399 /* TouchPad */ = {
 			isa = PBXGroup;
 			children = (
+				173FDA912878351C00464896 /* Sounds */,
 				170420A0282154D10041927A /* Info.plist */,
 				175283A127EDF803007BE399 /* TouchPadApp.swift */,
 				178CC9062828F42500467DC9 /* Views */,
@@ -203,6 +216,7 @@
 				17555D92280707C1003B61F0 /* TouchPadModel.swift */,
 				17555D8E2806FAF9003B61F0 /* SocketNetworkService.swift */,
 				178064B22859C0E400B5A93A /* MQTTNetworkService.swift */,
+				173FDA942878361400464896 /* SoundService.swift */,
 				1704209C282134E60041927A /* DataExport.swift */,
 				1733BD09281FD6E800D05827 /* DateExtension.swift */,
 				178CC90B2829063900467DC9 /* ColorExtension.swift */,
@@ -295,6 +309,7 @@
 			files = (
 				175283A927EDF807007BE399 /* Preview Assets.xcassets in Resources */,
 				175283A627EDF807007BE399 /* Assets.xcassets in Resources */,
+				173FDA932878353100464896 /* tock.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				175283A427EDF803007BE399 /* ButtonsView.swift in Sources */,
+				173FDA952878361400464896 /* SoundService.swift in Sources */,
 				174F7931286C43DA00EB7EDB /* VerticalSliderViewModel.swift in Sources */,
 				1726B6BB285B62360053BCC0 /* GearRangeView.swift in Sources */,
 				17B982AA286D97580013D08B /* ATCMessagesView.swift in Sources */,
@@ -488,7 +504,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.philipphemkemeyer.TouchPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -523,7 +539,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = de.philipphemkemeyer.TouchPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

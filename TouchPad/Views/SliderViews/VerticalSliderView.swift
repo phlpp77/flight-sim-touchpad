@@ -223,16 +223,16 @@ struct VerticalSliderView: View {
                 oldValue = 10
                 stringValue = "RET"
             case .verticalSpeed:
-                value = 200
-                 oldValue = 200
-                stringValue = "200"
+                value = 0
+                 oldValue = 0
+                stringValue = "0"
             }
         }
         .onChange(of: value) { _ in
             stringValue = String(value)
             formatSpecialValues()
             if appearanceVM.sliderSoundEffect {
-                AudioServicesPlaySystemSound(1104)
+                SoundService.shared.tockSound()
             }
         }
     }
