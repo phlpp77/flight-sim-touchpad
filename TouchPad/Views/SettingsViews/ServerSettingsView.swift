@@ -81,6 +81,7 @@ struct ServerSettingsView: View {
                     Picker(selection: $mqttNetworkVM.toggleIPConfig, label: Text("Select IP adress")) {
                         Text("Lab").tag(IPConfig.lab)
                         Text("Localhost").tag(IPConfig.localhost)
+                        Text("Home office").tag(IPConfig.homeoffice)
                         TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
                     }
                     .pickerStyle(.segmented)
