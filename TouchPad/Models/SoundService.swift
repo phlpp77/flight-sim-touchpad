@@ -26,7 +26,7 @@ class SoundService {
         let url = URL(fileURLWithPath: path)
         do {
             soundEffect = try AVAudioPlayer(contentsOf: url)
-            print("[SoundService] Play sound \(url)")
+            print("[SoundService] Play sound")
             soundEffect?.play()
         } catch {
             print("[SoundService] Could not load file \(error.localizedDescription)")
