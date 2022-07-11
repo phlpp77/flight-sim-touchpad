@@ -9,24 +9,28 @@ import Foundation
 
 struct StateContainer {
     
-    // State - single source of truth
+    // MARK: State - single source of truth
     let state = TouchPadModel()
     
-    // ViewModels
+    // MARK: ViewModels
+    let mqttNetworkVM: MQTTNetworkViewModel
+    let socketNetworkVM = SocketNetworkViewModel()
+    
     let appearanceVM: AppearanceViewModel
     let verticalSliderVM: VerticalSliderViewModel
     let ringSliderVM: RingSliderViewModel
     let atcMessagesVM: ATCMessagesViewModel
-    let socketNetworkVM = SocketNetworkViewModel()
-    let mqttNetworkVM: MQTTNetworkViewModel
+    let buttonsVM: ButtonsViewModel
     let stateValuesTestVM: StateValuesTestViewModel
     
     init() {
+        mqttNetworkVM = MQTTNetworkViewModel(state: state)
+        
         appearanceVM = AppearanceViewModel(state: state)
         verticalSliderVM = VerticalSliderViewModel(state: state)
         ringSliderVM = RingSliderViewModel(state: state)
         atcMessagesVM = ATCMessagesViewModel(state: state)
-        mqttNetworkVM = MQTTNetworkViewModel(state: state)
+        buttonsVM = ButtonsViewModel(state: state, webSocket: socketNetworkVM, mqtt: mqttNetworkVM)
         stateValuesTestVM = StateValuesTestViewModel(state: state)
     }
 }
