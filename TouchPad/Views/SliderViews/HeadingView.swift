@@ -20,6 +20,11 @@ struct HeadingView: View {
     
     var body: some View {
         VStack {
+            Text("Heading")
+                .font(.title3)
+                .textCase(.uppercase)
+                .foregroundColor(.gray)
+                .padding(.top, 12)
             
 //            VStack {
 //                Text("Direction of turn")
