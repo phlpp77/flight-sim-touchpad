@@ -230,6 +230,8 @@ struct VerticalSliderView: View {
                 value = 0
                 oldValue = 0
                 stringValue = "0"
+            case .navZoomFactor: break
+                //
             }
         }
         .onChange(of: value) { _ in

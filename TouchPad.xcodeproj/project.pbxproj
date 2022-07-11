@@ -44,6 +44,7 @@
 		178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178064B22859C0E400B5A93A /* MQTTNetworkService.swift */; };
 		178064B52859DF5B00B5A93A /* MQTTNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */; };
 		178B3C9D287C3B1D000A815F /* NavDisplayZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */; };
+		178B3C9F287C4737000A815F /* ButtonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3C9E287C4737000A815F /* ButtonsViewModel.swift */; };
 		178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC9092828F7D800467DC9 /* HeadingView.swift */; };
 		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
@@ -93,6 +94,7 @@
 		178064B22859C0E400B5A93A /* MQTTNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkService.swift; sourceTree = "<group>"; };
 		178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkViewModel.swift; sourceTree = "<group>"; };
 		178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDisplayZoomView.swift; sourceTree = "<group>"; };
+		178B3C9E287C4737000A815F /* ButtonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewModel.swift; sourceTree = "<group>"; };
 		178CC9092828F7D800467DC9 /* HeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingView.swift; sourceTree = "<group>"; };
 		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
 				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
 				174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */,
+				178B3C9E287C4737000A815F /* ButtonsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -363,6 +366,7 @@
 				17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */,
 				170420A4282284850041927A /* RingSliderView.swift in Sources */,
 				178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */,
+				178B3C9F287C4737000A815F /* ButtonsViewModel.swift in Sources */,
 				17AC52B7282BCA0F009CE70E /* AltitudeRangeView.swift in Sources */,
 				17235083286204CC00571EB4 /* ServerSettingsView.swift in Sources */,
 				17555D93280707C1003B61F0 /* TouchPadModel.swift in Sources */,

@@ -15,6 +15,7 @@ enum AircraftDataType: String {
     case gear
     case spoiler
     case verticalSpeed
+    case navZoomFactor
 }
 
 enum Screen: String, CaseIterable, Identifiable {

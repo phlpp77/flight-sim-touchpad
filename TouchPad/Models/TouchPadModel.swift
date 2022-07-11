@@ -38,6 +38,7 @@ class TouchPadModel {
     let didSetSpoiler = PassthroughSubject<Void, Never>()
     let didSetIPConfig = PassthroughSubject<Void, Never>()
     let didSetVerticalSpeed = PassthroughSubject<Void, Never>()
+    let didSetNavZoomFactor = PassthroughSubject<Void, Never>()
     // Update of all aircraft data
     let didSetAircraftData = PassthroughSubject<Void, Never>()
     
@@ -79,6 +80,7 @@ class TouchPadModel {
         var gear: Int = 0
         var spoiler: Int = 0
         var verticalSpeed: Int = 100
+        var navZoomFactor: Int = 0
     }
     
     // MARK: Model for additional service data
@@ -140,6 +142,9 @@ class TouchPadModel {
         case .verticalSpeed:
             aircraftData.verticalSpeed = value
             didSetVerticalSpeed.send()
+        case .navZoomFactor:
+            aircraftData.navZoomFactor = value
+            didSetNavZoomFactor.send()
         }
     }
 
@@ -203,6 +208,7 @@ class TouchPadModel {
         changeAircraftData(of: .gear, to: values.gear)
         changeAircraftData(of: .flaps, to: values.flaps)
         changeAircraftData(of: .verticalSpeed, to: values.verticalSpeed)
+        changeAircraftData(of: .navZoomFactor, to: values.navZoomFactor)
         didSetAircraftData.send()
         
         // Voice feedback

@@ -137,7 +137,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                 DeclareOffset(name: "flaps", address: 3036, type: "int", size: 4),
                 DeclareOffset(name: "gear", address: 3048, type: "int", size: 4),
                 DeclareOffset(name: "spoiler", address: 16913, type: "int", size: 2),
-                DeclareOffset(name: "verticalSpeed", address: 16915, type: "int", size: 2)
+                DeclareOffset(name: "verticalSpeed", address: 16915, type: "int", size: 2),
+                DeclareOffset(name: "navZoomFactor", address: 16917, type: "int", size: 2)
             ]
         )
         
@@ -213,6 +214,14 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
         let changeVerticalSpeedOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "verticalSpeed", value: verticalSpeed)])
         sendOffset(changeVerticalSpeedOffset)
         print("[changeVerticalSpeed] answer: \(receiveMessage())")
+    }
+    
+    // MARK: Change zoom factor of nav display
+    func changeNavZoomFactor(_ zoomFactor: Int) {
+        print("[changeNavZoomFactor] start")
+        let changeNavZoomFactorOffset = Offsets(command: "offsets.write", name: "OffsetsWrite", offsets: [WriteOffset(name: "navZoomFactor", value: zoomFactor)])
+        sendOffset(changeNavZoomFactorOffset)
+        print("[changeNavZoomFactor] answer: \(receiveMessage())")
     }
     
     // MARK: - Constants
