@@ -136,7 +136,8 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                 DeclareOffset(name: "TurnFactor", address: 16912, type: "int", size: 1),
                 DeclareOffset(name: "flaps", address: 3036, type: "int", size: 4),
                 DeclareOffset(name: "gear", address: 3048, type: "int", size: 4),
-                DeclareOffset(name: "spoiler", address: 16913, type: "int", size: 2)
+                DeclareOffset(name: "spoiler", address: 16913, type: "int", size: 2),
+                DeclareOffset(name: "verticalSpeed", address: 16915, type: "int", size: 2)
             ]
         )
         
