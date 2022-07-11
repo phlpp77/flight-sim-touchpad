@@ -52,6 +52,8 @@ struct MainView: View {
                                 .hoverEffect()
                         }
                         Spacer()
+                        NavDisplayZoomView()
+                        Spacer()
                         HeadingView()
                             .padding(.bottom, 30)
                     }

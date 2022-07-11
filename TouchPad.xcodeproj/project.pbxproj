@@ -43,6 +43,7 @@
 		178064B12859C0BA00B5A93A /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 178064B02859C0BA00B5A93A /* CocoaMQTT */; };
 		178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178064B22859C0E400B5A93A /* MQTTNetworkService.swift */; };
 		178064B52859DF5B00B5A93A /* MQTTNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */; };
+		178B3C9D287C3B1D000A815F /* NavDisplayZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */; };
 		178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC9092828F7D800467DC9 /* HeadingView.swift */; };
 		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
@@ -91,6 +92,7 @@
 		177A00AB282009D300C31937 /* swiftui-sliders */ = {isa = PBXFileReference; lastKnownFileType = text; path = "swiftui-sliders"; sourceTree = SOURCE_ROOT; };
 		178064B22859C0E400B5A93A /* MQTTNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkService.swift; sourceTree = "<group>"; };
 		178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkViewModel.swift; sourceTree = "<group>"; };
+		178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDisplayZoomView.swift; sourceTree = "<group>"; };
 		178CC9092828F7D800467DC9 /* HeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingView.swift; sourceTree = "<group>"; };
 		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				174F7935286C839800EB7EDB /* StateValuesTestView.swift */,
 				17B982A9286D97580013D08B /* ATCMessagesView.swift */,
+				178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */,
 				174F7934286C685900EB7EDB /* SettingsViews */,
 				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
@@ -338,6 +341,7 @@
 				17555D8F2806FAF9003B61F0 /* SocketNetworkService.swift in Sources */,
 				170420A2282166440041927A /* UITextFieldAlert.swift in Sources */,
 				178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */,
+				178B3C9D287C3B1D000A815F /* NavDisplayZoomView.swift in Sources */,
 				17555D91280704DB003B61F0 /* AppearanceViewModel.swift in Sources */,
 				17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */,
 				174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */,
