@@ -63,7 +63,7 @@ class TouchPadModel {
     struct TouchPadSettings {
         var showTapIndicator: Bool = false
         var speedStepsInFive: Bool = true
-        var headingStepsInFive: Bool = true
+        var headingStepsInFive: Bool = false
         var screen: Screen = .essential
         var sliderSoundEffect: Bool = true
         var showTestValueWindow: Bool = false
