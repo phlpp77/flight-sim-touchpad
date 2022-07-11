@@ -44,140 +44,144 @@ struct VerticalSliderView: View {
     var body: some View {
         
         ZStack {
-            
-            HStack {
-                ZStack {
-                    Image("Slider-Bar")
-                        .resizable()
-                        .allowsHitTesting(false)
-                        .frame(width: 120, height: 820)
-                    
-                    ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
-                        pos = values.startLocation
+            VStack {
+                Text("\(aircraftData != .verticalSpeed ? aircraftData.rawValue : "Vertical Speed")")
+                    .textCase(.uppercase)
+                    .font(.title3)
+                    .foregroundColor(.gray)
+                HStack {
+                    ZStack {
+                        Image("Slider-Bar")
+                            .resizable()
+                            .allowsHitTesting(false)
+                            .frame(width: 120, height: 820)
                         
-                        if firstMovement {
-                            startTimeStamp = Date().localFlightSim()
-                            firstMovement = false
+                        ValueSlider(value: $value, in: minValue...maxValue, step: step, onEditingChanged: {editing, values in
+                            pos = values.startLocation
                             
-                            // MARK: Save touch down to log
-                            print("\(aircraftData.rawValue) slider started dragging at \(Date().localFlightSim())")
-                            let logData = LogData(attribute: String(aircraftData.rawValue), startTime: Date().localFlightSim(), endTime: Date().localFlightSim(), extra: "Touch down")
-                            log.append(logData)
-                            if mqttNetworkVM.connectionOpen {
-                                mqttNetworkVM.sendToLog(logData)
-                            }
-                        }
-                        
-                        formatSpecialValues()
-                        
-                        if !editing {
-                            print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
-                            
-                            // MARK: Save to log
-                            // Create Log component
-                            let logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
-                            // Add to local log on iPad
-                            log.append(logData)
-                            // Add to remote log via MQTT
-                            if mqttNetworkVM.connectionOpen {
-                                mqttNetworkVM.sendToLog(logData)
-                            }
-                            
-                            // MARK: Update values
-                            // Update local value on state
-                            verticalSliderVM.changeValue(of: aircraftData, to: value)
-                            // Update remote value via WebSocket
-                            if socketNetworkVM.offsetsDeclared {
-                                socketNetworkVM.changeValue(of: aircraftData, to: value)
-                            }
-                            
-                            firstMovement = true
-                            oldValue = value
-                        }
-                    })
-                    .valueSliderStyle(
-                        VerticalValueSliderStyle(
-                            track:
-                                VerticalValueTrack(
-                                    view:
-                                        HStack {
-                                        Spacer()
-                                        Capsule()
-                                            .frame(width: 34)
-                                            .foregroundColor(Color(hexCode: "FFF000")!)
-                                            .opacity(aircraftData != .verticalSpeed ? 0.6 : 0)
-                                        Spacer()
-                                    }
-                                        .allowsHitTesting(false),
-                                    mask: Capsule()
-                                        .allowsHitTesting(false)
-                                ),
-                            thumb:
-                                ZStack {
-                                    GeometryReader { geo in
-                                        Image("Knob")
-                                            .resizable()
-                                            .onChange(of: pos) { _ in
-                                                let g = geo.frame(in: .named("slider"))
-                                                thumbPos = g.origin
-                                                thumbPos.x += thumbWidth / 2
-                                                thumbPos.y += thumbHeight / 2
-                                                relativeDeviation.x = pos.x - thumbPos.x
-                                                relativeDeviation.y = pos.y - thumbPos.y
-                                                relativeDeviation.y = round(relativeDeviation.y * 10) / 10
-                                                
-                                                let gGlobal = geo.frame(in: .global)
-                                                globalPos = gGlobal.origin
-                                                globalPos.y = round(globalPos.y * 10) / 10
-                                            }
-                                    }
-                                    .frame(width: thumbWidth, height: thumbHeight)
+                            if firstMovement {
+                                startTimeStamp = Date().localFlightSim()
+                                firstMovement = false
+                                
+                                // MARK: Save touch down to log
+                                print("\(aircraftData.rawValue) slider started dragging at \(Date().localFlightSim())")
+                                let logData = LogData(attribute: String(aircraftData.rawValue), startTime: Date().localFlightSim(), endTime: Date().localFlightSim(), extra: "Touch down")
+                                log.append(logData)
+                                if mqttNetworkVM.connectionOpen {
+                                    mqttNetworkVM.sendToLog(logData)
                                 }
+                            }
+                            
+                            formatSpecialValues()
+                            
+                            if !editing {
+                                print("\(aircraftData.rawValue) set from: \(oldValue) to \(value) with relative deviation \(relativeDeviation) on global Position \(globalPos) started at \(startTimeStamp) until \(Date().localFlightSim())")
+                                
+                                // MARK: Save to log
+                                // Create Log component
+                                let logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
+                                // Add to local log on iPad
+                                log.append(logData)
+                                // Add to remote log via MQTT
+                                if mqttNetworkVM.connectionOpen {
+                                    mqttNetworkVM.sendToLog(logData)
+                                }
+                                
+                                // MARK: Update values
+                                // Update local value on state
+                                verticalSliderVM.changeValue(of: aircraftData, to: value)
+                                // Update remote value via WebSocket
+                                if socketNetworkVM.offsetsDeclared {
+                                    socketNetworkVM.changeValue(of: aircraftData, to: value)
+                                }
+                                
+                                firstMovement = true
+                                oldValue = value
+                            }
+                        })
+                        .valueSliderStyle(
+                            VerticalValueSliderStyle(
+                                track:
+                                    VerticalValueTrack(
+                                        view:
+                                            HStack {
+                                                Spacer()
+                                                Capsule()
+                                                    .frame(width: 34)
+                                                    .foregroundColor(Color(hexCode: "FFF000")!)
+                                                    .opacity(aircraftData != .verticalSpeed ? 0.6 : 0)
+                                                Spacer()
+                                            }
+                                            .allowsHitTesting(false),
+                                        mask: Capsule()
+                                            .allowsHitTesting(false)
+                                    ),
+                                thumb:
+                                    ZStack {
+                                        GeometryReader { geo in
+                                            Image("Knob")
+                                                .resizable()
+                                                .onChange(of: pos) { _ in
+                                                    let g = geo.frame(in: .named("slider"))
+                                                    thumbPos = g.origin
+                                                    thumbPos.x += thumbWidth / 2
+                                                    thumbPos.y += thumbHeight / 2
+                                                    relativeDeviation.x = pos.x - thumbPos.x
+                                                    relativeDeviation.y = pos.y - thumbPos.y
+                                                    relativeDeviation.y = round(relativeDeviation.y * 10) / 10
+                                                    
+                                                    let gGlobal = geo.frame(in: .global)
+                                                    globalPos = gGlobal.origin
+                                                    globalPos.y = round(globalPos.y * 10) / 10
+                                                }
+                                        }
+                                        .frame(width: thumbWidth, height: thumbHeight)
+                                    }
+                            )
                         )
-                    )
-                    
-                    .coordinateSpace(name: "slider")
-                    .rotationEffect(Angle.degrees(topToBottom ? 180 : 0))
-                    .frame(width: 120, height: 540)
-                }
-                
-                ZStack {
-                    
-                    // MARK: Value range and Value indicator
-                    switch aircraftData {
-                    case .speed:
-                        SpeedRangeView()
-                        ThumbView(value: $stringValue, unit: "kt")
-                            .offset(y: CGFloat((700*(400-value))/300 - 350))
-                    case .altitude:
-                        AltitudeRangeView()
-                        ThumbView(value: $stringValue, unit: "ft")
-                            .offset(y: CGFloat((700*(20000-value))/19900 - 350))
-                    case .flaps:
-                        FlapsRangeView()
-                        ThumbView(value: $stringValue, unit: "")
-                            .offset(y: CGFloat(-(500*(4-value))/4 + 250))
-                    case .gear:
-                        GearRangeView()
-                        ThumbView(value: $stringValue, unit: "")
-                            .offset(y: CGFloat(value == 0 ? -250 : 250))
-                    case .spoiler:
-                        SpoilerRangeView()
-                        ThumbView(value: $stringValue, unit: "")
-                            .offset(y: CGFloat(-(500*(100-value))/90)+250)
-                    case .verticalSpeed:
-                        VerticalSpeedRangeView()
-                        ThumbView(value: $stringValue, unit: "kt")
-                            .offset(y: CGFloat((700*(5000-value))/10000)-350)
-//                            .offset(y: CGFloat(-(500*(100-value))/90)+250)
-                    default:
-                        EmptyView()
+                        
+                        .coordinateSpace(name: "slider")
+                        .rotationEffect(Angle.degrees(topToBottom ? 180 : 0))
+                        .frame(width: 120, height: 540)
                     }
                     
-                    
+                    ZStack {
+                        
+                        // MARK: Value range and Value indicator
+                        switch aircraftData {
+                        case .speed:
+                            SpeedRangeView()
+                            ThumbView(value: $stringValue, unit: "kt")
+                                .offset(y: CGFloat((700*(400-value))/300 - 350))
+                        case .altitude:
+                            AltitudeRangeView()
+                            ThumbView(value: $stringValue, unit: "ft")
+                                .offset(y: CGFloat((700*(20000-value))/19900 - 350))
+                        case .flaps:
+                            FlapsRangeView()
+                            ThumbView(value: $stringValue, unit: "")
+                                .offset(y: CGFloat(-(500*(4-value))/4 + 250))
+                        case .gear:
+                            GearRangeView()
+                            ThumbView(value: $stringValue, unit: "")
+                                .offset(y: CGFloat(value == 0 ? -250 : 250))
+                        case .spoiler:
+                            SpoilerRangeView()
+                            ThumbView(value: $stringValue, unit: "")
+                                .offset(y: CGFloat(-(500*(100-value))/90)+250)
+                        case .verticalSpeed:
+                            VerticalSpeedRangeView()
+                            ThumbView(value: $stringValue, unit: "kt")
+                                .offset(y: CGFloat((700*(5000-value))/10000)-350)
+                            //                            .offset(y: CGFloat(-(500*(100-value))/90)+250)
+                        default:
+                            EmptyView()
+                        }
+                        
+                        
+                    }
                 }
             }
-            
             // MARK: Show positions
             if appearanceVM.showTapIndicator {
                 ZStack {
@@ -224,7 +228,7 @@ struct VerticalSliderView: View {
                 stringValue = "RET"
             case .verticalSpeed:
                 value = 0
-                 oldValue = 0
+                oldValue = 0
                 stringValue = "0"
             }
         }
@@ -260,7 +264,7 @@ struct VerticalSliderView: View {
             } else if value == 100 {
                 stringValue = "FULL"
             } else {
-                stringValue = String(value)
+                stringValue = ""
             }
         default:
             stringValue = String(value)
