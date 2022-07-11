@@ -46,6 +46,7 @@ class ButtonsViewModel: ObservableObject {
             self.zoomFactor
         }
         set {
+            SoundService.shared.tockSound()
             state.changeAircraftData(of: .navZoomFactor, to: newValue)
         }
     }
