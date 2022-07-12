@@ -46,6 +46,8 @@
 		178B3C9D287C3B1D000A815F /* NavDisplayZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */; };
 		178B3C9F287C4737000A815F /* ButtonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3C9E287C4737000A815F /* ButtonsViewModel.swift */; };
 		178B3CA2287C53C7000A815F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 178B3CA1287C53C7000A815F /* Introspect */; };
+		178B3CA4287D5584000A815F /* ConfirmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3CA3287D5584000A815F /* ConfirmButtonView.swift */; };
+		178B3CA6287D57A3000A815F /* ButtonPressActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3CA5287D57A3000A815F /* ButtonPressActions.swift */; };
 		178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC9092828F7D800467DC9 /* HeadingView.swift */; };
 		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
@@ -96,6 +98,8 @@
 		178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkViewModel.swift; sourceTree = "<group>"; };
 		178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDisplayZoomView.swift; sourceTree = "<group>"; };
 		178B3C9E287C4737000A815F /* ButtonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewModel.swift; sourceTree = "<group>"; };
+		178B3CA3287D5584000A815F /* ConfirmButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonView.swift; sourceTree = "<group>"; };
+		178B3CA5287D57A3000A815F /* ButtonPressActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPressActions.swift; sourceTree = "<group>"; };
 		178CC9092828F7D800467DC9 /* HeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingView.swift; sourceTree = "<group>"; };
 		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
@@ -196,6 +200,8 @@
 				174F7935286C839800EB7EDB /* StateValuesTestView.swift */,
 				17B982A9286D97580013D08B /* ATCMessagesView.swift */,
 				178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */,
+				178B3CA3287D5584000A815F /* ConfirmButtonView.swift */,
+				178B3CA5287D57A3000A815F /* ButtonPressActions.swift */,
 				174F7934286C685900EB7EDB /* SettingsViews */,
 				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
@@ -337,6 +343,7 @@
 				175283A427EDF803007BE399 /* ButtonsView.swift in Sources */,
 				173FDA952878361400464896 /* SoundService.swift in Sources */,
 				174F7931286C43DA00EB7EDB /* VerticalSliderViewModel.swift in Sources */,
+				178B3CA6287D57A3000A815F /* ButtonPressActions.swift in Sources */,
 				1726B6BB285B62360053BCC0 /* GearRangeView.swift in Sources */,
 				17B982AA286D97580013D08B /* ATCMessagesView.swift in Sources */,
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
@@ -359,6 +366,7 @@
 				178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */,
 				1704209D282134E60041927A /* DataExport.swift in Sources */,
 				17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */,
+				178B3CA4287D5584000A815F /* ConfirmButtonView.swift in Sources */,
 				176B2F6E2816CF1C00B583A9 /* SocketNetworkViewModel.swift in Sources */,
 				178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */,
 				174F7933286C45B600EB7EDB /* RingSliderViewModel.swift in Sources */,

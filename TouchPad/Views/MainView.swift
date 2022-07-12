@@ -54,6 +54,8 @@ struct MainView: View {
                         Spacer()
                         NavDisplayZoomView()
                         Spacer()
+                        ConfirmButtonView()
+                        Spacer()
                         HeadingView()
                             .padding(.bottom, 30)
                     }
