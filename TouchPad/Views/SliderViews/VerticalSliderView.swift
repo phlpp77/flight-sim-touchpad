@@ -84,6 +84,13 @@ struct VerticalSliderView: View {
                                 log.append(logData)
                                 // Add to remote log via MQTT
                                 if mqttNetworkVM.connectionOpen {
+                                    
+                                    // Data divided by 100 needed for fs
+                                    if aircraftData == .verticalSpeed {
+                                        logData.value = logData.value / 100
+                                        logData.oldValue = logData.oldValue / 100
+                                    }
+                                    
                                     mqttNetworkVM.sendToLog(logData)
                                 }
                                 
