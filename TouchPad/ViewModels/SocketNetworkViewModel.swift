@@ -72,7 +72,7 @@ class SocketNetworkViewModel: ObservableObject {
         case .spoiler:
             webSocketService.changeSpoiler(value)
         case .verticalSpeed:
-            webSocketService.changeVerticalSpeed(value)
+            webSocketService.changeVerticalSpeed(value / 100)
         case .navZoomFactor:
             webSocketService.changeNavZoomFactor(value)
         }
