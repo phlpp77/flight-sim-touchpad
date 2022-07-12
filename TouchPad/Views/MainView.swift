@@ -13,6 +13,7 @@ struct MainView: View {
     @EnvironmentObject var verticalSliderVM: VerticalSliderViewModel
     @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
     @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var buttonsVM: ButtonsViewModel
     
     
     @State var showPopover = false
@@ -67,7 +68,13 @@ struct MainView: View {
                 
                 HStack {
                     Spacer()
-                    NavDisplayZoomView()
+                    VStack(spacing: 40.0) {
+                        HStack(spacing: 20.0) {
+                            MasterButtonsView(text: "warn", color: .red, active: $buttonsVM.masterWarn)
+                            MasterButtonsView(text: "caution", color: .orange, active: $buttonsVM.masterCaution)
+                        }
+                        NavDisplayZoomView()
+                    }
                     Spacer()
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler, value: $verticalSliderVM.spoiler)
                     Spacer()

@@ -10,7 +10,7 @@
 		1704209D282134E60041927A /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704209C282134E60041927A /* DataExport.swift */; };
 		170420A2282166440041927A /* UITextFieldAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170420A1282166440041927A /* UITextFieldAlert.swift */; };
 		170420A4282284850041927A /* RingSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 170420A3282284850041927A /* RingSliderView.swift */; };
-		1719061F2857A4EF002C1F9D /* ActiveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */; };
+		1719061F2857A4EF002C1F9D /* MasterButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1719061E2857A4EF002C1F9D /* MasterButtonsView.swift */; };
 		1722F87F286334BC0072BEDC /* ToneTestButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */; };
 		17235083286204CC00571EB4 /* ServerSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17235082286204CC00571EB4 /* ServerSettingsView.swift */; };
 		1726B6BB285B62360053BCC0 /* GearRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1726B6BA285B62360053BCC0 /* GearRangeView.swift */; };
@@ -64,7 +64,7 @@
 		170420A0282154D10041927A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		170420A1282166440041927A /* UITextFieldAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldAlert.swift; sourceTree = "<group>"; };
 		170420A3282284850041927A /* RingSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderView.swift; sourceTree = "<group>"; };
-		1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveButtonView.swift; sourceTree = "<group>"; };
+		1719061E2857A4EF002C1F9D /* MasterButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterButtonsView.swift; sourceTree = "<group>"; };
 		1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToneTestButtonView.swift; sourceTree = "<group>"; };
 		17235082286204CC00571EB4 /* ServerSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSettingsView.swift; sourceTree = "<group>"; };
 		1726B6BA285B62360053BCC0 /* GearRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearRangeView.swift; sourceTree = "<group>"; };
@@ -198,7 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				1768B5A527F709D30046DCFC /* MainView.swift */,
-				1719061E2857A4EF002C1F9D /* ActiveButtonView.swift */,
+				1719061E2857A4EF002C1F9D /* MasterButtonsView.swift */,
 				175283A327EDF803007BE399 /* ButtonsView.swift */,
 				174F7935286C839800EB7EDB /* StateValuesTestView.swift */,
 				17B982A9286D97580013D08B /* ATCMessagesView.swift */,
@@ -366,7 +366,7 @@
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
 				174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */,
 				174F7936286C839800EB7EDB /* StateValuesTestView.swift in Sources */,
-				1719061F2857A4EF002C1F9D /* ActiveButtonView.swift in Sources */,
+				1719061F2857A4EF002C1F9D /* MasterButtonsView.swift in Sources */,
 				178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */,
 				1704209D282134E60041927A /* DataExport.swift in Sources */,
 				17F10B0327F38DA7003AB513 /* TapGestureLocation.swift in Sources */,

@@ -19,6 +19,8 @@ class ButtonsViewModel: ObservableObject {
         self.webSocketVM = webSocket
         self.mqttVM = mqtt
         self.updateZoomFactor()
+        self.updateMasterWarn()
+        self.updateMasterCaution()
         
         // setup the combine subscribers
         setupSubscribers()
@@ -32,10 +34,23 @@ class ButtonsViewModel: ObservableObject {
                 self.updateZoomFactor()
             }
             .store(in: &subscriptions)
+        state.didSetMasterWarn
+            .sink {
+                self.updateMasterWarn()
+            }
+            .store(in: &subscriptions)
+        state.didSetMasterCaution
+            .sink {
+                self.updateMasterCaution()
+            }
+            .store(in: &subscriptions)
+        
     }
     
     // MARK: Vars that are used inside the view
     @Published public var zoomFactor: Int!
+    @Published public var masterWarn: Bool!
+    @Published public var masterCaution: Bool!
     
     // MARK: Vars that are used only inside ViewModel
     private var oldZoomFactor: Int = 0
@@ -51,14 +66,32 @@ class ButtonsViewModel: ObservableObject {
         }
     }
     
+    public func deactivateMasterWarn() {
+        state.changeAircraftStates(of: .masterWarn, to: false)
+    }
+    
+    public func deactivateMasterCaution() {
+        state.changeAircraftStates(of: .masterCaution, to: false)
+    }
+    
     // MARK: Update functions to be called from state via combine
     private func updateZoomFactor() {
         zoomFactor = state.aircraftData.navZoomFactor
-        saveAndSendData()
+        saveAndSendNavZoomData()
+    }
+    
+    private func updateMasterWarn() {
+        masterWarn = state.aircraftStates.masterWarn
+        sendDataToMQTT(state: .masterWarn, value: masterWarn)
+    }
+    
+    private func updateMasterCaution() {
+        masterCaution = state.aircraftStates.masterCaution
+        sendDataToMQTT(state: .masterCaution, value: masterCaution)
     }
     
     // MARK: Functions to interact with server / log
-    private func saveAndSendData() {
+    private func saveAndSendNavZoomData() {
         print("NAV zoom factor set from: \(oldZoomFactor) to \(zoomFactor!) at \(Date().localFlightSim())")
         
         // MARK: Save to log
@@ -79,5 +112,19 @@ class ButtonsViewModel: ObservableObject {
         
         // Reset the old value
         oldZoomFactor = zoomFactor
+    }
+    
+    private func sendDataToMQTT(state type: AircraftStatesType, value: Bool) {
+        print("\(type.rawValue) set from: true to \(value) at \(Date().localFlightSim())")
+        
+        // Create Log component
+        let logData = LogData(attribute: type.rawValue, oldValue: 0, value: Double(value ? 1 : 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+        // Add to local log on iPad
+        log.append(logData)
+        // Add to remote log via MQTT
+        if mqttVM.connectionOpen {
+            mqttVM.sendToLog(logData)
+        }
+        
     }
 }

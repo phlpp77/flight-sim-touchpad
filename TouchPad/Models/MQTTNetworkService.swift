@@ -73,8 +73,8 @@ extension MQTTNetworkService {
     func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
         delegate?.didUpdateConnection(isOpen: true)
         print("[MQTT] Server connected")
-        receiveMessage(topic: "fcu/aircraft/data")
-        receiveMessage(topic: "fcu/service/atc")
+        receiveMessage(topic: "fcu/#")
+        
     }
     
     func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
