@@ -12,14 +12,14 @@ struct ConfirmButtonView: View {
     @EnvironmentObject var mqttVM: MQTTNetworkViewModel
     @State private var isPressed = false
     @State private var relativeCords: CGPoint = .zero
-    private let buttonWidth: CGFloat = 150
-    private let buttonHeight: CGFloat = 50
+    private let buttonWidth: CGFloat = 200
+    private let buttonHeight: CGFloat = 200
     
     var body: some View {
         ZStack {
             
             // Rounded Rectangle as the background
-            RoundedRectangle(cornerRadius: 50)
+            Circle()
                 .foregroundStyle(LinearGradient(
                     gradient: Gradient(stops: [
                         .init(color: Color(#colorLiteral(red: 0.3529411852359772, green: 0.35686275362968445, blue: 0.364705890417099, alpha: 1)), location: 0),
@@ -30,14 +30,14 @@ struct ConfirmButtonView: View {
                     startPoint: UnitPoint(x: 1, y: 0),
                     endPoint: UnitPoint(x: 0, y: 0)))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 50)
+                    Circle()
                         .strokeBorder(Color(hexCode: "979797")!, lineWidth: 0.5)
                 )
                 .frame(width: buttonWidth, height: buttonHeight)
             
-            Text("Confirm")
-                .font(.title)
-                .textCase(.uppercase)
+            Image(systemName: "checkmark.circle")
+                .font(.system(size: 90))
+                .foregroundColor(isPressed ? .green : .primary)
         }
         .coordinateSpace(name: "confirmButton")
         .opacity(isPressed ? 0.4 : 1)
