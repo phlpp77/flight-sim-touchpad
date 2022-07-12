@@ -48,6 +48,7 @@
 		178B3CA2287C53C7000A815F /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 178B3CA1287C53C7000A815F /* Introspect */; };
 		178B3CA4287D5584000A815F /* ConfirmButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3CA3287D5584000A815F /* ConfirmButtonView.swift */; };
 		178B3CA6287D57A3000A815F /* ButtonPressActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178B3CA5287D57A3000A815F /* ButtonPressActions.swift */; };
+		178B3CA8287D62B0000A815F /* success.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 178B3CA7287D62B0000A815F /* success.mp3 */; };
 		178CC90A2828F7D800467DC9 /* HeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC9092828F7D800467DC9 /* HeadingView.swift */; };
 		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
@@ -100,6 +101,7 @@
 		178B3C9E287C4737000A815F /* ButtonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsViewModel.swift; sourceTree = "<group>"; };
 		178B3CA3287D5584000A815F /* ConfirmButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButtonView.swift; sourceTree = "<group>"; };
 		178B3CA5287D57A3000A815F /* ButtonPressActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonPressActions.swift; sourceTree = "<group>"; };
+		178B3CA7287D62B0000A815F /* success.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = success.mp3; sourceTree = "<group>"; };
 		178CC9092828F7D800467DC9 /* HeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingView.swift; sourceTree = "<group>"; };
 		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				173FDA9628783ADE00464896 /* atc.mp3 */,
 				173FDA9728783ADE00464896 /* tock.mp3 */,
+				178B3CA7287D62B0000A815F /* success.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -201,10 +204,10 @@
 				17B982A9286D97580013D08B /* ATCMessagesView.swift */,
 				178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */,
 				178B3CA3287D5584000A815F /* ConfirmButtonView.swift */,
-				178B3CA5287D57A3000A815F /* ButtonPressActions.swift */,
 				174F7934286C685900EB7EDB /* SettingsViews */,
 				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
+				178B3CA5287D57A3000A815F /* ButtonPressActions.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
 			);
 			path = Views;
@@ -328,6 +331,7 @@
 			files = (
 				173FDA9828783ADE00464896 /* atc.mp3 in Resources */,
 				175283A927EDF807007BE399 /* Preview Assets.xcassets in Resources */,
+				178B3CA8287D62B0000A815F /* success.mp3 in Resources */,
 				175283A627EDF807007BE399 /* Assets.xcassets in Resources */,
 				173FDA9928783ADE00464896 /* tock.mp3 in Resources */,
 			);

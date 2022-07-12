@@ -19,7 +19,7 @@ struct ConfirmButtonView: View {
         ZStack {
             
             // Rounded Rectangle as the background
-            RoundedRectangle(cornerRadius: 22)
+            RoundedRectangle(cornerRadius: 50)
                 .foregroundStyle(LinearGradient(
                     gradient: Gradient(stops: [
                         .init(color: Color(#colorLiteral(red: 0.3529411852359772, green: 0.35686275362968445, blue: 0.364705890417099, alpha: 1)), location: 0),
@@ -30,7 +30,7 @@ struct ConfirmButtonView: View {
                     startPoint: UnitPoint(x: 1, y: 0),
                     endPoint: UnitPoint(x: 0, y: 0)))
                 .overlay(
-                    RoundedRectangle(cornerRadius: 22)
+                    RoundedRectangle(cornerRadius: 50)
                         .strokeBorder(Color(hexCode: "979797")!, lineWidth: 0.5)
                 )
                 .frame(width: buttonWidth, height: buttonHeight)
@@ -56,8 +56,8 @@ struct ConfirmButtonView: View {
                 .onChanged { actions in
                     let tappedCords = actions.startLocation
                     relativeCords = CGPoint(x: tappedCords.x - buttonWidth/2 , y: tappedCords.y - buttonHeight/2)
-                    SoundService.shared.tockSound()
                     sendData()
+                    SoundService.shared.successSound()
                 })
         
     }
