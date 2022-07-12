@@ -67,10 +67,12 @@ class ButtonsViewModel: ObservableObject {
     }
     
     public func deactivateMasterWarn() {
+        SoundService.shared.tockSound()
         state.changeAircraftStates(of: .masterWarn, to: false)
     }
     
     public func deactivateMasterCaution() {
+        SoundService.shared.tockSound()
         state.changeAircraftStates(of: .masterCaution, to: false)
     }
     
