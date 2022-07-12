@@ -44,7 +44,7 @@ struct MainView: View {
             ZStack {
                 HStack {
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 5 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 10 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
                     Spacer()
                     VStack {
                         ATCMessagesView()
@@ -59,7 +59,7 @@ struct MainView: View {
                             .padding(.bottom, 30)
                     }
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $verticalSliderVM.altitude)
+                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 1000, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $verticalSliderVM.altitude)
                     Spacer()
                     VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: -5000, maxValue: 5000, aircraftData: .verticalSpeed, value: $verticalSliderVM.verticalSpeed)
                     Spacer()
