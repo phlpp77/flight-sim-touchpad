@@ -24,7 +24,7 @@ struct SettingsView: View {
         NavigationView {
             Form {
                 
-                HStack(spacing: 14) {
+                HStack(spacing: 18) {
                     Spacer()
                     StatusField(
                         title: "WebSocket Server",
@@ -32,9 +32,6 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
-                    .onTapGesture {
-//                        socketNetworkVM.toggleServerConnection.toggle()
-                    }
                     
                     StatusField(
                         title: "WebSocket Offsets",
@@ -42,11 +39,6 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
                         statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
                     )
-                    .onTapGesture {
-//                        Task {
-//                            await socketNetworkVM.webSocketService.declareOffsets()
-//                        }
-                    }
                     
                     StatusField(
                         title: "MQTT Server",
@@ -54,13 +46,16 @@ struct SettingsView: View {
                         statusIcon: mqttNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: mqttNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
-                    .onTapGesture {
-                        mqttNetworkVM.toggleServerConnection.toggle()
-                    }
+                    .simultaneousGesture(
+                        TapGesture().onEnded {
+                            mqttNetworkVM.toggleServerConnection.toggle()
+                        }
+                    )
                     Spacer()
                 }
                 .listRowBackground(Color(UIColor.systemGroupedBackground)) // Change color from white to background
                 .listRowInsets(EdgeInsets()) // remove insets so cards are inline with rest
+                .padding(.vertical, 20)
                 
                 
                 Section(header: Text("Appearance")) {
@@ -218,6 +213,8 @@ struct StatusField: View {
     var statusIcon: String
     var statusColor: Color
     
+    @State private var isPressed = false
+    
     var body: some View {
         
         VStack {
@@ -240,6 +237,17 @@ struct StatusField: View {
         .frame(width: 150, height: 150)
         .background(.white)
         .cornerRadius(20)
+        .opacity(isPressed ? 0.4 : 1)
+        .scaleEffect(isPressed ? 1.1 : 1)
+        .pressEvents {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                isPressed = true
+            }
+        } onRelease: {
+            withAnimation {
+                isPressed = false
+            }
+        }
     }
 }
 
