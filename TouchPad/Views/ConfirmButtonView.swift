@@ -9,7 +9,9 @@ import SwiftUI
 
 struct ConfirmButtonView: View {
     
+    @EnvironmentObject var mqttVM: MQTTNetworkViewModel
     @State private var isPressed = false
+    @State private var relativeCords: CGPoint = .zero
     private let buttonWidth: CGFloat = 150
     private let buttonHeight: CGFloat = 50
     
@@ -53,10 +55,25 @@ struct ConfirmButtonView: View {
             DragGesture(minimumDistance: 0, coordinateSpace: .named("confirmButton"))
                 .onChanged { actions in
                     let tappedCords = actions.startLocation
-                    let relativeCords = CGPoint(x: tappedCords.x - buttonWidth/2 , y: tappedCords.y - buttonHeight/2)
-                    print("tapped here: \(relativeCords)")
+                    relativeCords = CGPoint(x: tappedCords.x - buttonWidth/2 , y: tappedCords.y - buttonHeight/2)
+                    SoundService.shared.tockSound()
+                    sendData()
                 })
         
+    }
+    
+    private func sendData() {
+        print("Confirm sent with relative deviation \(relativeCords) at \(Date().localFlightSim())")
+        
+        // MARK: Save to log
+        // Create Log component
+        let logData = LogData(attribute: "Confirm", relativeDeviation: relativeCords, startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+        // Add to local log on iPad
+        log.append(logData)
+        // Add to remote via MQTT
+        if mqttVM.connectionOpen {
+            mqttVM.sendToLog(logData)
+        }
     }
 }
 
