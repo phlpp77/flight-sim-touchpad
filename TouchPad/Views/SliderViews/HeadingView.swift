@@ -98,7 +98,7 @@ struct HeadingView: View {
                     .padding(53)
                 
             }
-            .padding(.top, 80)
+            .padding(.top, 40)
             .padding()
             
             
