@@ -22,7 +22,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
             webSocket = session.webSocketTask(with: url, protocols: ["fsuipc"])
             print("[openWebSocket] WebSocket session started on URL: \(url)")
         }
-//        webSocket?.resume()
+        webSocket?.resume()
         print("[openWebSocket] Resume WebSocket session")
     }
     

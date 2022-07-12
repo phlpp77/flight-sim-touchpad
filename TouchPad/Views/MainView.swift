@@ -123,10 +123,10 @@ struct MainView: View {
         // MARK: Try to connect to servers at startup
         .onAppear {
             mqttNetworkVM.openConnection()
-            socketNetworkVM.openConnection()
-            Task {
-                await socketNetworkVM.webSocketService.declareOffsets()
-            }
+//            socketNetworkVM.openConnection()
+//            Task {
+//                await socketNetworkVM.webSocketService.declareOffsets()
+//            }
         }
         
     }

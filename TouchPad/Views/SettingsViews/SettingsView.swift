@@ -33,7 +33,7 @@ struct SettingsView: View {
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
                     .onTapGesture {
-                        socketNetworkVM.toggleServerConnection.toggle()
+//                        socketNetworkVM.toggleServerConnection.toggle()
                     }
                     
                     StatusField(
@@ -43,9 +43,9 @@ struct SettingsView: View {
                         statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
                     )
                     .onTapGesture {
-                        Task {
-                            await socketNetworkVM.webSocketService.declareOffsets()
-                        }
+//                        Task {
+//                            await socketNetworkVM.webSocketService.declareOffsets()
+//                        }
                     }
                     
                     StatusField(
