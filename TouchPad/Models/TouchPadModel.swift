@@ -14,6 +14,7 @@ class TouchPadModel {
     
     @Published public var settings = TouchPadSettings()
     @Published public var aircraftData = AircraftData()
+    @Published public var aircraftStates = AircraftStates()
     @Published public var serviceData = ServiceData()
     
     // Setup of MQTT service and combine
@@ -41,6 +42,9 @@ class TouchPadModel {
     let didSetNavZoomFactor = PassthroughSubject<Void, Never>()
     // Update of all aircraft data
     let didSetAircraftData = PassthroughSubject<Void, Never>()
+    // Aircraft states updates
+    let didSetMasterWarn = PassthroughSubject<Void, Never>()
+    let didSetMasterCaution = PassthroughSubject<Void, Never>()
     
     // Service data updates
     let didSetATCMessage = PassthroughSubject<Void, Never>()
@@ -81,6 +85,10 @@ class TouchPadModel {
         var spoiler: Int = 0
         var verticalSpeed: Int = 100
         var navZoomFactor: Int = 0
+    }
+    struct AircraftStates: Codable {
+        var masterWarn: Bool = false
+        var masterCaution: Bool = false
     }
     
     // MARK: Model for additional service data
@@ -147,6 +155,17 @@ class TouchPadModel {
             didSetNavZoomFactor.send()
         }
     }
+    
+    func changeAircraftStates(of valueType: AircraftStatesType, to value: Bool) {
+        switch valueType {
+        case .masterWarn:
+            aircraftStates.masterWarn = value
+            didSetMasterWarn.send()
+        case .masterCaution:
+            aircraftStates.masterCaution = value
+            didSetMasterCaution.send()
+        }
+    }
 
     func changeATCMessage(message: String, duration: Double) {
         serviceData.atcMessage = message
@@ -169,6 +188,13 @@ class TouchPadModel {
             } catch {
                 print("[MQTT message handler] error: \(error.localizedDescription)")
             }
+        case "fcu/aircraft/states":
+            do {
+                let aircraftStates = try decoder.decode(MQTTAircraftStates.self, from: jsonString)
+                handleAircraftStates(mqttData: aircraftStates)
+            } catch {
+                print("[MQTT message handler] error: \(error.localizedDescription)")
+            }
         case "fcu/service/atc":
             do {
                 let serviceData = try decoder.decode(MQTTServiceData.self, from: jsonString)
@@ -187,6 +213,17 @@ class TouchPadModel {
             changeAircraftStartValues(values: mqttData.data)
         default:
             print("[MQTT aircraftData handler] type \(mqttData.type) not found")
+        }
+    }
+    
+    private func handleAircraftStates(mqttData: MQTTAircraftStates) {
+        switch mqttData.type {
+        case "warn":
+            changeAircraftStates(of: .masterWarn, to: mqttData.data.masterWarn)
+        case "caution":
+            changeAircraftStates(of: .masterCaution, to: mqttData.data.masterCaution)
+        default:
+            print("[MQTT aircraftStates handler] type \(mqttData.type) not found")
         }
     }
     
@@ -222,6 +259,11 @@ class TouchPadModel {
     struct MQTTAircraftData: Codable {
         var type: String
         var data: AircraftData
+    }
+    
+    struct MQTTAircraftStates: Codable {
+        var type: String
+        var data: AircraftStates
     }
     
     struct MQTTServiceData: Codable {

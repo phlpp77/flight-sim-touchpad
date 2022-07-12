@@ -79,7 +79,7 @@ struct VerticalSliderView: View {
                                 
                                 // MARK: Save to log
                                 // Create Log component
-                                let logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
+                                var logData = LogData(attribute: String(aircraftData.rawValue), oldValue: Double(oldValue), value: Double(value), relativeDeviation: relativeDeviation, globalCoordinates: globalPos, startTime: startTimeStamp, endTime: Date().localFlightSim())
                                 // Add to local log on iPad
                                 log.append(logData)
                                 // Add to remote log via MQTT

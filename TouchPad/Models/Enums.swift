@@ -18,6 +18,11 @@ enum AircraftDataType: String {
     case navZoomFactor
 }
 
+enum AircraftStatesType: String {
+    case masterWarn
+    case masterCaution 
+}
+
 enum Screen: String, CaseIterable, Identifiable {
     case essential
     case additional

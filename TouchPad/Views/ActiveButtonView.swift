@@ -13,36 +13,27 @@ struct ActiveButtonView: View {
     var color: Color
     @Binding var active: Bool
     
-    @State var animate = false
+    @State var animate = true
     
     var body: some View {
-        VStack {
+        
             VStack {
                 Text("MASTER")
-//                    .foregroundColor(color.opacity(animate ? 1 : 0))
+                    .foregroundColor(color.opacity(animate ? 1 : 0))
                 Text(text)
                     .foregroundColor(color.opacity(animate ? 1 : 0))
             }
     //        .foregroundColor(animate ? color : .black)
             
-    //        .animation(Animation.easeInOut(duration: 1.8), value: animate)
+            .animation(Animation.easeInOut(duration: 1.8), value: animate)
             .frame(width: 120, height: 120)
             .font(Font.system(.title2).bold())
             .background(.black)
-            
             .mask(RoundedRectangle(cornerRadius: 22))
             
-            Button(action:
-            {
-                withAnimation(.easeInOut(duration: 5)) {
-                    animate.toggle()
-                }
+            
                 
-            }, label: {
-                    Text("click")
-                })
-                
-        }
+        
         }
         
         
