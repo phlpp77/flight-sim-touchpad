@@ -67,13 +67,17 @@ class ButtonsViewModel: ObservableObject {
     }
     
     public func deactivateMasterWarn() {
-        SoundService.shared.tockSound()
-        state.changeAircraftStates(of: .masterWarn, to: false)
+        if masterWarn {
+            SoundService.shared.tockSound()
+            state.changeAircraftStates(of: .masterWarn, to: false)
+        }
     }
     
     public func deactivateMasterCaution() {
-        SoundService.shared.tockSound()
-        state.changeAircraftStates(of: .masterCaution, to: false)
+        if masterCaution {
+            SoundService.shared.tockSound()
+            state.changeAircraftStates(of: .masterCaution, to: false)
+        }
     }
     
     // MARK: Update functions to be called from state via combine
