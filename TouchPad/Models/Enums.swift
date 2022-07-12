@@ -30,11 +30,11 @@ enum Screen: String, CaseIterable, Identifiable {
 }
 
 enum IPConfig: Hashable, CaseIterable, Identifiable {
-//    var id: ObjectIdentifier
     
-    static var allCases: [IPConfig] = [.lab, .localhost, .homeoffice, .custom("")]
+    static var allCases: [IPConfig] = [.lab, .office, .localhost, .homeoffice, .custom("")]
     
     case lab
+    case office
     case localhost
     case homeoffice
     case custom(String)
@@ -43,6 +43,8 @@ enum IPConfig: Hashable, CaseIterable, Identifiable {
         switch self {
         case .lab:
             return "192.168.103.103"
+        case .office:
+            return "192.168.103.105"
         case .localhost:
             return "localhost"
         case .homeoffice:

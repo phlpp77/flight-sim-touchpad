@@ -82,7 +82,7 @@ struct SettingsView: View {
                     
                     // MARK: Lock the speed every five steps
                     Toggle(isOn: $appearanceVM.toggleSpeedStepsInFive) {
-                        Text("Lock speed every five steps")
+                        Text("Lock speed every 10 steps")
                     }
                     
                     // MARK: Lock the heading every five steps

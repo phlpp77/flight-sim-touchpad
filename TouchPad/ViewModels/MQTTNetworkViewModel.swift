@@ -41,8 +41,10 @@ class MQTTNetworkViewModel: ObservableObject {
     
     // MARK: Update functions to be called from state via combine
     private func updateIPConfig() {
+        mqttService.closeMQTT()
         ipConfig = state.settings.ipConfig
         mqttService.host = ipConfig.ip
+        mqttService.openMQTT()
     }
     
     var toggleServerConnection: Bool = false {
