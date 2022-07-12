@@ -67,7 +67,7 @@ struct ConfirmButtonView: View {
         
         // MARK: Save to log
         // Create Log component
-        let logData = LogData(attribute: "Confirm", relativeDeviation: relativeCords, startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+        let logData = LogData(attribute: "confirm", relativeDeviation: relativeCords, startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
         // Add to local log on iPad
         log.append(logData)
         // Add to remote via MQTT

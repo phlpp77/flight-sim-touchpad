@@ -63,7 +63,7 @@ class ButtonsViewModel: ObservableObject {
         
         // MARK: Save to log
         // Create Log component
-        let logData = LogData(attribute: "NavZoom", oldValue: Double(oldZoomFactor), value: Double(zoomFactor), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+        let logData = LogData(attribute: "navZoom", oldValue: Double(oldZoomFactor), value: Double(zoomFactor), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
         // Add to local log on iPad
         log.append(logData)
         // Add to remote log via MQTT
