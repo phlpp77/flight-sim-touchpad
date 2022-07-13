@@ -18,10 +18,16 @@ struct MasterButtonsView: View {
     var body: some View {
         
         VStack {
-            Text("MASTER")
-                
-            Text(text)
-                
+            if text == "warn" {
+                Text("MASTER")
+                    .blinking(duration: 0.4)
+                Text(text)
+                    .blinking(duration: 0.4)
+            } else {
+                Text("Master")
+                Text(text)
+            }
+            
         }
         //        .foregroundColor(animate ? color : .black)
         .foregroundColor(color.opacity(active ? 1 : 0))
