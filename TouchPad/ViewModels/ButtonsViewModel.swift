@@ -65,6 +65,7 @@ class ButtonsViewModel: ObservableObject {
         set {
             SoundService.shared.tockSound()
             state.changeAircraftData(of: .navZoomFactor, to: newValue)
+            saveAndSendNavZoomData()
         }
     }
     
@@ -72,6 +73,7 @@ class ButtonsViewModel: ObservableObject {
         if masterWarn {
             SoundService.shared.tockSound()
             state.changeAircraftStates(of: .masterWarn, to: false)
+            sendDataToMQTT(state: .masterWarn, value: masterWarn)
         }
     }
     
@@ -79,23 +81,21 @@ class ButtonsViewModel: ObservableObject {
         if masterCaution {
             SoundService.shared.tockSound()
             state.changeAircraftStates(of: .masterCaution, to: false)
+            sendDataToMQTT(state: .masterCaution, value: masterCaution)
         }
     }
     
     // MARK: Update functions to be called from state via combine
     private func updateZoomFactor() {
         zoomFactor = state.aircraftData.navZoomFactor
-        saveAndSendNavZoomData()
     }
     
     private func updateMasterWarn() {
         masterWarn = state.aircraftStates.masterWarn
-        sendDataToMQTT(state: .masterWarn, value: masterWarn)
     }
     
     private func updateMasterCaution() {
         masterCaution = state.aircraftStates.masterCaution
-        sendDataToMQTT(state: .masterCaution, value: masterCaution)
     }
     
     // MARK: Functions to interact with server / log
@@ -123,21 +123,15 @@ class ButtonsViewModel: ObservableObject {
     }
     
     private func sendDataToMQTT(state type: AircraftStatesType, value: Bool) {
-        print("\(type.rawValue) set from: \(type == .masterWarn ? oldMasterWarn : oldMasterCaution) to \(value) at \(Date().localFlightSim())")
+        print("\(type.rawValue) set to \(value) at \(Date().localFlightSim())")
         
         // Create Log component
-        let logData = LogData(attribute: type.rawValue, oldValue: Double(type == .masterWarn ? oldMasterWarn : oldMasterCaution), value: Double(value ? 1 : 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+        let logData = LogData(attribute: type.rawValue, value: Double(value ? 1 : 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
         // Add to local log on iPad
         log.append(logData)
         // Add to remote log via MQTT
         if mqttVM.connectionOpen {
             mqttVM.sendToLog(logData)
-        }
-        
-        if type == .masterWarn {
-            oldMasterWarn = value ? 1 : 0
-        } else {
-            oldMasterCaution = value ? 1 : 0
         }
     }
 }
