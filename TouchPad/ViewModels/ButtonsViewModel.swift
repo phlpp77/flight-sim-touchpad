@@ -54,6 +54,8 @@ class ButtonsViewModel: ObservableObject {
     
     // MARK: Vars that are used only inside ViewModel
     private var oldZoomFactor: Int = 0
+    private var oldMasterWarn: Int = 0
+    private var oldMasterCaution: Int = 0
     
     // MARK: Functions/Vars to interact with the state
     public var toggleZoomFactor: Int {
@@ -121,10 +123,10 @@ class ButtonsViewModel: ObservableObject {
     }
     
     private func sendDataToMQTT(state type: AircraftStatesType, value: Bool) {
-        print("\(type.rawValue) set from: true to \(value) at \(Date().localFlightSim())")
+        print("\(type.rawValue) set from: \(type == .masterWarn ? oldMasterWarn : oldMasterCaution) to \(value) at \(Date().localFlightSim())")
         
         // Create Log component
-        let logData = LogData(attribute: type.rawValue, oldValue: 0, value: Double(value ? 1 : 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+        let logData = LogData(attribute: type.rawValue, oldValue: Double(type == .masterWarn ? oldMasterWarn : oldMasterCaution), value: Double(value ? 1 : 0), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
         // Add to local log on iPad
         log.append(logData)
         // Add to remote log via MQTT
@@ -132,5 +134,10 @@ class ButtonsViewModel: ObservableObject {
             mqttVM.sendToLog(logData)
         }
         
+        if type == .masterWarn {
+            oldMasterWarn = value ? 1 : 0
+        } else {
+            oldMasterCaution = value ? 1 : 0
+        }
     }
 }
