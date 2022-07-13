@@ -72,7 +72,6 @@ class ButtonsViewModel: ObservableObject {
     public func deactivateMasterWarn() {
         if masterWarn {
             SoundService.shared.tockSound()
-            state.changeAircraftStates(of: .masterWarn, to: false)
             sendDataToMQTT(state: .masterWarn, value: masterWarn)
         }
     }
@@ -80,7 +79,6 @@ class ButtonsViewModel: ObservableObject {
     public func deactivateMasterCaution() {
         if masterCaution {
             SoundService.shared.tockSound()
-            state.changeAircraftStates(of: .masterCaution, to: false)
             sendDataToMQTT(state: .masterCaution, value: masterCaution)
         }
     }
