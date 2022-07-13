@@ -168,13 +168,13 @@
 		175283A027EDF803007BE399 /* TouchPad */ = {
 			isa = PBXGroup;
 			children = (
-				173FDA912878351C00464896 /* Sounds */,
 				170420A0282154D10041927A /* Info.plist */,
 				175283A127EDF803007BE399 /* TouchPadApp.swift */,
 				178CC9062828F42500467DC9 /* Views */,
 				178CC9072828F45600467DC9 /* ViewModels */,
 				178CC9082828F46B00467DC9 /* Models */,
 				175283A527EDF807007BE399 /* Assets.xcassets */,
+				173FDA912878351C00464896 /* Sounds */,
 				177A00AB282009D300C31937 /* swiftui-sliders */,
 				175283A727EDF807007BE399 /* Preview Content */,
 			);
@@ -196,22 +196,38 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		178CC9062828F42500467DC9 /* Views */ = {
+		177D5CCB287EBCB000161F99 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				1768B5A527F709D30046DCFC /* MainView.swift */,
-				1719061E2857A4EF002C1F9D /* MasterButtonsView.swift */,
-				175283A327EDF803007BE399 /* ButtonsView.swift */,
-				174F7935286C839800EB7EDB /* StateValuesTestView.swift */,
-				17B982A9286D97580013D08B /* ATCMessagesView.swift */,
-				178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */,
-				178B3CA3287D5584000A815F /* ConfirmButtonView.swift */,
-				174F7934286C685900EB7EDB /* SettingsViews */,
-				17F2AD39284790790094EA16 /* SliderViews */,
 				170420A1282166440041927A /* UITextFieldAlert.swift */,
 				178B3CA5287D57A3000A815F /* ButtonPressActions.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
 				177D5CC9287EB8F800161F99 /* BlinkingModifier.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		177D5CCC287EBCCF00161F99 /* ButtonViews */ = {
+			isa = PBXGroup;
+			children = (
+				1719061E2857A4EF002C1F9D /* MasterButtonsView.swift */,
+				175283A327EDF803007BE399 /* ButtonsView.swift */,
+				178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */,
+				178B3CA3287D5584000A815F /* ConfirmButtonView.swift */,
+			);
+			path = ButtonViews;
+			sourceTree = "<group>";
+		};
+		178CC9062828F42500467DC9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1768B5A527F709D30046DCFC /* MainView.swift */,
+				174F7935286C839800EB7EDB /* StateValuesTestView.swift */,
+				17B982A9286D97580013D08B /* ATCMessagesView.swift */,
+				177D5CCC287EBCCF00161F99 /* ButtonViews */,
+				174F7934286C685900EB7EDB /* SettingsViews */,
+				17F2AD39284790790094EA16 /* SliderViews */,
+				177D5CCB287EBCB000161F99 /* Extensions */,
 			);
 			path = Views;
 			sourceTree = "<group>";
