@@ -16,7 +16,7 @@ struct ThumbView: View {
         
         ZStack {
             RoundedRectangle(cornerRadius: 8)
-                .frame(width: 80, height: 30)
+                .frame(width: unit == "ft/min" ? 100 : 80, height: 30)
                 .foregroundStyle(
                     LinearGradient(colors: [Color(hexCode: "EDEC66")!,Color(hexCode: "B4B300")!], startPoint: .topLeading, endPoint: .bottomTrailing)
                 )

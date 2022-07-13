@@ -178,9 +178,8 @@ struct VerticalSliderView: View {
                                 .offset(y: CGFloat(-(500*(100-value))/90)+250)
                         case .verticalSpeed:
                             VerticalSpeedRangeView()
-                            ThumbView(value: $stringValue, unit: "kt")
-                                .offset(y: CGFloat((700*(5000-value))/10000)-350)
-                            //                            .offset(y: CGFloat(-(500*(100-value))/90)+250)
+                            ThumbView(value: $stringValue, unit: "ft/min")
+                                .offset(x: 10, y: CGFloat((700*(5000-value))/10000)-350)
                         default:
                             EmptyView()
                         }
