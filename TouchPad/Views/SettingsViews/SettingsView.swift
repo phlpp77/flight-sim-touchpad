@@ -27,6 +27,7 @@ struct SettingsView: View {
                 HStack(spacing: 18) {
                     Spacer()
                     StatusField(
+                        tappable: false,
                         title: "WebSocket Server",
                         status: socketNetworkVM.connectionOpen ? "Connected" : "Not connected",
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
@@ -34,6 +35,7 @@ struct SettingsView: View {
                     )
                     
                     StatusField(
+                        tappable: false,
                         title: "WebSocket Offsets",
                         status: socketNetworkVM.offsetsDeclared ? "Declared" : "Not declared",
                         statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
@@ -41,6 +43,7 @@ struct SettingsView: View {
                     )
                     
                     StatusField(
+                        tappable: true,
                         title: "MQTT Server",
                         status: mqttNetworkVM.connectionOpen ? "Connected" : "Not connected",
                         statusIcon: mqttNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
@@ -208,6 +211,7 @@ struct SettingsView: View {
 
 // MARK: StatusField at the top
 struct StatusField: View {
+    let tappable: Bool
     let title: String
     var status: String
     var statusIcon: String
@@ -240,12 +244,16 @@ struct StatusField: View {
         .opacity(isPressed ? 0.4 : 1)
         .scaleEffect(isPressed ? 1.1 : 1)
         .pressEvents {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                isPressed = true
+            if tappable {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    isPressed = true
+                }
             }
         } onRelease: {
-            withAnimation {
-                isPressed = false
+            if tappable {
+                withAnimation {
+                    isPressed = false
+                }
             }
         }
     }
@@ -256,7 +264,7 @@ struct StatusField_Previews: PreviewProvider {
         ZStack {
             Rectangle()
                 .fill(.gray)
-            StatusField(title: "WebSocket Server", status: "Not connected", statusIcon: "externaldrive.fill.badge.checkmark", statusColor: .gray)
+            StatusField(tappable: true, title: "WebSocket Server", status: "Not connected", statusIcon: "externaldrive.fill.badge.checkmark", statusColor: .gray)
         }
     }
 }
