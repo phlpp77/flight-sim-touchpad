@@ -154,6 +154,7 @@ struct RingSliderView: View {
                     .rotationEffect(Angle.degrees(360 * Double(progress)))
                     .onChange(of: degrees) { _ in
                         if appearanceVM.sliderSoundEffect {
+                            print("updated degrees to: \(degrees)")
                             SoundService.shared.tockSound()
                         }
                     }

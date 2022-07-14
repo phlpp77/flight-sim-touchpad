@@ -154,7 +154,6 @@ struct SettingsView: View {
                     }
                 }
                 
-                
                 Rectangle()
                     .opacity(0)
                     .frame(height: 1)
