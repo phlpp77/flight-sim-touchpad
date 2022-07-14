@@ -18,6 +18,7 @@ struct SettingsView: View {
     @State private var presentFileNameAlert = false
     @State private var presentErrorAlert = false
     @State private var presentDoneAlert = false
+    private let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     var body: some View {
         
@@ -136,7 +137,7 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("v2.0.6-beta")
+                        Text("v\(appVersion!)-beta")
                             .foregroundColor(.gray)
                     }
                     HStack {
