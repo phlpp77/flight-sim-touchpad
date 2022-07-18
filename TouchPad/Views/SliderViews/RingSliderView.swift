@@ -244,13 +244,3 @@ struct RingSliderView: View {
     }
     
 }
-
-//struct RingSliderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let socketNetworkVM = SocketNetworkViewModel()
-//        let mqttNetworkVM = MQTTNetworkViewModel()
-//
-//        RingSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, turnFactor: .constant(-1), progress: .constant(.zero), degrees: .constant(0))
-//            .previewDevice("iPad Pro (11-inch) (3rd generation)")
-//    }
-//}

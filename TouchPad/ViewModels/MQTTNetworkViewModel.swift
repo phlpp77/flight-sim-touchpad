@@ -97,7 +97,7 @@ class MQTTNetworkViewModel: ObservableObject {
 }
 
 extension MQTTNetworkViewModel: MQTTNetworkServiceDelegate {
-
+    
     func didUpdateConnection(isOpen: Bool) {
         DispatchQueue.main.async {
             self.connectionOpen = isOpen

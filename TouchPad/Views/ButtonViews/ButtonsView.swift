@@ -42,11 +42,11 @@ struct ButtonsView: View {
                                     .font(.system(size: 72))
                                 
                                 // Coordinates inside buttosn
-//                                if appearanceVM.settings.showTapLocation {
-                                    Text("pressed at")
-                                    // show coordinates rounded with 1 decimal place
-                                    Text("x: \(String(format: "%.1f", namedButton.coordinates[0])) y: \(String(format: "%.1f",namedButton.coordinates[1]))")
-//                                }
+                                //                                if appearanceVM.settings.showTapLocation {
+                                Text("pressed at")
+                                // show coordinates rounded with 1 decimal place
+                                Text("x: \(String(format: "%.1f", namedButton.coordinates[0])) y: \(String(format: "%.1f",namedButton.coordinates[1]))")
+                                //                                }
                                 
                             }
                             
@@ -55,7 +55,7 @@ struct ButtonsView: View {
                                 Rectangle()
                                     .frame(width: 5, height: 5)
                                     .foregroundColor(.green)
-                                .offset(x: namedButton.coordinates[0], y: namedButton.coordinates[1])
+                                    .offset(x: namedButton.coordinates[0], y: namedButton.coordinates[1])
                             }
                             
                         }
@@ -82,7 +82,7 @@ struct ButtonsView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-       
+        
         ButtonsView()
             .previewDevice("iPad Pro (11-inch) (3rd generation)")
             .previewInterfaceOrientation(.landscapeLeft)

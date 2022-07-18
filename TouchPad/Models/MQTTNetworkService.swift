@@ -41,7 +41,7 @@ class MQTTNetworkService: CocoaMQTTDelegate {
     func closeMQTT() {
         mqtt?.disconnect()
     }
-
+    
     func sendMessage(_ message: String, topic: String) {
         mqtt?.publish(topic, withString: message)
     }

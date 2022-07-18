@@ -166,7 +166,7 @@ class TouchPadModel {
             didSetMasterCaution.send()
         }
     }
-
+    
     func changeATCMessage(message: String, duration: Double) {
         serviceData.atcMessage = message
         serviceData.showDuration = duration
