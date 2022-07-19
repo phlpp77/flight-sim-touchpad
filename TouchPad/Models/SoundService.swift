@@ -12,6 +12,7 @@ class SoundService {
     static let shared = SoundService()
     public var serviceActivated = false
     private var soundEffect: AVAudioPlayer?
+    private var control: Time_Control = Time_Control(0)
     
     public func tockSound() {
         let path = Bundle.main.path(forResource: "tock.mp3", ofType:nil)!
@@ -49,9 +50,16 @@ class SoundService {
         if serviceActivated {
             let url = URL(fileURLWithPath: path)
             do {
-                soundEffect = try AVAudioPlayer(contentsOf: url)
-                print("[SoundService] Play sound")
-                soundEffect?.play()
+                
+                // start an async timer so the maximum is 10 sound effects per second (= 0.1 seconds)
+                if control.can_send {
+                    control = Time_Control(0.1)
+                    control.start()
+                    soundEffect = try AVAudioPlayer(contentsOf: url)
+                    print("[SoundService] Play sound")
+                    soundEffect?.play()
+                }
+                
             } catch {
                 print("[SoundService] Could not load file \(error.localizedDescription)")
             }
