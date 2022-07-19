@@ -34,10 +34,12 @@ Spoiler / Speed breaks | Rotated vertical Slider
 ### Overview
 
 #### Main screen
-![Screenshot-Main-Screen](https://user-images.githubusercontent.com/16270691/174300377-06b7af12-fab1-4906-93ef-596ba978d8f5.png)
+![Screenshot-Main-Screen](https://user-images.githubusercontent.com/16270691/179506437-731b492e-4ce2-4f9f-b01b-3f9a6cb4d6ab.png)
 
 #### Second screen
-![Screenshot-Second-Screen](https://user-images.githubusercontent.com/16270691/174300436-a6cc81b6-58eb-477f-9100-b02e61e9f3ea.png)
+![Screenshot-Second-Screen](https://user-images.githubusercontent.com/16270691/179506508-236e6482-3cc4-45dc-9688-373761b993f8.png)
+
 
 #### Settings screen
-![Screenshot-Settings-View](https://user-images.githubusercontent.com/16270691/174300260-8856451d-5b8b-4e70-8cc9-2f31c3d1b414.png)
+![Screenshot-Settings-View](https://user-images.githubusercontent.com/16270691/179506547-28fda2ab-95a4-4056-9b0e-2e57d0f8f722.png)
+
