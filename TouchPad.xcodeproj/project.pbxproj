@@ -32,8 +32,8 @@
 		1750595C2886A38600802E4D /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 1750595B2886A38600802E4D /* success.json */; };
 		1750595E2886A3B700802E4D /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750595D2886A3B700802E4D /* LottieView.swift */; };
 		175059602886A6E200802E4D /* disconnect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1750595F2886A6E200802E4D /* disconnect.json */; };
-		175059622886A92700802E4D /* connect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 175059612886A92700802E4D /* connect.mp3 */; };
-		175059642886A92E00802E4D /* disconnect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 175059632886A92E00802E4D /* disconnect.mp3 */; };
+		1750596B2886ABBE00802E4D /* connect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 175059692886ABBE00802E4D /* connect.mp3 */; };
+		1750596C2886ABBE00802E4D /* disconnect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1750596A2886ABBE00802E4D /* disconnect.mp3 */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
 		175283A627EDF807007BE399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A527EDF807007BE399 /* Assets.xcassets */; };
@@ -92,8 +92,8 @@
 		1750595B2886A38600802E4D /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
 		1750595D2886A3B700802E4D /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		1750595F2886A6E200802E4D /* disconnect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = disconnect.json; sourceTree = "<group>"; };
-		175059612886A92700802E4D /* connect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = connect.mp3; sourceTree = "<group>"; };
-		175059632886A92E00802E4D /* disconnect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = disconnect.mp3; sourceTree = "<group>"; };
+		175059692886ABBE00802E4D /* connect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = connect.mp3; sourceTree = "<group>"; };
+		1750596A2886ABBE00802E4D /* disconnect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = disconnect.mp3; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -143,8 +143,8 @@
 		173FDA912878351C00464896 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				175059632886A92E00802E4D /* disconnect.mp3 */,
-				175059612886A92700802E4D /* connect.mp3 */,
+				175059692886ABBE00802E4D /* connect.mp3 */,
+				1750596A2886ABBE00802E4D /* disconnect.mp3 */,
 				173FDA9628783ADE00464896 /* atc.mp3 */,
 				173FDA9728783ADE00464896 /* tock.mp3 */,
 				178B3CA7287D62B0000A815F /* success.mp3 */,
@@ -376,10 +376,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				173FDA9828783ADE00464896 /* atc.mp3 in Resources */,
-				175059642886A92E00802E4D /* disconnect.mp3 in Resources */,
+				1750596C2886ABBE00802E4D /* disconnect.mp3 in Resources */,
 				175283A927EDF807007BE399 /* Preview Assets.xcassets in Resources */,
 				178B3CA8287D62B0000A815F /* success.mp3 in Resources */,
-				175059622886A92700802E4D /* connect.mp3 in Resources */,
+				1750596B2886ABBE00802E4D /* connect.mp3 in Resources */,
 				175059602886A6E200802E4D /* disconnect.json in Resources */,
 				175283A627EDF807007BE399 /* Assets.xcassets in Resources */,
 				173FDA9928783ADE00464896 /* tock.mp3 in Resources */,
