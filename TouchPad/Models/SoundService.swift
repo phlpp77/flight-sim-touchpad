@@ -10,6 +10,7 @@ import AVFoundation
 
 class SoundService {
     static let shared = SoundService()
+    public var serviceActivated = false
     private var soundEffect: AVAudioPlayer?
     
     public func tockSound() {
@@ -45,13 +46,15 @@ class SoundService {
     }
     
     private func playSound(path: String) {
-        let url = URL(fileURLWithPath: path)
-        do {
-            soundEffect = try AVAudioPlayer(contentsOf: url)
-            print("[SoundService] Play sound")
-            soundEffect?.play()
-        } catch {
-            print("[SoundService] Could not load file \(error.localizedDescription)")
+        if serviceActivated {
+            let url = URL(fileURLWithPath: path)
+            do {
+                soundEffect = try AVAudioPlayer(contentsOf: url)
+                print("[SoundService] Play sound")
+                soundEffect?.play()
+            } catch {
+                print("[SoundService] Could not load file \(error.localizedDescription)")
+            }
         }
     }
 }

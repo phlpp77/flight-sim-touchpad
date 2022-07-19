@@ -144,6 +144,7 @@ struct MainView: View {
         }
         // MARK: Connect to server at startup
         .onAppear {
+            SoundService.shared.serviceActivated = true
             mqttNetworkVM.openConnection()
         }
         .onChange(of: appearanceVM.mqttConnectionIsOpen) { isOpen in

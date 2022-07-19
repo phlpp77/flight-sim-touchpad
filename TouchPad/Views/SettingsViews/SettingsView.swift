@@ -34,6 +34,7 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
+                    .opacity(0.5)
                     
                     StatusField(
                         tappable: false,
@@ -42,6 +43,7 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
                         statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
                     )
+                    .opacity(0.5)
                     
                     StatusField(
                         tappable: true,
