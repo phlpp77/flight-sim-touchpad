@@ -150,8 +150,10 @@ struct MainView: View {
             print("changed connection")
             if isOpen! {
                 SoundService.shared.connectSound()
+                SoundService.shared.speakText("MQTT Connected")
             } else {
                 SoundService.shared.disconnectSound()
+                SoundService.shared.speakText("MQTT Disconnected")
             }
             showInformationWindow = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {

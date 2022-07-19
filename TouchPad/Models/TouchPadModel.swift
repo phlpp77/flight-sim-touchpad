@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 import CocoaMQTT
-import AVFoundation
 
 class TouchPadModel {
     
@@ -265,11 +264,7 @@ class TouchPadModel {
         didSetAircraftData.send()
         
         // Voice feedback
-        let speechSynthesizer = AVSpeechSynthesizer()
-        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: "Values have been set.")
-        speechUtterance.rate = 0.55
-        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        speechSynthesizer.speak(speechUtterance)
+        SoundService.shared.speakText("Values have been set.")
     }
     
     struct MQTTAircraftData: Codable {

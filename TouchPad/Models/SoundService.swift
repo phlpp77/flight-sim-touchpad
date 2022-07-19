@@ -37,6 +37,13 @@ class SoundService {
         playSound(path: path)
     }
     
+    public func speakText(_ text: String) {
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance = AVSpeechUtterance(string: text)
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        speechSynthesizer.speak(speechUtterance)
+    }
+    
     private func playSound(path: String) {
         let url = URL(fileURLWithPath: path)
         do {
