@@ -27,6 +27,16 @@ class SoundService {
         playSound(path: path)
     }
     
+    public func connectSound() {
+        let path = Bundle.main.path(forResource: "connect.mp3", ofType:nil)!
+        playSound(path: path)
+    }
+    
+    public func disconnectSound() {
+        let path = Bundle.main.path(forResource: "disconnect.mp3", ofType:nil)!
+        playSound(path: path)
+    }
+    
     private func playSound(path: String) {
         let url = URL(fileURLWithPath: path)
         do {
