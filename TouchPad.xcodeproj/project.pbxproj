@@ -35,6 +35,7 @@
 		1750596B2886ABBE00802E4D /* connect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 175059692886ABBE00802E4D /* connect.mp3 */; };
 		1750596C2886ABBE00802E4D /* disconnect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1750596A2886ABBE00802E4D /* disconnect.mp3 */; };
 		1750596E2886B48100802E4D /* TimeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750596D2886B48100802E4D /* TimeControl.swift */; };
+		175059702886C2CB00802E4D /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750596F2886C2CB00802E4D /* AppearanceSettingsView.swift */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
 		175283A627EDF807007BE399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A527EDF807007BE399 /* Assets.xcassets */; };
@@ -96,6 +97,7 @@
 		175059692886ABBE00802E4D /* connect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = connect.mp3; sourceTree = "<group>"; };
 		1750596A2886ABBE00802E4D /* disconnect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = disconnect.mp3; sourceTree = "<group>"; };
 		1750596D2886B48100802E4D /* TimeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeControl.swift; sourceTree = "<group>"; };
+		1750596F2886C2CB00802E4D /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
+				1750596F2886C2CB00802E4D /* AppearanceSettingsView.swift */,
 				17235082286204CC00571EB4 /* ServerSettingsView.swift */,
 				1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */,
 			);
@@ -418,6 +421,7 @@
 				17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */,
 				174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
+				175059702886C2CB00802E4D /* AppearanceSettingsView.swift in Sources */,
 				174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */,
 				174F7936286C839800EB7EDB /* StateValuesTestView.swift in Sources */,
 				1719061F2857A4EF002C1F9D /* MasterButtonsView.swift in Sources */,
