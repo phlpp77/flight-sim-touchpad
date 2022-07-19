@@ -16,9 +16,10 @@ struct MainView: View {
     @EnvironmentObject var buttonsVM: ButtonsViewModel
     
     
-    @State var showPopover = false
-    @State var showSecondScreen = false
-    @State var showMasterWarn = false
+    @State private var showPopover = false
+    @State private var showSecondScreen = false
+    @State private var showMasterWarn = false
+    @State private var showInformationWindow = false
     
     var body: some View {
         ZStack {
@@ -94,21 +95,24 @@ struct MainView: View {
                 VStack(spacing: 20) {
                     
                     // MARK: Settings Button
-                    Button(action: {
-                        self.showPopover = true
-                        print("Settings opened at \(Date().localFlightSim())")
-                        // MARK: Save to log
-                        let logData = LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
-                        log.append(logData)
-                        if mqttNetworkVM.connectionOpen {
-                            mqttNetworkVM.sendToLog(logData)
-                        }
-                    }) {
-                        Image(systemName: "gear")
-                            .sheet(isPresented: $showPopover) {
-                                SettingsView()
+                    
+                        Button(action: {
+                            self.showPopover = true
+                            print("Settings opened at \(Date().localFlightSim())")
+                            // MARK: Save to log
+                            let logData = LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+                            log.append(logData)
+                            if mqttNetworkVM.connectionOpen {
+                                mqttNetworkVM.sendToLog(logData)
                             }
+                        }) {
+                            Image(systemName: "gear")
+                                .sheet(isPresented: $showPopover) {
+                                    SettingsView()
+                                }
                     }
+                        
+                    
                     
                     Spacer()
                 }
@@ -126,10 +130,33 @@ struct MainView: View {
             //                .frame(width: 25, height: 25)
             //                .position(x: 580, y: 686)
             
+            // MARK: Information Window
+            ZStack(alignment: .topLeading) {
+                Color.clear
+                if showInformationWindow {
+                    LottieView(name: appearanceVM.mqttConnectionIsOpen ? "success" : "disconnect")
+                        .frame(width: 150, height: 150)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            
         }
         // MARK: Connect to server at startup
         .onAppear {
             mqttNetworkVM.openConnection()
+        }
+        .onChange(of: appearanceVM.mqttConnectionIsOpen) { isOpen in
+            print("changed connection")
+            if isOpen! {
+                SoundService.shared.connectSound()
+            } else {
+                SoundService.shared.disconnectSound()
+            }
+            showInformationWindow = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                showInformationWindow = false
+            }
         }
         
     }

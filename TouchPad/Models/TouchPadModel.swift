@@ -29,6 +29,7 @@ class TouchPadModel {
     let didSetScreen = PassthroughSubject<Void, Never>()
     let didSetSliderSoundEffect = PassthroughSubject<Void, Never>()
     let didSetShowTestValueWindow = PassthroughSubject<Void, Never>()
+    let didSetMQTTConnection = PassthroughSubject<Void, Never>()
     
     // Aircraft data updates
     let didSetSpeed = PassthroughSubject<Void, Never>()
@@ -61,6 +62,16 @@ class TouchPadModel {
                 self.handleMessages(message: message)
             }
             .store(in: &subscriptions)
+        mqttService.didConnectToMQTT
+            .sink {
+                self.changeMQTTConnection(true)
+            }
+            .store(in: &subscriptions)
+        mqttService.didDisconnectToMQTT
+            .sink {
+                self.changeMQTTConnection(false)
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Model for Settings
@@ -72,6 +83,7 @@ class TouchPadModel {
         var sliderSoundEffect: Bool = true
         var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
+        var mqttConnectionIsOpen: Bool = false
         var ipConfig: IPConfig = .lab
     }
     
@@ -121,6 +133,10 @@ class TouchPadModel {
     func changeShowTestValueWindow(_ newState: Bool) {
         settings.showTestValueWindow = newState
         didSetShowTestValueWindow.send()
+    }
+    func changeMQTTConnection(_ newState: Bool) {
+        settings.mqttConnectionIsOpen = newState
+        didSetMQTTConnection.send()
     }
     func changeIPConfig(_ newState: IPConfig) {
         settings.ipConfig = newState
