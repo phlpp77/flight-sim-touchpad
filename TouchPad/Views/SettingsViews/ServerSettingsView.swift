@@ -83,9 +83,9 @@ struct ServerSettingsView: View {
                         Text("Office").tag(IPConfig.office)
                         Text("Localhost").tag(IPConfig.localhost)
                         Text("Home office").tag(IPConfig.homeoffice)
-                        TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
                     }
                     .pickerStyle(.segmented)
+                    TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
                 }
                 
                 Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
