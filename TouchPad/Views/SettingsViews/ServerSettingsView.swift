@@ -80,13 +80,12 @@ struct ServerSettingsView: View {
                     Spacer(minLength: 50)
                     Picker(selection: $mqttNetworkVM.toggleIPConfig, label: Text("Select IP adress")) {
                         ForEach(IPConfig.allCases) { config in
-                            Text(config.ip).tag(config)
-                                            
-                                        }
-                        
+                            Text(config.name).tag(config)
+                        }
                     }
                     .pickerStyle(.segmented)
                     TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
+                        .frame(width: 75)
                 }
                 
                 Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
