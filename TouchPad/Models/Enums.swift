@@ -54,5 +54,5 @@ enum IPConfig: Hashable, CaseIterable, Identifiable {
         }
     }
     
-    var id: Self.ID { self.id }
+    var id: Self { self }
 }

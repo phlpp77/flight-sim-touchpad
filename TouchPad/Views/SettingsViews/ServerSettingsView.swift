@@ -79,10 +79,11 @@ struct ServerSettingsView: View {
                     Text("Select IP address")
                     Spacer(minLength: 50)
                     Picker(selection: $mqttNetworkVM.toggleIPConfig, label: Text("Select IP adress")) {
-                        Text("Lab").tag(IPConfig.lab)
-                        Text("Office").tag(IPConfig.office)
-                        Text("Localhost").tag(IPConfig.localhost)
-                        Text("Home office").tag(IPConfig.homeoffice)
+                        ForEach(IPConfig.allCases) { config in
+                            Text(config.ip).tag(config)
+                                            
+                                        }
+                        
                     }
                     .pickerStyle(.segmented)
                     TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
