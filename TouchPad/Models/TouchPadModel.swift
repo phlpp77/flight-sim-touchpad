@@ -83,7 +83,7 @@ class TouchPadModel {
         var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
         var mqttConnectionIsOpen: Bool = false
-        var ipConfig: IPConfig = .lab
+        var ipConfig: String = "192.168.103.103"
     }
     
     // MARK: Model for Aircraft data
@@ -137,7 +137,7 @@ class TouchPadModel {
         settings.mqttConnectionIsOpen = newState
         didSetMQTTConnection.send()
     }
-    func changeIPConfig(_ newState: IPConfig) {
+    func changeIPConfig(_ newState: String) {
         settings.ipConfig = newState
         didSetIPConfig.send()
     }

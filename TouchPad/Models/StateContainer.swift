@@ -15,6 +15,7 @@ struct StateContainer {
     // MARK: ViewModels
     let mqttNetworkVM: MQTTNetworkViewModel
     let socketNetworkVM = SocketNetworkViewModel()
+    let userDefaultsVM = UserDefaultsViewModel()
     
     let appearanceVM: AppearanceViewModel
     let verticalSliderVM: VerticalSliderViewModel

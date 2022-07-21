@@ -11,6 +11,7 @@ struct ServerSettingsView: View {
     
     @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
     @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var userDefaultsVM: UserDefaultsViewModel
     
     @State private var mqttMessage = ""
     @State private var mqttTopic = "fcu/status"
@@ -49,8 +50,6 @@ struct ServerSettingsView: View {
                             ProgressView()
                         }
                     }
-                    
-                    
                 }
                 .disabled(isPerformingTask)
                 
@@ -70,7 +69,6 @@ struct ServerSettingsView: View {
                             .foregroundColor(.blue)
                     }
                 }
-                
             }
             
             Section(header: Text("MQTT")) {
@@ -79,13 +77,16 @@ struct ServerSettingsView: View {
                     Text("Select IP address")
                     Spacer(minLength: 50)
                     Picker(selection: $mqttNetworkVM.toggleIPConfig, label: Text("Select IP adress")) {
-                        ForEach(IPConfig.allCases) { config in
-                            Text(config.name).tag(config)
+                        ForEach(userDefaultsVM.ips.sorted(by: >), id: \.key) { key, value in
+                            Text(key).tag(value)
                         }
                     }
                     .pickerStyle(.segmented)
-                    TextField("Test", text: $ipConfigText).tag(IPConfig.custom(ipConfigText))
+                    TextField("Test", text: $ipConfigText)
                         .frame(width: 75)
+                        .onSubmit({
+                            userDefaultsVM.defaultService.addValue(to: userDefaultsVM.ips, key: "custom", value: ipConfigText)
+                        })
                 }
                 
                 Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {

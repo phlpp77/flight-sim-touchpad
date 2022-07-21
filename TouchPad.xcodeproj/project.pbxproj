@@ -62,6 +62,8 @@
 		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
 		17AC52B7282BCA0F009CE70E /* AltitudeRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */; };
+		17B038A228898CC3001D46AB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B038A128898CC3001D46AB /* UserDefaults.swift */; };
+		17B038A4288994D3001D46AB /* UserDefaultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B038A3288994D3001D46AB /* UserDefaultsViewModel.swift */; };
 		17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */; };
 		17B982AA286D97580013D08B /* ATCMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B982A9286D97580013D08B /* ATCMessagesView.swift */; };
 		17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */; };
@@ -123,6 +125,8 @@
 		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
 		17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltitudeRangeView.swift; sourceTree = "<group>"; };
+		17B038A128898CC3001D46AB /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		17B038A3288994D3001D46AB /* UserDefaultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsViewModel.swift; sourceTree = "<group>"; };
 		17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderView.swift; sourceTree = "<group>"; };
 		17B982A9286D97580013D08B /* ATCMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCMessagesView.swift; sourceTree = "<group>"; };
 		17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCMessagesViewModel.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
 				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
 				174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */,
+				17B038A3288994D3001D46AB /* UserDefaultsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -291,6 +296,7 @@
 				178CC90B2829063900467DC9 /* ColorExtension.swift */,
 				174F792E286C40E800EB7EDB /* StateContainer.swift */,
 				1750596D2886B48100802E4D /* TimeControl.swift */,
+				17B038A128898CC3001D46AB /* UserDefaults.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -436,10 +442,12 @@
 				1768B5A627F709D30046DCFC /* MainView.swift in Sources */,
 				1722F87F286334BC0072BEDC /* ToneTestButtonView.swift in Sources */,
 				178064B52859DF5B00B5A93A /* MQTTNetworkViewModel.swift in Sources */,
+				17B038A228898CC3001D46AB /* UserDefaults.swift in Sources */,
 				1729249E285B443A006EFF6B /* ThumbView.swift in Sources */,
 				175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */,
 				1750596E2886B48100802E4D /* TimeControl.swift in Sources */,
 				17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */,
+				17B038A4288994D3001D46AB /* UserDefaultsViewModel.swift in Sources */,
 				170420A4282284850041927A /* RingSliderView.swift in Sources */,
 				178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */,
 				178B3C9F287C4737000A815F /* ButtonsViewModel.swift in Sources */,
