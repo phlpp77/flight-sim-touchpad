@@ -12,6 +12,8 @@ class SoundService {
     static let shared = SoundService()
     private var soundEffect: AVAudioPlayer?
     
+    // TODO: Implement init to setup AVAudioPlayer just once
+    
     public func tockSound() {
         let path = Bundle.main.path(forResource: "tock.mp3", ofType:nil)!
         playSound(path: path)
@@ -32,6 +34,7 @@ class SoundService {
         do {
             soundEffect = try AVAudioPlayer(contentsOf: url)
             print("[SoundService] Play sound")
+//            soundEffect?.currentTime = 0
             soundEffect?.play()
         } catch {
             print("[SoundService] Could not load file \(error.localizedDescription)")
