@@ -7,8 +7,6 @@
 
 import Foundation
 import Combine
-import AudioToolbox
-import AVFoundation
 
 class ATCMessagesViewModel: ObservableObject {
     
@@ -49,10 +47,7 @@ class ATCMessagesViewModel: ObservableObject {
             
             // Read out the ATC message
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let speechSynthesizer = AVSpeechSynthesizer()
-                let speechUtterance = AVSpeechUtterance(string: self.message)
-                speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                speechSynthesizer.speak(speechUtterance)
+                SoundService.shared.speakText(self.message)
             }
         }
     }

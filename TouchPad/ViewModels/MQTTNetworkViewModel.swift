@@ -34,7 +34,7 @@ class MQTTNetworkViewModel: ObservableObject {
     
     // MARK: Vars that are used inside the view
     @Published public var connectionOpen = false
-    @Published public var ipConfig: IPConfig!
+    @Published public var ipConfig: String!
     
     // MARK: Functions/Vars to interact with the state
     // none
@@ -43,7 +43,7 @@ class MQTTNetworkViewModel: ObservableObject {
     private func updateIPConfig() {
         mqttService.closeMQTT()
         ipConfig = state.settings.ipConfig
-        mqttService.host = ipConfig.ip
+        mqttService.host = ipConfig
         mqttService.openMQTT()
     }
     
@@ -58,7 +58,7 @@ class MQTTNetworkViewModel: ObservableObject {
             }
         }
     }
-    public var toggleIPConfig: IPConfig {
+    public var toggleIPConfig: String {
         get {
             self.ipConfig
         }
@@ -97,7 +97,7 @@ class MQTTNetworkViewModel: ObservableObject {
 }
 
 extension MQTTNetworkViewModel: MQTTNetworkServiceDelegate {
-
+    
     func didUpdateConnection(isOpen: Bool) {
         DispatchQueue.main.async {
             self.connectionOpen = isOpen

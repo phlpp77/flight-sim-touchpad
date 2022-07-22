@@ -34,6 +34,7 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.connectionOpen ? "externaldrive.fill.badge.checkmark" : "externaldrive.badge.xmark",
                         statusColor: socketNetworkVM.connectionOpen ? Color.green : Color.gray
                     )
+                    .opacity(0.6)
                     
                     StatusField(
                         tappable: false,
@@ -42,6 +43,7 @@ struct SettingsView: View {
                         statusIcon: socketNetworkVM.offsetsDeclared ? "folder.fill" : "questionmark.folder",
                         statusColor: socketNetworkVM.offsetsDeclared ? Color.green : Color.gray
                     )
+                    .opacity(0.6)
                     
                     StatusField(
                         tappable: true,
@@ -63,32 +65,6 @@ struct SettingsView: View {
                 
                 
                 Section(header: Text("Appearance")) {
-                    
-                    // MARK: Show tap indicators
-                    Toggle(isOn: $appearanceVM.toggleShowTapIndicator) {
-                        Text("Show tap indicators")
-                    }
-                    
-                    // MARK: Show test value window
-                    Toggle(isOn: $appearanceVM.toggleShowTestValueWindow) {
-                        Text("Show values in state")
-                    }
-                    
-                    // MARK: Toggle slider sound effect
-                    Toggle(isOn: $appearanceVM.toggleSliderSoundEffect) {
-                        Text("\(appearanceVM.sliderSoundEffect ? "Disable" : "Enable") sound effects of sliders")
-                    }
-                    
-                    // MARK: Lock the speed every five steps
-                    Toggle(isOn: $appearanceVM.toggleSpeedStepsInFive) {
-                        Text("Lock speed every 10 steps")
-                    }
-                    
-                    // MARK: Lock the heading every five steps
-                    Toggle(isOn: $appearanceVM.toggleHeadingStepsInFive) {
-                        Text("Lock heading every five steps")
-                    }
-                    
                     // MARK: Screen selector
                     HStack {
                         Text("Select screen")
@@ -99,6 +75,13 @@ struct SettingsView: View {
                         }
                         .pickerStyle(.segmented)
                     }
+                    
+                    NavigationLink {
+                        AppearanceSettingsView()
+                    } label: {
+                        Text("Further appearance settings")
+                    }
+                    
                 }
                 
                 Section(header: Text("Logfiles")) {
@@ -109,12 +92,9 @@ struct SettingsView: View {
                     }) {
                         HStack {
                             Text("Export Log as CSV")
-                                .foregroundColor(.blue)
                             Spacer()
                         }
                     }
-                    
-                    
                 }
                 
                 Section(header: Text("Advanced settings")) {
@@ -130,8 +110,6 @@ struct SettingsView: View {
                         Text("Tone tests")
                     }
                 }
-                
-                
                 
                 Section(header: Text("Information")) {
                     HStack {

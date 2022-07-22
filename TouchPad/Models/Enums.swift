@@ -54,5 +54,20 @@ enum IPConfig: Hashable, CaseIterable, Identifiable {
         }
     }
     
-    var id: Self.ID { self.id }
+    var name: String {
+        switch self {
+        case .lab:
+            return "Lab"
+        case .office:
+            return "Office"
+        case .localhost:
+            return "Localhost"
+        case .homeoffice:
+            return "Homeoffice"
+        case .custom(let customValue):
+            return customValue
+        }
+    }
+    
+    var id: Self { self }
 }

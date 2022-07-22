@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 import CocoaMQTT
-import AVFoundation
 
 class TouchPadModel {
     
@@ -29,6 +28,7 @@ class TouchPadModel {
     let didSetScreen = PassthroughSubject<Void, Never>()
     let didSetSliderSoundEffect = PassthroughSubject<Void, Never>()
     let didSetShowTestValueWindow = PassthroughSubject<Void, Never>()
+    let didSetMQTTConnection = PassthroughSubject<Void, Never>()
     
     // Aircraft data updates
     let didSetSpeed = PassthroughSubject<Void, Never>()
@@ -61,6 +61,16 @@ class TouchPadModel {
                 self.handleMessages(message: message)
             }
             .store(in: &subscriptions)
+        mqttService.didConnectToMQTT
+            .sink {
+                self.changeMQTTConnection(true)
+            }
+            .store(in: &subscriptions)
+        mqttService.didDisconnectToMQTT
+            .sink {
+                self.changeMQTTConnection(false)
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Model for Settings
@@ -72,7 +82,8 @@ class TouchPadModel {
         var sliderSoundEffect: Bool = true
         var showTestValueWindow: Bool = false
         var webSocketConnectionIsOpen: Bool = false
-        var ipConfig: IPConfig = .lab
+        var mqttConnectionIsOpen: Bool = false
+        var ipConfig: String = "192.168.103.103"
     }
     
     // MARK: Model for Aircraft data
@@ -122,7 +133,11 @@ class TouchPadModel {
         settings.showTestValueWindow = newState
         didSetShowTestValueWindow.send()
     }
-    func changeIPConfig(_ newState: IPConfig) {
+    func changeMQTTConnection(_ newState: Bool) {
+        settings.mqttConnectionIsOpen = newState
+        didSetMQTTConnection.send()
+    }
+    func changeIPConfig(_ newState: String) {
         settings.ipConfig = newState
         didSetIPConfig.send()
     }
@@ -166,7 +181,7 @@ class TouchPadModel {
             didSetMasterCaution.send()
         }
     }
-
+    
     func changeATCMessage(message: String, duration: Double) {
         serviceData.atcMessage = message
         serviceData.showDuration = duration
@@ -249,11 +264,7 @@ class TouchPadModel {
         didSetAircraftData.send()
         
         // Voice feedback
-        let speechSynthesizer = AVSpeechSynthesizer()
-        let speechUtterance: AVSpeechUtterance = AVSpeechUtterance(string: "Values have been set.")
-        speechUtterance.rate = 0.55
-        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        speechSynthesizer.speak(speechUtterance)
+        SoundService.shared.speakText("Values have been set.")
     }
     
     struct MQTTAircraftData: Codable {

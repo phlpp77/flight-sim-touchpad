@@ -58,6 +58,11 @@ class AppearanceViewModel: ObservableObject {
                 self.updateShowTestValueWindow()
             }
             .store(in: &subscriptions)
+        state.didSetMQTTConnection
+            .sink {
+                self.updateMQTTConnectionIsOpen()
+            }
+            .store(in: &subscriptions)
     }
     
     // MARK: Vars that are used inside the view
@@ -67,6 +72,7 @@ class AppearanceViewModel: ObservableObject {
     @Published public var screen: Screen = .essential
     @Published public var sliderSoundEffect: Bool!
     @Published public var showTestValueWindow: Bool!
+    @Published public var mqttConnectionIsOpen: Bool!
     
     // MARK: Functions/Vars to interact with the state
     public var toggleShowTapIndicator: Bool {
@@ -136,5 +142,8 @@ class AppearanceViewModel: ObservableObject {
     }
     private func updateShowTestValueWindow() {
         showTestValueWindow = state.settings.showTestValueWindow
+    }
+    private func updateMQTTConnectionIsOpen() {
+        mqttConnectionIsOpen = state.settings.mqttConnectionIsOpen
     }
 }

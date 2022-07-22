@@ -89,7 +89,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
             openWebSocket()
         }
         
-
+        
         
         webSocket?.receive(completionHandler: { result in
             print("[receiveMessage] start")
@@ -111,7 +111,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
                 }
             }
             //            self?.receiveMessage()
-           
+            
         })
         return outputMessage
     }
@@ -228,7 +228,7 @@ class SocketNetworkService: NSObject, URLSessionWebSocketDelegate {
     
     private struct Constants {
         static let URL_STRING = "ws://192.168.103.103:2048/fsuipc/"
-//        static let URL_STRING = "ws://localhost:2048"
+        //        static let URL_STRING = "ws://localhost:2048"
     }
     
 }

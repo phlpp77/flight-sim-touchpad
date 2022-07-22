@@ -50,7 +50,7 @@ struct AltitudeRangeView: View {
                         Spacer(minLength: 0)
                     }
                 }
-                 
+                
             }
             HStack {
                 Rectangle()

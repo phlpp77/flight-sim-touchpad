@@ -10,7 +10,9 @@ import AVFoundation
 
 class SoundService {
     static let shared = SoundService()
+    public var serviceActivated = false
     private var soundEffect: AVAudioPlayer?
+    private var control: Time_Control = Time_Control(0)
     
     // TODO: Implement init to setup AVAudioPlayer just once
     
@@ -29,15 +31,41 @@ class SoundService {
         playSound(path: path)
     }
     
+    public func connectSound() {
+        let path = Bundle.main.path(forResource: "connect.mp3", ofType:nil)!
+        playSound(path: path)
+    }
+    
+    public func disconnectSound() {
+        let path = Bundle.main.path(forResource: "disconnect.mp3", ofType:nil)!
+        playSound(path: path)
+    }
+    
+    public func speakText(_ text: String) {
+        let speechSynthesizer = AVSpeechSynthesizer()
+        let speechUtterance = AVSpeechUtterance(string: text)
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        speechSynthesizer.speak(speechUtterance)
+    }
+    
     private func playSound(path: String) {
-        let url = URL(fileURLWithPath: path)
-        do {
-            soundEffect = try AVAudioPlayer(contentsOf: url)
-            print("[SoundService] Play sound")
-//            soundEffect?.currentTime = 0
-            soundEffect?.play()
-        } catch {
-            print("[SoundService] Could not load file \(error.localizedDescription)")
+        if serviceActivated {
+            let url = URL(fileURLWithPath: path)
+            do {
+                
+                // start an async timer so the maximum is 10 sound effects per second (= 0.1 seconds)
+                if control.can_send {
+                    control = Time_Control(0.1)
+                    control.start()
+                    soundEffect = try AVAudioPlayer(contentsOf: url)
+                    print("[SoundService] Play sound")
+                    //            soundEffect?.currentTime = 0
+                    soundEffect?.play()
+                }
+                
+            } catch {
+                print("[SoundService] Could not load file \(error.localizedDescription)")
+            }
         }
     }
 }

@@ -280,15 +280,3 @@ struct VerticalSliderView: View {
     }
 }
 
-
-//struct SpeedSliderView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let model = TouchPadModel()
-//        let socketNetworkVM = SocketNetworkViewModel()
-//        let mqttNetworkVM = MQTTNetworkViewModel()
-//        let appearanceVM = AppearanceViewModel(model: model)
-//        VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, minValue: 100, maxValue: 399, aircraftData: .speed, value: model.aircraftData.speed)
-//            .previewDevice("iPad Pro (11-inch) (3rd generation)")
-//            .previewInterfaceOrientation(.landscapeLeft)
-//    }
-//}

@@ -28,6 +28,14 @@
 		174F7933286C45B600EB7EDB /* RingSliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */; };
 		174F7936286C839800EB7EDB /* StateValuesTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7935286C839800EB7EDB /* StateValuesTestView.swift */; };
 		174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */; };
+		175059592886A33900802E4D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 175059582886A33900802E4D /* Lottie */; };
+		1750595C2886A38600802E4D /* success.json in Resources */ = {isa = PBXBuildFile; fileRef = 1750595B2886A38600802E4D /* success.json */; };
+		1750595E2886A3B700802E4D /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750595D2886A3B700802E4D /* LottieView.swift */; };
+		175059602886A6E200802E4D /* disconnect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1750595F2886A6E200802E4D /* disconnect.json */; };
+		1750596B2886ABBE00802E4D /* connect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 175059692886ABBE00802E4D /* connect.mp3 */; };
+		1750596C2886ABBE00802E4D /* disconnect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1750596A2886ABBE00802E4D /* disconnect.mp3 */; };
+		1750596E2886B48100802E4D /* TimeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750596D2886B48100802E4D /* TimeControl.swift */; };
+		175059702886C2CB00802E4D /* AppearanceSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1750596F2886C2CB00802E4D /* AppearanceSettingsView.swift */; };
 		175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A127EDF803007BE399 /* TouchPadApp.swift */; };
 		175283A427EDF803007BE399 /* ButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175283A327EDF803007BE399 /* ButtonsView.swift */; };
 		175283A627EDF807007BE399 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 175283A527EDF807007BE399 /* Assets.xcassets */; };
@@ -54,6 +62,8 @@
 		178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90B2829063900467DC9 /* ColorExtension.swift */; };
 		178CC90E2829511000467DC9 /* SpeedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CC90D2829511000467DC9 /* SpeedRangeView.swift */; };
 		17AC52B7282BCA0F009CE70E /* AltitudeRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */; };
+		17B038A228898CC3001D46AB /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B038A128898CC3001D46AB /* UserDefaults.swift */; };
+		17B038A4288994D3001D46AB /* UserDefaultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B038A3288994D3001D46AB /* UserDefaultsViewModel.swift */; };
 		17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */; };
 		17B982AA286D97580013D08B /* ATCMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B982A9286D97580013D08B /* ATCMessagesView.swift */; };
 		17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */; };
@@ -83,6 +93,13 @@
 		174F7932286C45B600EB7EDB /* RingSliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingSliderViewModel.swift; sourceTree = "<group>"; };
 		174F7935286C839800EB7EDB /* StateValuesTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValuesTestView.swift; sourceTree = "<group>"; };
 		174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateValuesTestViewModel.swift; sourceTree = "<group>"; };
+		1750595B2886A38600802E4D /* success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = success.json; sourceTree = "<group>"; };
+		1750595D2886A3B700802E4D /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		1750595F2886A6E200802E4D /* disconnect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = disconnect.json; sourceTree = "<group>"; };
+		175059692886ABBE00802E4D /* connect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = connect.mp3; sourceTree = "<group>"; };
+		1750596A2886ABBE00802E4D /* disconnect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = disconnect.mp3; sourceTree = "<group>"; };
+		1750596D2886B48100802E4D /* TimeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeControl.swift; sourceTree = "<group>"; };
+		1750596F2886C2CB00802E4D /* AppearanceSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceSettingsView.swift; sourceTree = "<group>"; };
 		1752839E27EDF803007BE399 /* TouchPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TouchPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		175283A127EDF803007BE399 /* TouchPadApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPadApp.swift; sourceTree = "<group>"; };
 		175283A327EDF803007BE399 /* ButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsView.swift; sourceTree = "<group>"; };
@@ -108,6 +125,8 @@
 		178CC90B2829063900467DC9 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		178CC90D2829511000467DC9 /* SpeedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedRangeView.swift; sourceTree = "<group>"; };
 		17AC52B6282BCA0F009CE70E /* AltitudeRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltitudeRangeView.swift; sourceTree = "<group>"; };
+		17B038A128898CC3001D46AB /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
+		17B038A3288994D3001D46AB /* UserDefaultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsViewModel.swift; sourceTree = "<group>"; };
 		17B47CCE282AB1BE006A7D26 /* VerticalSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalSliderView.swift; sourceTree = "<group>"; };
 		17B982A9286D97580013D08B /* ATCMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCMessagesView.swift; sourceTree = "<group>"; };
 		17B982AB286EDDC20013D08B /* ATCMessagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ATCMessagesViewModel.swift; sourceTree = "<group>"; };
@@ -122,6 +141,7 @@
 				178064B12859C0BA00B5A93A /* CocoaMQTT in Frameworks */,
 				178B3CA2287C53C7000A815F /* Introspect in Frameworks */,
 				177A00AE282009EA00C31937 /* Sliders in Frameworks */,
+				175059592886A33900802E4D /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +151,8 @@
 		173FDA912878351C00464896 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				175059692886ABBE00802E4D /* connect.mp3 */,
+				1750596A2886ABBE00802E4D /* disconnect.mp3 */,
 				173FDA9628783ADE00464896 /* atc.mp3 */,
 				173FDA9728783ADE00464896 /* tock.mp3 */,
 				178B3CA7287D62B0000A815F /* success.mp3 */,
@@ -142,10 +164,20 @@
 			isa = PBXGroup;
 			children = (
 				1768B5A327F708A40046DCFC /* SettingsView.swift */,
+				1750596F2886C2CB00802E4D /* AppearanceSettingsView.swift */,
 				17235082286204CC00571EB4 /* ServerSettingsView.swift */,
 				1722F87E286334BC0072BEDC /* ToneTestButtonView.swift */,
 			);
 			path = SettingsViews;
+			sourceTree = "<group>";
+		};
+		1750595A2886A34400802E4D /* Lotties */ = {
+			isa = PBXGroup;
+			children = (
+				1750595F2886A6E200802E4D /* disconnect.json */,
+				1750595B2886A38600802E4D /* success.json */,
+			);
+			path = Lotties;
 			sourceTree = "<group>";
 		};
 		1752839527EDF803007BE399 = {
@@ -174,6 +206,7 @@
 				178CC9072828F45600467DC9 /* ViewModels */,
 				178CC9082828F46B00467DC9 /* Models */,
 				175283A527EDF807007BE399 /* Assets.xcassets */,
+				1750595A2886A34400802E4D /* Lotties */,
 				173FDA912878351C00464896 /* Sounds */,
 				177A00AB282009D300C31937 /* swiftui-sliders */,
 				175283A727EDF807007BE399 /* Preview Content */,
@@ -203,6 +236,7 @@
 				178B3CA5287D57A3000A815F /* ButtonPressActions.swift */,
 				17F10B0227F38DA6003AB513 /* TapGestureLocation.swift */,
 				177D5CC9287EB8F800161F99 /* BlinkingModifier.swift */,
+				1750595D2886A3B700802E4D /* LottieView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -243,6 +277,7 @@
 				176B2F6D2816CF1C00B583A9 /* SocketNetworkViewModel.swift */,
 				178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */,
 				174F7937286C845500EB7EDB /* StateValuesTestViewModel.swift */,
+				17B038A3288994D3001D46AB /* UserDefaultsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -260,6 +295,8 @@
 				1733BD09281FD6E800D05827 /* DateExtension.swift */,
 				178CC90B2829063900467DC9 /* ColorExtension.swift */,
 				174F792E286C40E800EB7EDB /* StateContainer.swift */,
+				1750596D2886B48100802E4D /* TimeControl.swift */,
+				17B038A128898CC3001D46AB /* UserDefaults.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,6 +338,7 @@
 				177A00AD282009EA00C31937 /* Sliders */,
 				178064B02859C0BA00B5A93A /* CocoaMQTT */,
 				178B3CA1287C53C7000A815F /* Introspect */,
+				175059582886A33900802E4D /* Lottie */,
 			);
 			productName = TouchPad;
 			productReference = 1752839E27EDF803007BE399 /* TouchPad.app */;
@@ -333,6 +371,7 @@
 			packageReferences = (
 				178064AF2859C0BA00B5A93A /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 				178B3CA0287C53C7000A815F /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				175059572886A33900802E4D /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 1752839F27EDF803007BE399 /* Products */;
 			projectDirPath = "";
@@ -349,10 +388,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				173FDA9828783ADE00464896 /* atc.mp3 in Resources */,
+				1750596C2886ABBE00802E4D /* disconnect.mp3 in Resources */,
 				175283A927EDF807007BE399 /* Preview Assets.xcassets in Resources */,
 				178B3CA8287D62B0000A815F /* success.mp3 in Resources */,
+				1750596B2886ABBE00802E4D /* connect.mp3 in Resources */,
+				175059602886A6E200802E4D /* disconnect.json in Resources */,
 				175283A627EDF807007BE399 /* Assets.xcassets in Resources */,
 				173FDA9928783ADE00464896 /* tock.mp3 in Resources */,
+				1750595C2886A38600802E4D /* success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +427,7 @@
 				17B982AC286EDDC20013D08B /* ATCMessagesViewModel.swift in Sources */,
 				174F7938286C845500EB7EDB /* StateValuesTestViewModel.swift in Sources */,
 				1733BD0A281FD6E800D05827 /* DateExtension.swift in Sources */,
+				175059702886C2CB00802E4D /* AppearanceSettingsView.swift in Sources */,
 				174F792F286C40E800EB7EDB /* StateContainer.swift in Sources */,
 				174F7936286C839800EB7EDB /* StateValuesTestView.swift in Sources */,
 				1719061F2857A4EF002C1F9D /* MasterButtonsView.swift in Sources */,
@@ -394,12 +438,16 @@
 				176B2F6E2816CF1C00B583A9 /* SocketNetworkViewModel.swift in Sources */,
 				178CC90C2829063900467DC9 /* ColorExtension.swift in Sources */,
 				174F7933286C45B600EB7EDB /* RingSliderViewModel.swift in Sources */,
+				1750595E2886A3B700802E4D /* LottieView.swift in Sources */,
 				1768B5A627F709D30046DCFC /* MainView.swift in Sources */,
 				1722F87F286334BC0072BEDC /* ToneTestButtonView.swift in Sources */,
 				178064B52859DF5B00B5A93A /* MQTTNetworkViewModel.swift in Sources */,
+				17B038A228898CC3001D46AB /* UserDefaults.swift in Sources */,
 				1729249E285B443A006EFF6B /* ThumbView.swift in Sources */,
 				175283A227EDF803007BE399 /* TouchPadApp.swift in Sources */,
+				1750596E2886B48100802E4D /* TimeControl.swift in Sources */,
 				17B47CCF282AB1BE006A7D26 /* VerticalSliderView.swift in Sources */,
+				17B038A4288994D3001D46AB /* UserDefaultsViewModel.swift in Sources */,
 				170420A4282284850041927A /* RingSliderView.swift in Sources */,
 				178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */,
 				178B3C9F287C4737000A815F /* ButtonsViewModel.swift in Sources */,
@@ -552,7 +600,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.7;
+				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = de.philipphemkemeyer.TouchPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -587,7 +635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.7;
+				MARKETING_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = de.philipphemkemeyer.TouchPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -620,6 +668,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		175059572886A33900802E4D /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		178064AF2859C0BA00B5A93A /* XCRemoteSwiftPackageReference "CocoaMQTT" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/emqx/CocoaMQTT";
@@ -639,6 +695,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		175059582886A33900802E4D /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 175059572886A33900802E4D /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		177A00AD282009EA00C31937 /* Sliders */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Sliders;
