@@ -24,6 +24,8 @@ struct ATCMessagesView: View {
     }
     
     var body: some View {
+        
+        // MARK: Top Line of ATC View
         VStack(alignment: .leading) {
             HStack {
                 Text("ATC")
@@ -35,13 +37,18 @@ struct ATCMessagesView: View {
                     .font(.title3)
             }
             .frame(height: 25)
+            
             Divider()
                 .overlay(Color(hexCode: "FFF000")!)
+            
+            // MARK: Actual ATC Messages with current UTC time
             Text("[\(dateFormatter().string(from: Date())) UTC] \(atcMessagesVM.message != "" ? atcMessagesVM.message : "No new message")")
                 .textCase(.uppercase)
             Divider()
                 .overlay(Color(hexCode: "FFF000")!)
                 .opacity(showDivider ? 1 : 0)
+            
+            // MARK: Animated progress bar
             progressBar
         }
         .frame(width: 450)
@@ -51,6 +58,7 @@ struct ATCMessagesView: View {
         .foregroundColor(Color(hexCode: "FFF000")!)
         .shadow(radius: 12)
         .onChange(of: atcMessagesVM.message) { _ in
+            // When the message is not empty the animation starts with a given time (by server)
             if atcMessagesVM.message != "" {
                 animateProgressBar()
             }
@@ -58,6 +66,8 @@ struct ATCMessagesView: View {
     }
     
     private var progressBar: some View {
+        
+        // Progress bar minimizes to the center due to two Spacers
         HStack {
             Spacer()
             Capsule()

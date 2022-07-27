@@ -17,6 +17,7 @@ struct MasterButtonsView: View {
     
     var body: some View {
         
+        // Master warn button is blinking, the caution button is not
         VStack {
             if text == "warn" {
                 Text("MASTER")
@@ -29,7 +30,6 @@ struct MasterButtonsView: View {
             }
             
         }
-        //        .foregroundColor(animate ? color : .black)
         .foregroundColor(color.opacity(active ? 1 : 0))
         .textCase(.uppercase)
         .animation(Animation.easeInOut(duration: 1.8), value: active)

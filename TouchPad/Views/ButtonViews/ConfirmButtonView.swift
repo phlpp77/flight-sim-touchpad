@@ -18,7 +18,7 @@ struct ConfirmButtonView: View {
     var body: some View {
         ZStack {
             
-            // Rounded Rectangle as the background
+            // MARK: Circle with style and stroke as background
             Circle()
                 .foregroundStyle(LinearGradient(
                     gradient: Gradient(stops: [
@@ -35,6 +35,7 @@ struct ConfirmButtonView: View {
                 )
                 .frame(width: buttonWidth, height: buttonHeight)
             
+            // MARK: Icon for the usage
             Image(systemName: "checkmark.circle")
                 .font(.system(size: 90))
                 .foregroundColor(isPressed ? .green : .primary)
@@ -42,6 +43,8 @@ struct ConfirmButtonView: View {
         .coordinateSpace(name: "confirmButton")
         .opacity(isPressed ? 0.4 : 1)
         .scaleEffect(isPressed ? 1.2 : 1)
+        
+        // MARK: Button pressed animation
         .pressEvents {
             withAnimation(.easeInOut(duration: 0.2)) {
                 isPressed = true
@@ -51,6 +54,8 @@ struct ConfirmButtonView: View {
                 isPressed = false
             }
         }
+        
+        // MARK: Button pressed action
         .simultaneousGesture(
             DragGesture(minimumDistance: 0, coordinateSpace: .named("confirmButton"))
                 .onChanged { actions in
@@ -62,10 +67,10 @@ struct ConfirmButtonView: View {
         
     }
     
+    /// Function to send the confirmation data to the server
     private func sendData() {
         print("Confirm sent with relative deviation \(relativeCords) at \(Date().localFlightSim())")
-        
-        // MARK: Save to log
+        // MARK: Save Confirmation to log
         // Create Log component
         let logData = LogData(attribute: "confirm", relativeDeviation: relativeCords, startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
         // Add to local log on iPad

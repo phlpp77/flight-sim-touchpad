@@ -12,6 +12,8 @@ struct StateValuesTestView: View {
     @EnvironmentObject var stateValuesTestVM: StateValuesTestViewModel
     
     var body: some View {
+        
+        // MARK: Show all values that are saved inside the Model/State
         VStack {
             HStack {
                 VStack(alignment: .leading) {
@@ -30,6 +32,8 @@ struct StateValuesTestView: View {
                     Text("spoiler: \(stateValuesTestVM.spoiler)")
                 }
             }
+            
+            // MARK: Refresh view to get the current state
             Button {
                 stateValuesTestVM.updateData()
             } label: {
@@ -40,7 +44,6 @@ struct StateValuesTestView: View {
         .padding(4)
         .background(Color.gray)
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        
     }
 }
 

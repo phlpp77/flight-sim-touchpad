@@ -15,11 +15,13 @@ struct NavDisplayZoomView: View {
     var body: some View {
         
         VStack {
+            // Heading of View
             Text("Range-Selector for NAV")
                 .font(.title3)
                 .textCase(.uppercase)
                 .foregroundColor(.gray)
             
+            // Actual picker for the zoom factor
             Picker(selection: $buttonsVM.toggleZoomFactor) {
                 Text("10").tag(0)
                 Text("20").tag(1)
@@ -27,6 +29,7 @@ struct NavDisplayZoomView: View {
             } label: {
                 Text("Select ZOOM")
             }
+            // change color and size for the element via UIKit extension
             .introspectSegmentedControl { segmentedControl in
                 segmentedControl.selectedSegmentTintColor = UIColor(Color(hexCode: "FFF000")!)
                 segmentedControl.setTitleTextAttributes([.foregroundColor : UIColor.black], for: .selected)
@@ -55,11 +58,9 @@ struct NavDisplayZoomView: View {
                 .overlay(
                     RoundedRectangle(cornerRadius: 22)
                         .strokeBorder(Color(hexCode: "979797")!, lineWidth: 0.5)
-                    
                 )
                 .allowsHitTesting(false)
         )
-        
     }
 }
 
