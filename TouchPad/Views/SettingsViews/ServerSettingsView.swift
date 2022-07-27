@@ -25,6 +25,8 @@ struct ServerSettingsView: View {
     var body: some View {
         
         Form {
+            
+            // MARK: - WebSocket settings
             Section(header: Text("Web Socket"), footer: Text("Without a connection to the Web Socket server it is not possible to run this app satisfactory")) {
                 
                 // MARK: Connect to WebSocket Server
@@ -54,7 +56,6 @@ struct ServerSettingsView: View {
                 }
                 .disabled(isPerformingTask)
                 
-                
                 // MARK: Change speed
                 HStack {
                     TextField("Speed", text: $speedText)
@@ -72,17 +73,23 @@ struct ServerSettingsView: View {
                 }
             }
             
+            // MARK: MQTT settings
             Section(header: Text("MQTT")) {
                 
+                // MARK: Select an IP address
                 HStack {
                     Text("Select IP address")
                     Spacer(minLength: 50)
+                    
+                    // Picker to choose from
                     Picker(selection: $mqttNetworkVM.toggleIPConfig, label: Text("Select IP adress")) {
                         ForEach(userDefaultsVM.ips.sorted(by: >), id: \.key) { key, value in
                             Text(key).tag(value)
                         }
                     }
                     .pickerStyle(.segmented)
+                    
+                    // Button to add a new custom IP address - saved on device for further use
                     Button {
                         isPresentingIpConfigAlert = true
                     } label: {
@@ -92,10 +99,12 @@ struct ServerSettingsView: View {
                     }
                 }
                 
+                // MARK: Connect to MQTT server
                 Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
                     Text("Connect MQTT Server")
                 }
                 
+                // MARK: Send a custom message to a custom topic via MQTT
                 HStack {
                     TextField("Topic", text: $mqttTopic)
                     TextField("Message", text: $mqttMessage)
@@ -107,6 +116,7 @@ struct ServerSettingsView: View {
                     }
                 }
                 
+                // MARK: Subscribe to a custom topic via MQTT
                 HStack {
                     TextField("Topic", text: $subscribingTopic)
                     Button {
@@ -115,15 +125,16 @@ struct ServerSettingsView: View {
                         Text("Subscribe")
                             .foregroundColor(.blue)
                     }
-                    
                 }
-                
             }
         }
         .font(.body)
         .navigationTitle(Text("Server settings"))
         .navigationBarTitleDisplayMode(.inline)
         
+        // MARK: - Alerts
+        
+        // MARK: Alert to enter a new custom IP address to be added to the list
         .alert(
             isPresented: $isPresentingIpConfigAlert,
             TextAlert(

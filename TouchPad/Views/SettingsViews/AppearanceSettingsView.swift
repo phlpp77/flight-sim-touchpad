@@ -13,6 +13,7 @@ struct AppearanceSettingsView: View {
     
     var body: some View {
         Form {
+            
             // MARK: Show tap indicators
             Toggle(isOn: $appearanceVM.toggleShowTapIndicator) {
                 Text("Show tap indicators")
@@ -28,7 +29,7 @@ struct AppearanceSettingsView: View {
                 Text("\(appearanceVM.sliderSoundEffect ? "Disable" : "Enable") sound effects of sliders")
             }
             
-            // MARK: Lock the speed every five steps
+            // MARK: Lock the speed every ten steps
             Toggle(isOn: $appearanceVM.toggleSpeedStepsInFive) {
                 Text("Lock speed every 10 steps")
             }
