@@ -12,9 +12,9 @@ import AudioToolbox
 
 struct VerticalSliderView: View {
     
-    @ObservedObject var socketNetworkVM: SocketNetworkViewModel
-    @ObservedObject var mqttNetworkVM: MQTTNetworkViewModel
-    @ObservedObject var appearanceVM: AppearanceViewModel
+    @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
+    @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
+    @EnvironmentObject var appearanceVM: AppearanceViewModel
     
     @EnvironmentObject var verticalSliderVM: VerticalSliderViewModel
     

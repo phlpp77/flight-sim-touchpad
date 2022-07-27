@@ -10,10 +10,13 @@ import SwiftUI
 @main
 struct TouchPadApp: App {
     
+    // Create container which holds the Model and pushes it to all ViewModels
     let container = StateContainer()
     
     var body: some Scene {
         WindowGroup {
+            
+            // Set the main theme and make all VMs available through out the app
             MainView()
                 .preferredColorScheme(.dark)
                 .environmentObject(container.appearanceVM)

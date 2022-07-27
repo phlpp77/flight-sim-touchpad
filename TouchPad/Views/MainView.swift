@@ -15,7 +15,6 @@ struct MainView: View {
     @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
     @EnvironmentObject var buttonsVM: ButtonsViewModel
     
-    
     @State private var showPopover = false
     @State private var showSecondScreen = false
     @State private var showMasterWarn = false
@@ -24,7 +23,7 @@ struct MainView: View {
     var body: some View {
         ZStack {
             
-            // MARK: Background of entire app
+            // MARK: - Background of entire app
             Rectangle()
                 .fill(Color(hexCode: "141414")!)
                 .ignoresSafeArea()
@@ -33,7 +32,7 @@ struct MainView: View {
                     DragGesture(minimumDistance: 0, coordinateSpace: .global)
                         .onEnded { action in
                             print("Global input at \(action.startLocation) at \(Date().localFlightSim())")
-                            // MARK: Save to log
+                            // MARK: Save Global input to log
                             let logData = LogData(attribute: "Global input", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: action.startLocation, startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
                             log.append(logData)
                             if mqttNetworkVM.connectionOpen {
@@ -42,11 +41,17 @@ struct MainView: View {
                         }
                 )
             
+            // MARK: - Place all visual elements
             ZStack {
+                
+                // MARK: Main Screen
                 HStack {
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: appearanceVM.speedStepsInFive ? 10 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
+                    // Speed Slider
+                    VerticalSliderView(step: appearanceVM.speedStepsInFive ? 10 : 1, minValue: 100, maxValue: 399, aircraftData: .speed, value: $verticalSliderVM.speed)
                     Spacer()
+                    
+                    // Center Area
                     VStack {
                         ATCMessagesView()
                         if appearanceVM.showTestValueWindow {
@@ -59,16 +64,22 @@ struct MainView: View {
                         HeadingView()
                             .padding(.bottom, 30)
                     }
+                    
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 1000, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $verticalSliderVM.altitude)
+                    // Altitude Slider
+                    VerticalSliderView(step: 1000, minValue: 100, maxValue: 20000, aircraftData: .altitude, value: $verticalSliderVM.altitude)
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, step: 100, minValue: -5000, maxValue: 5000, aircraftData: .verticalSpeed, value: $verticalSliderVM.verticalSpeed)
+                    // Verticalspeed Slider
+                    VerticalSliderView(step: 100, minValue: -5000, maxValue: 5000, aircraftData: .verticalSpeed, value: $verticalSliderVM.verticalSpeed)
                     Spacer()
                 }
                 .opacity(appearanceVM.screen == .essential ? 1 : 0)
                 
+                // MARK: Secondary Screen
                 HStack {
                     Spacer()
+                    
+                    // Side Area
                     VStack(spacing: 40.0) {
                         HStack(spacing: 20.0) {
                             MasterButtonsView(text: "warn", color: .red, active: $buttonsVM.masterWarn)
@@ -76,43 +87,42 @@ struct MainView: View {
                         }
                         NavDisplayZoomView()
                     }
+                    
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler, value: $verticalSliderVM.spoiler)
+                    // Speed brakes/Spoiler Slider
+                    VerticalSliderView(topToBottom: true, minValue: 10, maxValue: 100, aircraftData: .spoiler, value: $verticalSliderVM.spoiler)
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear, value: $verticalSliderVM.gear)
+                    // Gear Slider
+                    VerticalSliderView(topToBottom: true, minValue: 0, maxValue: 1, aircraftData: .gear, value: $verticalSliderVM.gear)
                     Spacer()
-                    VerticalSliderView(socketNetworkVM: socketNetworkVM, mqttNetworkVM: mqttNetworkVM, appearanceVM: appearanceVM, topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps, value: $verticalSliderVM.flaps)
+                    // Flaps Slider
+                    VerticalSliderView(topToBottom: true, minValue: 0, maxValue: 4, aircraftData: .flaps, value: $verticalSliderVM.flaps)
                     Spacer()
                 }
                 .opacity(appearanceVM.screen == .additional ? 1 : 0)
-                
             }
             .padding(.vertical, 15)
             
             
-            
+            // MARK: - Settings Button
             HStack {
-                VStack(spacing: 20) {
-                    
-                    // MARK: Settings Button
-                    
-                        Button(action: {
-                            self.showPopover = true
-                            print("Settings opened at \(Date().localFlightSim())")
-                            // MARK: Save to log
-                            let logData = LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
-                            log.append(logData)
-                            if mqttNetworkVM.connectionOpen {
-                                mqttNetworkVM.sendToLog(logData)
+                VStack {
+                    Button(action: {
+                        self.showPopover = true
+                        print("Settings opened at \(Date().localFlightSim())")
+                        // MARK: Save Settings opened to log
+                        let logData = LogData(attribute: "Settings opened", oldValue: 999999, value: 999999, relativeDeviation: CGPoint(x: 999999, y: 999999), globalCoordinates: CGPoint(x: 999999, y: 999999), startTime: Date().localFlightSim(), endTime: Date().localFlightSim())
+                        log.append(logData)
+                        if mqttNetworkVM.connectionOpen {
+                            mqttNetworkVM.sendToLog(logData)
+                        }
+                    }) {
+                        Image(systemName: "gear")
+                        // MARK: Present settings View as a Sheet
+                            .sheet(isPresented: $showPopover) {
+                                SettingsView()
                             }
-                        }) {
-                            Image(systemName: "gear")
-                                .sheet(isPresented: $showPopover) {
-                                    SettingsView()
-                                }
                     }
-                        
-                    
                     
                     Spacer()
                 }
@@ -124,13 +134,7 @@ struct MainView: View {
             }
             .padding(.top, 10)
             
-            // Test rectangle
-            //            Rectangle()
-            //                .fill(.mint)
-            //                .frame(width: 25, height: 25)
-            //                .position(x: 580, y: 686)
-            
-            // MARK: Information Window
+            // MARK: Status View to show connection
             ZStack(alignment: .topLeading) {
                 Color.clear
                 if showInformationWindow {
@@ -139,16 +143,14 @@ struct MainView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            
         }
+        
         // MARK: Connect to server at startup
         .onAppear {
             SoundService.shared.serviceActivated = true
             mqttNetworkVM.openConnection()
         }
         .onChange(of: appearanceVM.mqttConnectionIsOpen) { isOpen in
-            print("changed connection")
             if isOpen! {
                 SoundService.shared.connectSound()
                 SoundService.shared.speakText("MQTT Connected")
@@ -161,9 +163,7 @@ struct MainView: View {
                 showInformationWindow = false
             }
         }
-        
     }
-    
 }
 
 struct MainView_Previews: PreviewProvider {
