@@ -49,6 +49,7 @@
 		176B2F702818254C00B583A9 /* OffsetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 176B2F6F2818254B00B583A9 /* OffsetModels.swift */; };
 		177A00AE282009EA00C31937 /* Sliders in Frameworks */ = {isa = PBXBuildFile; productRef = 177A00AD282009EA00C31937 /* Sliders */; };
 		177D5CCA287EB8F800161F99 /* BlinkingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177D5CC9287EB8F800161F99 /* BlinkingModifier.swift */; };
+		177DCBE328913BA900CC39BF /* DeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 177DCBE228913BA900CC39BF /* DeviceExtension.swift */; };
 		178064B12859C0BA00B5A93A /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 178064B02859C0BA00B5A93A /* CocoaMQTT */; };
 		178064B32859C0E500B5A93A /* MQTTNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178064B22859C0E400B5A93A /* MQTTNetworkService.swift */; };
 		178064B52859DF5B00B5A93A /* MQTTNetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */; };
@@ -114,6 +115,7 @@
 		176B2F6F2818254B00B583A9 /* OffsetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetModels.swift; sourceTree = "<group>"; };
 		177A00AB282009D300C31937 /* swiftui-sliders */ = {isa = PBXFileReference; lastKnownFileType = text; path = "swiftui-sliders"; sourceTree = SOURCE_ROOT; };
 		177D5CC9287EB8F800161F99 /* BlinkingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlinkingModifier.swift; sourceTree = "<group>"; };
+		177DCBE228913BA900CC39BF /* DeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceExtension.swift; sourceTree = "<group>"; };
 		178064B22859C0E400B5A93A /* MQTTNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkService.swift; sourceTree = "<group>"; };
 		178064B42859DF5B00B5A93A /* MQTTNetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTNetworkViewModel.swift; sourceTree = "<group>"; };
 		178B3C9C287C3B1D000A815F /* NavDisplayZoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavDisplayZoomView.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				174F792E286C40E800EB7EDB /* StateContainer.swift */,
 				1750596D2886B48100802E4D /* TimeControl.swift */,
 				17B038A128898CC3001D46AB /* UserDefaults.swift */,
+				177DCBE228913BA900CC39BF /* DeviceExtension.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				178B3CA6287D57A3000A815F /* ButtonPressActions.swift in Sources */,
 				1726B6BB285B62360053BCC0 /* GearRangeView.swift in Sources */,
 				17B982AA286D97580013D08B /* ATCMessagesView.swift in Sources */,
+				177DCBE328913BA900CC39BF /* DeviceExtension.swift in Sources */,
 				1768B5A427F708A40046DCFC /* SettingsView.swift in Sources */,
 				172924A0285B59D0006EFF6B /* Enums.swift in Sources */,
 				177D5CCA287EB8F800161F99 /* BlinkingModifier.swift in Sources */,

@@ -26,6 +26,7 @@ struct VerticalSliderView: View {
     let aircraftData: AircraftDataType
     let thumbWidth: CGFloat = 100
     let thumbHeight: CGFloat = 100
+    let deviceName = UIDevice.modelName
     
     
     @Binding var value: Int
@@ -45,6 +46,9 @@ struct VerticalSliderView: View {
         
         ZStack {
             VStack {
+                if !deviceName.contains("12.9") {
+                    Spacer(minLength: 50)
+                }
                 Text("\(aircraftData != .verticalSpeed ? aircraftData.rawValue : "Vertical Speed")")
                     .textCase(.uppercase)
                     .font(.title3)
