@@ -16,7 +16,7 @@ class UserDefaultsService {
     // Combine setup
     let didSetIPs = PassthroughSubject<Void, Never>()
     
-    // Create and Write Dictionary
+    // Presets for standard IPs - only used during first setup of app
     private var IPs = [
         "Lab": "192.168.103.103",
         "Office": "192.168.103.105",
@@ -24,19 +24,23 @@ class UserDefaultsService {
         "Homeoffice" : "192.168.178.76"
     ]
     
+    // Only executed during first setup - values are saved on device
     init() {
-        userDefaults.set(IPs, forKey: "ips")
+        if getValues().isEmpty {
+            userDefaults.set(IPs, forKey: "ips")
+        }
     }
     
+    /// Function to get values from device storage
     public func getValues() -> [String:String] {
         return userDefaults.object(forKey: "ips") as? [String:String] ?? [:]
     }
     
+    /// Function to add a value to the device storage, the old array is needed because it overrides the whole entry
     public func addValue(to dic: [String:String], key: String, value: String) {
         var _dic = dic
         _dic[key] = value
         userDefaults.set(_dic, forKey: "ips")
-        print("key updated")
         didSetIPs.send()
     }
     

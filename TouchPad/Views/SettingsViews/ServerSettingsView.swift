@@ -18,6 +18,7 @@ struct ServerSettingsView: View {
     @State private var subscribingTopic = "test/foo"
     @State private var speedText = ""
     @State private var ipConfigText = "XXX"
+    @State private var isPresentingIpConfigAlert = false
     
     @State private var isPerformingTask = false
     
@@ -82,11 +83,13 @@ struct ServerSettingsView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    TextField("Test", text: $ipConfigText)
-                        .frame(width: 75)
-                        .onSubmit({
-                            userDefaultsVM.defaultService.addValue(to: userDefaultsVM.ips, key: "custom", value: ipConfigText)
-                        })
+                    Button {
+                        isPresentingIpConfigAlert = true
+                    } label: {
+                        Image(systemName: "plus.app")
+                            .font(.title3)
+                            .foregroundColor(.blue)
+                    }
                 }
                 
                 Toggle(isOn: $mqttNetworkVM.toggleServerConnection) {
@@ -120,6 +123,27 @@ struct ServerSettingsView: View {
         .font(.body)
         .navigationTitle(Text("Server settings"))
         .navigationBarTitleDisplayMode(.inline)
+        
+        .alert(
+            isPresented: $isPresentingIpConfigAlert,
+            TextAlert(
+                title: "Add IP address",
+                message: "Enter custom IP address to connect to MQTT",
+                placeholder: "localhost",
+                accept: "Add",
+                cancel: "Cancel",
+                keyboardType: .default
+            ) { result in
+                if let ip = result {
+                    if ip == "" {
+                        isPresentingIpConfigAlert = false
+                    }
+                    userDefaultsVM.defaultService.addValue(to: userDefaultsVM.ips, key: ip, value: ip)
+                    SoundService.shared.speakText("IP address added")
+                    
+                }
+            }
+        )
     }
 }
 
