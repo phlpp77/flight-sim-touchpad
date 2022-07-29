@@ -15,23 +15,22 @@ struct VerticalSliderView: View {
     @EnvironmentObject var socketNetworkVM: SocketNetworkViewModel
     @EnvironmentObject var mqttNetworkVM: MQTTNetworkViewModel
     @EnvironmentObject var appearanceVM: AppearanceViewModel
-    
     @EnvironmentObject var verticalSliderVM: VerticalSliderViewModel
     
-    var topToBottom: Bool = false
-    var step: Int = 1
+    // Configuration of sliders
+    public var topToBottom: Bool = false
+    public let step: Int = 1
+    public let minValue: Int
+    public let maxValue: Int
+    public let aircraftData: AircraftDataType
     
-    let minValue: Int
-    let maxValue: Int
-    let aircraftData: AircraftDataType
-    let thumbWidth: CGFloat = 100
-    let thumbHeight: CGFloat = 100
-    let deviceName = UIDevice.modelName
-    
+    private let thumbWidth: CGFloat = 100
+    private let thumbHeight: CGFloat = 100
+    private let deviceName = UIDevice.modelName
     
     @Binding var value: Int
     @State private var oldValue = 250
-    @State var stringValue = "250"
+    @State private var stringValue = "250"
     @State private var isEditing = false
     @State private var pos = CGPoint(x: 0, y: 0)
     @State private var thumbPos = CGPoint(x: 0, y: 0)
